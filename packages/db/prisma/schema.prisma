@@ -1,18 +1,18 @@
 // =============================================================================
-// PAYSKOOL — Prisma Schema
+// PAYSKOOL Prisma Schema
 // PostgreSQL 16 + Row-Level Security (RLS)
-// ORM: Prisma 5.x
+// ORM: Prisma 6.x
 // =============================================================================
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema", "postgresqlExtensions"]
+  output          = "../generated/prisma"
+  moduleFormat    = "cjs"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
-  provider   = "postgresql"
-  url        = env("DATABASE_URL")
-  extensions = [uuidOssp(map: "uuid-ossp"), pgcrypto]
+  provider = "postgresql"
 }
 
 // =============================================================================
@@ -184,30 +184,30 @@ model Workspace {
 // =============================================================================
 
 model User {
-  id            String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  email         String?  @unique @db.VarChar(255)
-  phone         String?  @unique @db.VarChar(20)
-  phoneVerified Boolean  @default(false)
-  emailVerified Boolean  @default(false)
-  passwordHash  String?  @db.VarChar(255) // NULL pour les parents (passwordless)
-  firstName     String   @db.VarChar(100)
-  lastName      String   @db.VarChar(100)
-  avatarUrl     String?  @db.Text
-  globalRole    UserRole @default(PARENT)
-  isActive      Boolean  @default(true)
+  id            String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  email         String?   @unique @db.VarChar(255)
+  phone         String?   @unique @db.VarChar(20)
+  phoneVerified Boolean   @default(false)
+  emailVerified Boolean   @default(false)
+  passwordHash  String?   @db.VarChar(255) // NULL pour les parents (passwordless)
+  firstName     String    @db.VarChar(100)
+  lastName      String    @db.VarChar(100)
+  avatarUrl     String?   @db.Text
+  globalRole    UserRole  @default(PARENT)
+  isActive      Boolean   @default(true)
   lastLoginAt   DateTime? @db.Timestamptz
-  createdAt     DateTime @default(now()) @db.Timestamptz
-  updatedAt     DateTime @updatedAt @db.Timestamptz
+  createdAt     DateTime  @default(now()) @db.Timestamptz
+  updatedAt     DateTime  @updatedAt @db.Timestamptz
 
   // Relations
-  ownedWorkspaces    Workspace[]        @relation("WorkspaceOwner")
-  memberships        Membership[]
-  invitationsSent    Invitation[]       @relation("InvitedBy")
-  parentLinks        ParentStudent[]
+  ownedWorkspaces     Workspace[]       @relation("WorkspaceOwner")
+  memberships         Membership[]
+  invitationsSent     Invitation[]      @relation("InvitedBy")
+  parentLinks         ParentStudent[]
   transactionsCreated Transaction[]     @relation("TransactionCreator")
-  importJobs         ImportJob[]
-  auditLogs          AuditLog[]
-  notificationLogs   NotificationLog[]  @relation("ParentNotification")
+  importJobs          ImportJob[]
+  auditLogs           AuditLog[]
+  notificationLogs    NotificationLog[] @relation("ParentNotification")
 
   @@index([email])
   @@index([phone])
@@ -233,13 +233,13 @@ model School {
   logoUrl       String?      @db.Text
   academicYear  String       @db.VarChar(9) // ex: '2026-2027'
   timezone      String       @default("Africa/Abidjan") @db.VarChar(50)
-  paymentConfig Bytes?       // AES-256-GCM encrypted JSONB
+  paymentConfig Bytes? // AES-256-GCM encrypted JSONB
   status        SchoolStatus @default(ACTIVE)
   createdAt     DateTime     @default(now()) @db.Timestamptz
   updatedAt     DateTime     @updatedAt @db.Timestamptz
 
   // Relations
-  workspace                  Workspace                  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace                  Workspace                   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   memberships                Membership[]
   invitations                Invitation[]
   students                   Student[]
@@ -335,10 +335,10 @@ model Student {
   createdAt       DateTime      @default(now()) @db.Timestamptz
   updatedAt       DateTime      @updatedAt @db.Timestamptz
 
-  school         School          @relation(fields: [schoolId], references: [id], onDelete: Cascade)
-  parentLinks    ParentStudent[]
-  feePlans       StudentFeePlan[]
-  transactions   Transaction[]
+  school           School            @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  parentLinks      ParentStudent[]
+  feePlans         StudentFeePlan[]
+  transactions     Transaction[]
   notificationLogs NotificationLog[]
 
   @@unique([schoolId, matricule, academicYear])
@@ -383,7 +383,7 @@ model FeeStructure {
   description  String?  @db.Text
   classLevel   String   @db.VarChar(50)
   academicYear String   @db.VarChar(9)
-  totalAmount  BigInt   // centimes — doit égaler Σ fee_installments
+  totalAmount  BigInt // centimes — doit égaler Σ fee_installments
   feeType      FeeType  @default(ONE_TIME)
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now()) @db.Timestamptz
@@ -409,15 +409,15 @@ model FeeInstallment {
   feeStructureId String   @db.Uuid
   schoolId       String   @db.Uuid
   label          String   @db.VarChar(255) // ex: "Tranche 1 — Inscription"
-  amount         BigInt   // centimes
+  amount         BigInt // centimes
   dueDate        DateTime @db.Date
   sortOrder      Int      @default(0) // ordre d'affichage et FIFO
   createdAt      DateTime @default(now()) @db.Timestamptz
   updatedAt      DateTime @updatedAt @db.Timestamptz
 
-  feeStructure                FeeStructure               @relation(fields: [feeStructureId], references: [id], onDelete: Cascade)
-  school                      School                     @relation(fields: [schoolId], references: [id], onDelete: Cascade)
-  studentFeePlanInstallments  StudentFeePlanInstallment[]
+  feeStructure               FeeStructure                @relation(fields: [feeStructureId], references: [id], onDelete: Cascade)
+  school                     School                      @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  studentFeePlanInstallments StudentFeePlanInstallment[]
 
   @@index([feeStructureId])
   @@index([schoolId])
@@ -431,23 +431,23 @@ model FeeInstallment {
 // =============================================================================
 
 model StudentFeePlan {
-  id              String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  studentId       String               @db.Uuid
-  feeStructureId  String               @db.Uuid
-  schoolId        String               @db.Uuid
-  discountType    DiscountType         @default(NONE)
-  discountValue   BigInt               @default(0) // % (0-100) ou montant fixe en centimes
-  discountReason  String?              @db.Text // "Bourse mérite", "Fratrie"
-  netAmount       BigInt               // montant final après réduction (centimes)
-  amountPaid      BigInt               @default(0) // cache dénormalisé
-  status          StudentFeePlanStatus @default(ACTIVE)
-  academicYear    String               @db.VarChar(9)
-  createdAt       DateTime             @default(now()) @db.Timestamptz
-  updatedAt       DateTime             @updatedAt @db.Timestamptz
+  id             String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  studentId      String               @db.Uuid
+  feeStructureId String               @db.Uuid
+  schoolId       String               @db.Uuid
+  discountType   DiscountType         @default(NONE)
+  discountValue  BigInt               @default(0) // % (0-100) ou montant fixe en centimes
+  discountReason String?              @db.Text // "Bourse mérite", "Fratrie"
+  netAmount      BigInt // montant final après réduction (centimes)
+  amountPaid     BigInt               @default(0) // cache dénormalisé
+  status         StudentFeePlanStatus @default(ACTIVE)
+  academicYear   String               @db.VarChar(9)
+  createdAt      DateTime             @default(now()) @db.Timestamptz
+  updatedAt      DateTime             @updatedAt @db.Timestamptz
 
-  student      Student                    @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  feeStructure FeeStructure               @relation(fields: [feeStructureId], references: [id])
-  school       School                     @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  student      Student                     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  feeStructure FeeStructure                @relation(fields: [feeStructureId], references: [id])
+  school       School                      @relation(fields: [schoolId], references: [id], onDelete: Cascade)
   installments StudentFeePlanInstallment[]
   transactions Transaction[]
 
@@ -464,23 +464,23 @@ model StudentFeePlan {
 // =============================================================================
 
 model StudentFeePlanInstallment {
-  id                String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  studentFeePlanId  String            @db.Uuid
-  feeInstallmentId  String?           @db.Uuid // NULL si tranche custom (ex: arriéré N-1)
-  schoolId          String            @db.Uuid
-  label             String            @db.VarChar(255)
-  amount            BigInt            // centimes (peut différer de l'original si remise)
-  amountPaid        BigInt            @default(0) // cache dénormalisé
-  dueDate           DateTime          @db.Date
-  sortOrder         Int               @default(0)
-  status            InstallmentStatus @default(PENDING)
-  createdAt         DateTime          @default(now()) @db.Timestamptz
-  updatedAt         DateTime          @updatedAt @db.Timestamptz
+  id               String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  studentFeePlanId String            @db.Uuid
+  feeInstallmentId String?           @db.Uuid // NULL si tranche custom (ex: arriéré N-1)
+  schoolId         String            @db.Uuid
+  label            String            @db.VarChar(255)
+  amount           BigInt // centimes (peut différer de l'original si remise)
+  amountPaid       BigInt            @default(0) // cache dénormalisé
+  dueDate          DateTime          @db.Date
+  sortOrder        Int               @default(0)
+  status           InstallmentStatus @default(PENDING)
+  createdAt        DateTime          @default(now()) @db.Timestamptz
+  updatedAt        DateTime          @updatedAt @db.Timestamptz
 
-  studentFeePlan  StudentFeePlan         @relation(fields: [studentFeePlanId], references: [id], onDelete: Cascade)
-  feeInstallment  FeeInstallment?        @relation(fields: [feeInstallmentId], references: [id])
-  school          School                 @relation(fields: [schoolId], references: [id], onDelete: Cascade)
-  allocations     TransactionAllocation[]
+  studentFeePlan StudentFeePlan          @relation(fields: [studentFeePlanId], references: [id], onDelete: Cascade)
+  feeInstallment FeeInstallment?         @relation(fields: [feeInstallmentId], references: [id])
+  school         School                  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  allocations    TransactionAllocation[]
 
   @@index([studentFeePlanId])
   @@index([schoolId])
@@ -495,51 +495,51 @@ model StudentFeePlanInstallment {
 // =============================================================================
 
 model Transaction {
-  id                String             @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  schoolId          String             @db.Uuid
-  studentId         String             @db.Uuid
-  studentFeePlanId  String?            @db.Uuid
-  referenceCode     String             @unique @db.VarChar(100) // TXN-EXC-20261015-00042
-  idempotencyKey    String             @unique @db.VarChar(255)
-  type              TransactionType    @default(PAYMENT)
-  channel           TransactionChannel
-  provider          PaymentProvider    @default(NONE)
-  amount            BigInt             // centimes (positif=paiement, négatif=reversal)
-  currency          String             @db.Char(3)
-  status            TransactionStatus  @default(PENDING)
+  id               String             @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  schoolId         String             @db.Uuid
+  studentId        String             @db.Uuid
+  studentFeePlanId String?            @db.Uuid
+  referenceCode    String             @unique @db.VarChar(100) // TXN-EXC-20261015-00042
+  idempotencyKey   String             @unique @db.VarChar(255)
+  type             TransactionType    @default(PAYMENT)
+  channel          TransactionChannel
+  provider         PaymentProvider    @default(NONE)
+  amount           BigInt // centimes (positif=paiement, négatif=reversal)
+  currency         String             @db.Char(3)
+  status           TransactionStatus  @default(PENDING)
 
   // Détails paiement
-  providerReference String?  @db.VarChar(255) // ID agrégateur
-  chequeNumber      String?  @db.VarChar(50)
-  chequeBank        String?  @db.VarChar(100)
+  providerReference String? @db.VarChar(255) // ID agrégateur
+  chequeNumber      String? @db.VarChar(50)
+  chequeBank        String? @db.VarChar(100)
 
   // Metadata
-  description       String?  @db.Text
-  metadata          Json     @default("{}")
+  description String? @db.Text
+  metadata    Json    @default("{}")
 
   // Correction/Reversal
-  reversedTxnId     String?  @db.Uuid // pointe vers txn originale si reversal
-  reversalReason    String?  @db.Text
+  reversedTxnId  String? @db.Uuid // pointe vers txn originale si reversal
+  reversalReason String? @db.Text
 
   // Audit (immuable)
-  createdById       String   @db.Uuid
-  confirmedAt       DateTime? @db.Timestamptz
-  ipAddress         String?  @db.VarChar(45) // supports IPv6
-  userAgent         String?  @db.Text
+  createdById String    @db.Uuid
+  confirmedAt DateTime? @db.Timestamptz
+  ipAddress   String?   @db.VarChar(45) // supports IPv6
+  userAgent   String?   @db.Text
 
   // Polling (online payments)
-  pollingAttempts   Int      @default(0)
-  lastPolledAt      DateTime? @db.Timestamptz
+  pollingAttempts Int       @default(0)
+  lastPolledAt    DateTime? @db.Timestamptz
 
-  createdAt         DateTime @default(now()) @db.Timestamptz
+  createdAt DateTime @default(now()) @db.Timestamptz
   // Pas de updatedAt — immuable (seuls PENDING→CONFIRMED/FAILED permis)
 
-  school         School          @relation(fields: [schoolId], references: [id])
-  student        Student         @relation(fields: [studentId], references: [id])
-  studentFeePlan StudentFeePlan? @relation(fields: [studentFeePlanId], references: [id])
-  createdBy      User            @relation("TransactionCreator", fields: [createdById], references: [id])
-  reversedTxn    Transaction?    @relation("ReversalChain", fields: [reversedTxnId], references: [id])
-  reversals      Transaction[]   @relation("ReversalChain")
+  school         School                  @relation(fields: [schoolId], references: [id])
+  student        Student                 @relation(fields: [studentId], references: [id])
+  studentFeePlan StudentFeePlan?         @relation(fields: [studentFeePlanId], references: [id])
+  createdBy      User                    @relation("TransactionCreator", fields: [createdById], references: [id])
+  reversedTxn    Transaction?            @relation("ReversalChain", fields: [reversedTxnId], references: [id])
+  reversals      Transaction[]           @relation("ReversalChain")
   allocations    TransactionAllocation[]
   receipt        Receipt?
 
@@ -558,16 +558,16 @@ model Transaction {
 // =============================================================================
 
 model TransactionAllocation {
-  id                           String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  transactionId                String   @db.Uuid
-  studentFeePlanInstallmentId  String   @db.Uuid
-  schoolId                     String   @db.Uuid
-  amount                       BigInt   // centimes alloués à cette tranche
-  createdAt                    DateTime @default(now()) @db.Timestamptz
+  id                          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  transactionId               String   @db.Uuid
+  studentFeePlanInstallmentId String   @db.Uuid
+  schoolId                    String   @db.Uuid
+  amount                      BigInt // centimes alloués à cette tranche
+  createdAt                   DateTime @default(now()) @db.Timestamptz
 
-  transaction                Transaction               @relation(fields: [transactionId], references: [id])
-  studentFeePlanInstallment   StudentFeePlanInstallment @relation(fields: [studentFeePlanInstallmentId], references: [id])
-  school                      School                    @relation(fields: [schoolId], references: [id])
+  transaction               Transaction               @relation(fields: [transactionId], references: [id])
+  studentFeePlanInstallment StudentFeePlanInstallment @relation(fields: [studentFeePlanInstallmentId], references: [id])
+  school                    School                    @relation(fields: [schoolId], references: [id])
 
   @@index([transactionId])
   @@index([studentFeePlanInstallmentId])
@@ -586,8 +586,8 @@ model PaymentWebhookLog {
   provider        PaymentProvider
   eventType       String?         @db.VarChar(100) // 'charge.success', etc.
   referenceCode   String?         @db.VarChar(255)
-  rawPayload      Json            // payload brut
-  headers         Json?           // HTTP headers
+  rawPayload      Json // payload brut
+  headers         Json? // HTTP headers
   signatureValid  Boolean?
   processed       Boolean         @default(false)
   processingError String?         @db.Text
@@ -608,26 +608,26 @@ model PaymentWebhookLog {
 // =============================================================================
 
 model NotificationLog {
-  id            String              @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  schoolId      String              @db.Uuid
-  studentId     String?             @db.Uuid
-  parentId      String?             @db.Uuid
-  channel       NotificationChannel
-  type          String              @db.VarChar(50) // 'PAYMENT_RECEIPT', 'OVERDUE_REMINDER', etc.
-  recipient     String              @db.VarChar(255) // phone or email
-  templateName  String?             @db.VarChar(100)
-  templateVars  Json?
-  providerId    String?             @db.VarChar(255) // ID chez provider SMS/WhatsApp
-  status        NotificationStatus  @default(QUEUED)
-  errorMessage  String?             @db.Text
-  sentAt        DateTime?           @db.Timestamptz
-  deliveredAt   DateTime?           @db.Timestamptz
-  readAt        DateTime?           @db.Timestamptz
-  createdAt     DateTime            @default(now()) @db.Timestamptz
+  id           String              @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  schoolId     String              @db.Uuid
+  studentId    String?             @db.Uuid
+  parentId     String?             @db.Uuid
+  channel      NotificationChannel
+  type         String              @db.VarChar(50) // 'PAYMENT_RECEIPT', 'OVERDUE_REMINDER', etc.
+  recipient    String              @db.VarChar(255) // phone or email
+  templateName String?             @db.VarChar(100)
+  templateVars Json?
+  providerId   String?             @db.VarChar(255) // ID chez provider SMS/WhatsApp
+  status       NotificationStatus  @default(QUEUED)
+  errorMessage String?             @db.Text
+  sentAt       DateTime?           @db.Timestamptz
+  deliveredAt  DateTime?           @db.Timestamptz
+  readAt       DateTime?           @db.Timestamptz
+  createdAt    DateTime            @default(now()) @db.Timestamptz
 
-  school   School   @relation(fields: [schoolId], references: [id])
-  student  Student? @relation(fields: [studentId], references: [id])
-  parent   User?    @relation("ParentNotification", fields: [parentId], references: [id])
+  school  School   @relation(fields: [schoolId], references: [id])
+  student Student? @relation(fields: [studentId], references: [id])
+  parent  User?    @relation("ParentNotification", fields: [parentId], references: [id])
 
   @@index([schoolId])
   @@index([studentId])
@@ -669,7 +669,7 @@ model AuditLog {
   schoolId   String?  @db.Uuid
   userId     String?  @db.Uuid
   action     String   @db.VarChar(100) // 'STUDENT_CREATED', 'FEE_UPDATED', etc.
-  entityType String?  @db.VarChar(50)  // 'student', 'fee_structure', etc.
+  entityType String?  @db.VarChar(50) // 'student', 'fee_structure', etc.
   entityId   String?  @db.Uuid
   oldValues  Json?
   newValues  Json?
@@ -721,9 +721,9 @@ model ImportJob {
   totalRows     Int?
   validRows     Int?
   errorRows     Int?
-  columnMapping Json?           // mapping colonnes sauvegardé
+  columnMapping Json? // mapping colonnes sauvegardé
   status        ImportJobStatus @default(UPLOADED)
-  errorReport   Json?           // détail erreurs par ligne
+  errorReport   Json? // détail erreurs par ligne
   startedAt     DateTime?       @db.Timestamptz
   completedAt   DateTime?       @db.Timestamptz
   createdAt     DateTime        @default(now()) @db.Timestamptz
@@ -743,10 +743,10 @@ model ImportJob {
 model NotificationSettings {
   id              String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   schoolId        String   @unique @db.Uuid
-  reminderD1      Boolean  @default(true)  // rappel J+1
-  reminderD7      Boolean  @default(true)  // rappel J+7
-  reminderD30     Boolean  @default(true)  // rappel J+30
-  preDueDays      Int      @default(3)     // rappel X jours avant échéance
+  reminderD1      Boolean  @default(true) // rappel J+1
+  reminderD7      Boolean  @default(true) // rappel J+7
+  reminderD30     Boolean  @default(true) // rappel J+30
+  preDueDays      Int      @default(3) // rappel X jours avant échéance
   allowedHours    Json     @default("{\"start\": \"08:00\", \"end\": \"20:00\"}")
   allowedDays     Json     @default("[\"MON\",\"TUE\",\"WED\",\"THU\",\"FRI\",\"SAT\"]")
   maxPerWeek      Int      @default(2)
@@ -775,7 +775,7 @@ model DailyCashSummary {
   totalOnline      BigInt   @default(0)
   totalReversals   BigInt   @default(0)
   transactionCount Int      @default(0)
-  cashierBreakdown Json?    // { "user_id": amount, ... }
+  cashierBreakdown Json? // { "user_id": amount, ... }
   createdAt        DateTime @default(now()) @db.Timestamptz
 
   school School @relation(fields: [schoolId], references: [id])
