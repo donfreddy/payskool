@@ -24,7 +24,11 @@
    - 4.3 Matrice de Sécurité & Droits (RBAC)
    - 4.4 Stratégie d'Isolation Multi-tenant (RLS)
    - 4.5 Fiabilité des Transactions Financières (Resilience Patterns)
-5. [Annexes](#5-annexes)
+5. [Module de Financement & Scoring (Financial Enablement)](#5-module-de-financement--scoring-financial-enablement)
+6. [Workflow d'Avance de Trésorerie (Spécifications Métier)](#6-workflow-davance-de-trésorerie-spécifications-métier)
+7. [Impact sur le Schéma de Données (Prisma Schema Data Models)](#7-impact-sur-le-schéma-de-données-prisma-schema-data-models)
+8. [Matrice des Rôles & Permissions (RBAC) - Financement](#8-matrice-des-rôles--permissions-rbac---financement)
+9. [Annexes](#9-annexes)
 
 ---
 
@@ -2401,9 +2405,116 @@ export async function allocatePaymentFIFO(
 
 ---
 
-## 5. Annexes
+## 5. Module de Financement & Scoring (Financial Enablement)
 
-### 5.1 Endpoints API — Vue d'Ensemble
+### 5.1 Vision & Objectifs
+L'objectif de ce module est de transformer les données de recouvrement (Mobile Money et Cash) en un véritable **actif financier** pour l'école. En certifiant l'historique de trésorerie, la plateforme permet de calculer un score de crédit fiable, facilitant ainsi l'accès à des micro-crédits ou avances de trésorerie via nos partenaires financiers.
+
+### 5.2 Définition des Indicateurs Clés (KPIs) Financiers
+Le système agrège les données transactionnelles immuables du Ledger pour calculer en temps réel les KPIs suivants par établissement :
+
+*   **Taux de recouvrement global (%) :** Ratio entre les montants encaissés et le total des tranches échues.
+*   **Régularité des flux Mobile Money :** Fréquence et volume des paiements digitaux par rapport aux paiements en espèces (les flux digitaux étant considérés comme plus sécurisés et traçables par les prêteurs).
+*   **Volatilité des impayés :** Écart-type des retards de paiement mois par mois, mesurant la prévisibilité des flux de trésorerie.
+*   **Volume annuel certifié :** Chiffre d'affaires total de l'établissement réconcilié et tracé sur la plateforme sur une année scolaire complète.
+
+### 5.3 Algorithme de Financial Scoring (Grade A à F)
+Basé sur les KPIs ci-dessus, un moteur de règles calcule un **Score d'Éligibilité Crédit** pour chaque établissement. Ce score est recalculé mensuellement.
+
+*   **Grade A (Excellent) :** Taux de recouvrement > 95%, > 60% de paiements Mobile Money, Volatilité faible. Éligible aux montants maximaux et meilleurs taux.
+*   **Grade B (Très Bon) :** Taux de recouvrement > 85%, historique certifié sur au moins 6 mois. Éligible aux avances de trésorerie standards.
+*   **Grade C (Bon) :** Taux de recouvrement > 75%, avec un volume de transactions digitaux en croissance. Éligible aux micro-prêts court terme.
+*   **Grade D à F (Risqué) :** Taux de recouvrement < 75% ou historique insuffisant (< 3 mois). Accès au crédit restreint ou conditionné à une période d'observation.
+
+---
+
+## 6. Workflow d'Avance de Trésorerie (Spécifications Métier)
+
+### 6.1 Processus de Retenue à la Source (Split Payment)
+Lorsqu'un crédit est octroyé à une école par un partenaire financier, le remboursement s'effectue de manière indolore et automatique via une retenue à la source sur les flux digitaux (Mobile Money/Cartes).
+
+**Workflow de remboursement :**
+1.  **Octroi du Prêt :** Le partenaire valide le prêt via le profil de crédit de l'école. Les conditions (ex: 15% de retenue) sont enregistrées dans `CreditApplication`.
+2.  **Paiement Parent :** Un parent paie 100 000 FCFA via Wave.
+3.  **Split Automatique (Routing) :**
+    *   L'API de paiement (ex: Paystack/CinetPay) ou le backend de Payskool route **15% (15 000 FCFA)** vers le wallet du partenaire financier (Remboursement).
+    *   Les **85% restants (85 000 FCFA)** sont transférés sur le compte marchand de l'école.
+4.  **Réconciliation Ledger :** La transaction parente est enregistrée intégralement (100 000 FCFA alloués à la scolarité de l'élève). Une `RepaymentTransaction` parallèle de -15 000 FCFA est générée pour imputer le solde du prêt de l'école.
+
+---
+
+## 7. Impact sur le Schéma de Données (Prisma Schema Data Models)
+
+Pour supporter le module de financement sans altérer le Ledger existant, de nouvelles entités isolées sont introduites :
+
+```prisma
+// Profil financier et scoring d'un établissement
+model CreditProfile {
+  id                String   @id @default(uuid())
+  schoolId          String   @unique
+  school            School   @relation(fields: [schoolId], references: [id])
+  
+  recoveryRate      Float    // ex: 92.5
+  digitalRatio      Float    // ex: 65.0 (% de Mobile Money)
+  certifiedVolume   BigInt   // Volume total en centimes
+  creditScore       String   // Grade: 'A', 'B', 'C', 'D', 'E', 'F'
+  
+  lastCalculatedAt  DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+// Demande et contrat de prêt avec un partenaire
+model CreditApplication {
+  id                String   @id @default(uuid())
+  schoolId          String
+  school            School   @relation(fields: [schoolId], references: [id])
+  partnerId         String   // ID de l'institution financière
+  
+  status            CreditStatus @default(PENDING) // PENDING, APPROVED, ACTIVE, COMPLETED, DEFAULTED
+  requestedAmount   BigInt
+  approvedAmount    BigInt?
+  
+  splitPercentage   Float?   // % de retenue sur les flux digitaux (ex: 15.0)
+  totalRepaid       BigInt   @default(0)
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  repayments        RepaymentTransaction[]
+}
+
+// Historique immuable des remboursements automatiques
+model RepaymentTransaction {
+  id                  String   @id @default(uuid())
+  creditApplicationId String
+  creditApplication   CreditApplication @relation(fields: [creditApplicationId], references: [id])
+  
+  parentTransactionId String   // Lien vers la transaction de scolarité originale
+  amount              BigInt   // Montant prélevé (ex: 15% du parentTransaction)
+  status              RepaymentStatus @default(COMPLETED)
+  
+  createdAt           DateTime @default(now())
+}
+```
+
+---
+
+## 8. Matrice des Rôles & Permissions (RBAC) - Financement
+
+La sécurité des données financières est critique. Les accès au module de financement suivent le principe de moindre privilège :
+
+| Rôle | Accès Module Financement | Description des privilèges |
+| :--- | :--- | :--- |
+| **`PROMOTER`** (Owner) | **Complet (Lecture/Écriture)** | Peut consulter le `CreditProfile`, le Score (A-F) de ses écoles, simuler des demandes d'avances, accepter les conditions de `splitPercentage`, et visualiser l'historique des remboursements (`RepaymentTransaction`). |
+| **`SCHOOL_ADMIN`** | **Lecture Seule (Optionnel)** | Selon configuration du Workspace, peut consulter le taux de recouvrement et le score pour pilotage, mais ne peut initier ou signer une demande de crédit. |
+| **`CASHIER`** | **Aucun Accès** | Accès strictement limité au guichet d'encaissement et à la recherche d'élèves. Totale opacité sur le scoring, les prêts en cours et les retenues à la source. |
+| **`PLATFORM_SUPERADMIN`** | **Gestion & Exports** | Supervision globale du risque (Risk Management). Gestion des exports financiers anonymisés ou spécifiques pour les organismes prêteurs (Partenaires de microfinance). Ne peut pas modifier les scores (calculés par algo). |
+
+---
+
+## 9. Annexes
+
+### 9.1 Endpoints API — Vue d'Ensemble
 
 | Méthode | Endpoint | Description | Auth | Rôle Min |
 |---|---|---|---|---|
