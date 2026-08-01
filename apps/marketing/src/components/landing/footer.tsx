@@ -28,7 +28,6 @@ export function Footer() {
   const companyLinks = [
     { label: t("linkAbout"), href: "/about" },
     { label: t("linkCareers"), href: "/careers" },
-    { label: t("linkPress"), href: "/press" },
   ];
 
   const legalLinks = [
