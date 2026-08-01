@@ -1,0 +1,71 @@
+# =============================================================================
+# PAYSKOOL — .gitignore
+# Optimized for: pnpm, Turborepo, NestJS, Next.js, Fastify, Drizzle
+# =============================================================================
+
+# ---- Dependencies ----
+node_modules/
+.pnp
+.pnp.js
+
+# ---- Build Outputs ----
+dist/
+build/
+.next/
+out/
+
+# ---- Turborepo Cache ----
+.turbo/
+
+# ---- TypeScript ----
+*.tsbuildinfo
+
+# ---- Environment Variables ----
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+
+# ---- Database ----
+*.db
+*.db-journal
+drizzle/meta/
+# Keep drizzle migrations tracked
+!drizzle/migrations/
+
+# ---- Logs ----
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+
+# ---- IDE ----
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# ---- Test Coverage ----
+coverage/
+.nyc_output/
+
+# ---- Misc ----
+*.tgz
+*.tar.gz
+.cache/
+tmp/
+
+# ---- pnpm ----
+.pnpmfile.cjs

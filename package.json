@@ -1,0 +1,39 @@
+{
+  "name": "payskool",
+  "version": "0.0.1",
+  "private": true,
+  "description": "PAYSKOOL — PayTech B2B SaaS for school fee management in West/Central Africa",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md,css}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,md,css}\" --ignore-path .gitignore",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "db:generate": "pnpm --filter @payskool/db prisma generate",
+    "db:push": "pnpm --filter @payskool/db prisma db push",
+    "db:migrate": "pnpm --filter @payskool/db prisma migrate dev",
+    "db:studio": "pnpm --filter @payskool/db prisma studio",
+    "db:seed": "pnpm --filter @payskool/db db:seed"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "turbo": "^2.3.3",
+    "typescript": "^5.6.3"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 100,
+    "tabWidth": 2,
+    "plugins": ["prettier-plugin-tailwindcss"]
+  }
+}

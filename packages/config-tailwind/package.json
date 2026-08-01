@@ -1,0 +1,13 @@
+{
+  "name": "@payskool/config-tailwind",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Shared Tailwind CSS configuration and PAYSKOOL design tokens",
+  "exports": {
+    "./base": "./base.ts"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.15",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}
