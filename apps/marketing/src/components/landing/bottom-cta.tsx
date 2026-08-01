@@ -1,9 +1,11 @@
 "use client";
 
 import { ArrowRight, Building2, Phone, User, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export function BottomCta() {
+  const t = useTranslations("bottomCta");
   const [form, setForm] = useState({
     name: "",
     city: "",
@@ -48,25 +50,24 @@ export function BottomCta() {
 
           <div className="relative z-10 mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emeraude">
-              Accès pilote
+              {t("eyebrow")}
             </p>
             <h2 className="display-heading mt-4 text-3xl text-white sm:text-4xl">
-              Prêt à sécuriser la trésorerie de votre établissement ?
+              {t("title")}
             </h2>
             <p className="mt-4 text-lg text-white/50">
-              Rejoignez les écoles qui ont digitalisé leurs paiements cette
-              année. Demandez votre accès pilote et découvrez la plateforme.
+              {t("subtitle")}
             </p>
 
             {submitted ? (
               <div className="mt-10 animate-fade-in rounded-2xl border border-emeraude/30 bg-emeraude/10 p-6 text-white">
                 <p className="font-semibold text-emeraude">
-                  Merci, {form.name} ! Votre demande a bien été reçue.
+                  {t("thanksPrefix")} {form.name}{t("thanksSuffix")}
                 </p>
                 <p className="mt-1 text-sm text-white/50">
-                  Un expert PAYSKOOL vous contactera au{" "}
+                  {t("thanksDetailPrefix")}{" "}
                   <span className="mono-data text-white">{form.whatsapp}</span>{" "}
-                  dans les prochaines 24 heures pour activer votre accès pilote.
+                  {t("thanksDetailSuffix")}
                 </p>
               </div>
             ) : (
@@ -78,7 +79,7 @@ export function BottomCta() {
                       type="text"
                       value={form.name}
                       onChange={(e) => handleChange("name", e.target.value)}
-                      placeholder="Nom du promoteur"
+                      placeholder={t("placeholderName")}
                       required
                       className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.08] pl-11 pr-4 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-emeraude/50 focus:bg-white/[0.12]"
                     />
@@ -89,7 +90,7 @@ export function BottomCta() {
                       type="text"
                       value={form.city}
                       onChange={(e) => handleChange("city", e.target.value)}
-                      placeholder="Ville"
+                      placeholder={t("placeholderCity")}
                       required
                       className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.08] pl-11 pr-4 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-emeraude/50 focus:bg-white/[0.12]"
                     />
@@ -102,7 +103,7 @@ export function BottomCta() {
                       type="number"
                       value={form.students}
                       onChange={(e) => handleChange("students", e.target.value)}
-                      placeholder="Nombre d'élèves"
+                      placeholder={t("placeholderStudents")}
                       required
                       className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.08] pl-11 pr-4 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-emeraude/50 focus:bg-white/[0.12]"
                     />
@@ -113,7 +114,7 @@ export function BottomCta() {
                       type="tel"
                       value={form.whatsapp}
                       onChange={(e) => handleChange("whatsapp", e.target.value)}
-                      placeholder="WhatsApp du promoteur"
+                      placeholder={t("placeholderWhatsapp")}
                       required
                       className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.08] pl-11 pr-4 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-emeraude/50 focus:bg-white/[0.12]"
                     />
@@ -123,14 +124,14 @@ export function BottomCta() {
                   type="submit"
                   className="glow-btn inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-emeraude px-8 text-base font-semibold text-white transition-colors hover:bg-emeraude/90 sm:w-auto sm:px-10"
                 >
-                  Demander un accès pilote
+                  {t("cta")}
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </form>
             )}
 
             <p className="mt-6 text-xs text-white/30">
-              Sans engagement. Vos informations ne sont jamais partagées.
+              {t("disclaimer")}
             </p>
           </div>
         </div>

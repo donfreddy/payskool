@@ -1,54 +1,61 @@
-import { SmartphoneNfc, Users, CreditCard, FileText, MessageCircle } from "lucide-react";
+"use client";
 
-const cards = [
-  {
-    icon: SmartphoneNfc,
-    title: "Connexion sans mot de passe",
-    description:
-      "Un code reçu par SMS ou WhatsApp suffit. En 5 secondes, le parent accède à son espace. Aucun mot de passe à retenir.",
-    color: "text-emeraude",
-    bg: "bg-emeraude/[0.06]",
-  },
-  {
-    icon: Users,
-    title: "Vue multi-enfants",
-    description:
-      "Tous vos enfants regroupés sur un seul écran. Soldes, échéances et historique de paiement pour chacun, sans jongler entre les comptes.",
-    color: "text-encre",
-    bg: "bg-encre/[0.05]",
-  },
-  {
-    icon: CreditCard,
-    title: "Paiement Mobile Money direct",
-    description:
-      "Réglez une échéance en quelques secondes via Wave, Orange Money ou MTN. Depuis votre téléphone, sans vous déplacer au guichet.",
-    color: "text-[#FF6600]",
-    bg: "bg-orange-50",
-  },
-  {
-    icon: FileText,
-    title: "Reçus automatiques",
-    description:
-      "Chaque paiement génère un reçu envoyé instantanément sur WhatsApp. Historique complet et QR code de vérification inclus.",
-    color: "text-emeraude",
-    bg: "bg-emeraude/[0.06]",
-  },
-];
+import { SmartphoneNfc, Users, CreditCard, FileText, MessageCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function FeaturesParents() {
+  const t = useTranslations("featuresParents");
+
+  const cards = [
+    {
+      icon: SmartphoneNfc,
+      title: t("card1Title"),
+      description: t("card1Description"),
+      color: "text-emeraude",
+      bg: "bg-emeraude/[0.06]",
+    },
+    {
+      icon: Users,
+      title: t("card2Title"),
+      description: t("card2Description"),
+      color: "text-encre",
+      bg: "bg-encre/[0.05]",
+    },
+    {
+      icon: CreditCard,
+      title: t("card3Title"),
+      description: t("card3Description"),
+      color: "text-[#FF6600]",
+      bg: "bg-orange-50",
+    },
+    {
+      icon: FileText,
+      title: t("card4Title"),
+      description: t("card4Description"),
+      color: "text-emeraude",
+      bg: "bg-emeraude/[0.06]",
+    },
+  ];
+
+  const navItems = [
+    t("navHome"),
+    t("navReceipts"),
+    t("navStudent"),
+    t("navSupport"),
+  ];
+
   return (
     <section id="features-parents" className="py-20 sm:py-28 bg-craie">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emeraude">
-            Pour les Parents
+            {t("eyebrow")}
           </p>
           <h2 className="display-heading mt-4 text-3xl text-encre sm:text-4xl">
-            Payer la scolarité n&apos;a jamais été aussi simple
+            {t("title")}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-ardoise">
-            Une expérience pensée pour tous les parents. Pas de
-            téléchargement. Pas de mot de passe. Juste l&apos;essentiel.
+            {t("subtitle")}
           </p>
         </div>
 
@@ -61,10 +68,10 @@ export function FeaturesParents() {
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <p className="text-xs font-semibold text-encre">
-                    Bonjour, Mme KOUASSI
+                    {t("phoneGreeting")}
                   </p>
                   <p className="text-[10px] text-ardoise">
-                    2 enfants enregistrés
+                    {t("phoneChildren")}
                   </p>
                 </div>
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emeraude/10">
@@ -81,18 +88,18 @@ export function FeaturesParents() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold text-encre truncate">
-                        KOUASSI Yao
+                        {t("student1Name")}
                       </p>
-                      <p className="text-[10px] text-ardoise">6ème A</p>
+                      <p className="text-[10px] text-ardoise">{t("student1Class")}</p>
                     </div>
                     <span className="rounded-md bg-ambre/10 px-2 py-0.5 text-[9px] font-semibold text-ambre">
-                      EN RETARD
+                      {t("student1Status")}
                     </span>
                   </div>
                   <div className="mt-2 flex items-center justify-between ledger-line pb-2">
-                    <p className="text-[10px] text-ardoise">Reste dû</p>
+                    <p className="text-[10px] text-ardoise">{t("student1Owed")}</p>
                     <p className="mono-data text-xs font-semibold text-encre">
-                      125 000 FCFA
+                      {t("student1Amount")}
                     </p>
                   </div>
                 </div>
@@ -105,18 +112,18 @@ export function FeaturesParents() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold text-encre truncate">
-                        KOUASSI Ama
+                        {t("student2Name")}
                       </p>
-                      <p className="text-[10px] text-ardoise">CM2</p>
+                      <p className="text-[10px] text-ardoise">{t("student2Class")}</p>
                     </div>
                     <span className="rounded-md bg-emeraude/10 px-2 py-0.5 text-[9px] font-semibold text-emeraude">
-                      À JOUR
+                      {t("student2Status")}
                     </span>
                   </div>
                   <div className="mt-2 flex items-center justify-between">
-                    <p className="text-[10px] text-ardoise">Solde</p>
+                    <p className="text-[10px] text-ardoise">{t("student2Balance")}</p>
                     <p className="mono-data text-xs font-semibold text-emeraude">
-                      0 FCFA
+                      {t("student2Amount")}
                     </p>
                   </div>
                 </div>
@@ -124,7 +131,7 @@ export function FeaturesParents() {
 
               {/* Bottom nav bar */}
               <div className="mt-4 flex justify-between rounded-xl bg-craie p-2">
-                {["Accueil", "Reçus", "Élève", "Support"].map((item) => (
+                {navItems.map((item) => (
                   <div
                     key={item}
                     className="flex flex-col items-center gap-0.5"

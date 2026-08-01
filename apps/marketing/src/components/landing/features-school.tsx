@@ -6,84 +6,62 @@ import {
   FileSpreadsheet,
   Receipt,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-const tabs = [
-  {
-    id: "multi-etablissements",
-    icon: Building2,
-    label: "Multi-Établissements",
-    title: "Pilotez tous vos établissements depuis un seul compte",
-    description:
-      "Gérez plusieurs écoles depuis un espace unique. Chaque établissement a ses propres tarifs, ses propres utilisateurs, et toute l'information remonte dans un seul tableau.",
-    highlights: [
-      "Vue d'ensemble de toutes vos écoles",
-      "Paramétrage indépendant par établissement",
-      "Rapports financiers par école ou consolidés",
-      "Facturation unifiée pour tout le groupe",
-    ],
-  },
-  {
-    id: "caisse-recus",
-    icon: Receipt,
-    label: "Caisse & Reçus",
-    title: "Des reçus infalsifiables avec QR code de vérification",
-    description:
-      "Encaissement en 5 secondes au guichet. Chaque paiement est horodaté, tracé et ne peut plus jamais être modifié. Vos caissiers sont responsabilisés, votre trésorerie est protégée.",
-    highlights: [
-      "Encaissement caisse en 5 secondes",
-      "Aucune transaction ne peut être modifiée ou supprimée",
-      "QR code de vérification sur chaque reçu",
-      "Alerte automatique en cas d'anomalie",
-    ],
-  },
-  {
-    id: "import-excel",
-    icon: FileSpreadsheet,
-    label: "Import Excel",
-    title: "Importez vos fichiers élèves en 2 minutes",
-    description:
-      "Gardez vos fichiers Excel habituels. Le système reconnaît automatiquement les colonnes, importe vos données en un clic et vous fournit un rapport de validation complet.",
-    highlights: [
-      "Reconnaissance automatique de vos colonnes",
-      "Vos préférences sont mémorisées pour les imports suivants",
-      "Rapport de validation avant import",
-      "Jusqu'à 10 000 élèves en un seul import",
-    ],
-  },
-  {
-    id: "tresorerie",
-    icon: BarChart3,
-    label: "Trésorerie",
-    title: "Sachez exactement ce que chaque élève doit, en temps réel",
-    description:
-      "Visualisez d'un coup d'œil l'état de votre trésorerie. Identifiez les classes en retard de paiement, les élèves à relancer, et anticipez vos rentrées d'argent.",
-    highlights: [
-      "Solde en temps réel par classe et par élève",
-      "Statuts automatiques : payé, partiel, en retard",
-      "Prévisions de trésorerie à 30 et 90 jours",
-      "Export complet en un clic",
-    ],
-  },
-];
-
 export function FeaturesSchool() {
+  const t = useTranslations("featuresSchool");
+
+  const tabs = [
+    {
+      id: "multi-etablissements",
+      icon: Building2,
+      label: t("tab1Label"),
+      title: t("tab1Title"),
+      description: t("tab1Description"),
+      highlights: t.raw("tab1Highlights") as string[],
+    },
+    {
+      id: "caisse-recus",
+      icon: Receipt,
+      label: t("tab2Label"),
+      title: t("tab2Title"),
+      description: t("tab2Description"),
+      highlights: t.raw("tab2Highlights") as string[],
+    },
+    {
+      id: "import-excel",
+      icon: FileSpreadsheet,
+      label: t("tab3Label"),
+      title: t("tab3Title"),
+      description: t("tab3Description"),
+      highlights: t.raw("tab3Highlights") as string[],
+    },
+    {
+      id: "tresorerie",
+      icon: BarChart3,
+      label: t("tab4Label"),
+      title: t("tab4Title"),
+      description: t("tab4Description"),
+      highlights: t.raw("tab4Highlights") as string[],
+    },
+  ];
+
   const [activeTab, setActiveTab] = useState(tabs[0]!.id);
-  const active = tabs.find((t) => t.id === activeTab) ?? tabs[0]!;
+  const active = tabs.find((tab) => tab.id === activeTab) ?? tabs[0]!;
 
   return (
     <section id="features-school" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emeraude">
-            Pour le Promoteur et l&apos;Administration
+            {t("eyebrow")}
           </p>
           <h2 className="display-heading mt-4 text-3xl text-encre sm:text-4xl">
-            Pilotez vos finances scolaires avec sérénité
+            {t("title")}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-ardoise">
-            Des outils pensés avec des promoteurs et directeurs d&apos;école
-            pour éliminer les écarts de caisse et maximiser le recouvrement.
+            {t("subtitle")}
           </p>
         </div>
 
@@ -155,7 +133,7 @@ export function FeaturesSchool() {
                 <div className="col-span-2 rounded-xl bg-craie p-5 border border-fil/50">
                   <div className="flex items-center justify-between mb-3">
                     <p className="text-[10px] font-medium text-ardoise uppercase tracking-wider">
-                      Performance
+                      {t("performanceLabel")}
                     </p>
                     <span className="rounded-md bg-emeraude/10 px-2 py-0.5 text-[10px] font-semibold text-emeraude">
                       +12%
@@ -185,9 +163,7 @@ export function FeaturesSchool() {
                       98%
                     </p>
                     <p className="text-[10px] text-ardoise mt-0.5">
-                      Taux de
-                      <br />
-                      recouvrement
+                      {t("statRecovery")}
                     </p>
                   </div>
                   <div className="flex-1 rounded-xl bg-emeraude/[0.05] p-4 flex flex-col justify-center">
@@ -195,9 +171,7 @@ export function FeaturesSchool() {
                       4,2M
                     </p>
                     <p className="text-[10px] text-ardoise mt-0.5">
-                      FCFA
-                      <br />
-                      ce mois
+                      {t("statFcfa")}
                     </p>
                   </div>
                 </div>

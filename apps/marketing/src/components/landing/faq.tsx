@@ -1,43 +1,43 @@
-import { ChevronDown } from "lucide-react";
+"use client";
 
-const faqs = [
-  {
-    question: "L'argent transite-t-il par PAYSKOOL ?",
-    answer:
-      "Non. L'argent va directement sur le compte bancaire ou Mobile Money de l'école. PAYSKOOL est un service par abonnement : nous ne collectons et ne retenons jamais vos fonds. Vous connectez vous-même vos comptes Mobile Money et les paiements arrivent directement chez vous.",
-  },
-  {
-    question: "Comment faire si nos parents paient toujours en liquide à la caisse ?",
-    answer:
-      "Notre module Guichet permet d'encaisser le cash en 5 secondes avec édition immédiate du reçu. Chaque transaction est horodatée et tracée, éliminant tout risque d'écart de caisse. Le reçu est envoyé instantanément au parent par WhatsApp.",
-  },
-  {
-    question: "Combien de temps faut-il pour démarrer ?",
-    answer:
-      "Moins de 2 heures. Vous importez vos listes d'élèves en quelques minutes depuis votre fichier Excel habituel. La connexion de vos comptes Mobile Money est guidée pas à pas. Nos équipes vous accompagnent jusqu'à votre premier encaissement.",
-  },
-  {
-    question: "Les parents doivent-ils installer une application ?",
-    answer:
-      "Non. Le portail parent s'ouvre directement dans le navigateur du téléphone, sans rien télécharger. Il fonctionne sur tous les téléphones connectés à Internet, même les plus simples. La connexion se fait par code SMS ou WhatsApp.",
-  },
-  {
-    question: "Quels moyens de paiement sont supportés ?",
-    answer:
-      "Wave, Orange Money, MTN Mobile Money, CinetPay et Paystack. Ainsi que les paiements en espèces et par chèque via notre module Guichet. Nous ajoutons régulièrement de nouveaux moyens de paiement selon les besoins de nos écoles.",
-  },
-];
+import { ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function Faq() {
+  const t = useTranslations("faq");
+
+  const faqs = [
+    {
+      question: t("q1"),
+      answer: t("a1"),
+    },
+    {
+      question: t("q2"),
+      answer: t("a2"),
+    },
+    {
+      question: t("q3"),
+      answer: t("a3"),
+    },
+    {
+      question: t("q4"),
+      answer: t("a4"),
+    },
+    {
+      question: t("q5"),
+      answer: t("a5"),
+    },
+  ];
+
   return (
     <section id="faq" className="py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emeraude">
-            Questions fréquentes
+            {t("eyebrow")}
           </p>
           <h2 className="display-heading mt-4 text-3xl text-encre sm:text-4xl">
-            Tout ce que vous devez savoir
+            {t("title")}
           </h2>
         </div>
 
@@ -63,13 +63,13 @@ export function Faq() {
 
         <div className="mt-12 rounded-2xl border border-fil bg-white p-6 text-center">
           <p className="text-sm text-ardoise">
-            Vous avez d&apos;autres questions ?
+            {t("moreQuestions")}
           </p>
           <a
             href="#"
             className="mt-2 inline-block text-sm font-semibold text-emeraude hover:underline"
           >
-            Contactez-nous sur WhatsApp →
+            {t("contactWhatsapp")}
           </a>
         </div>
       </div>

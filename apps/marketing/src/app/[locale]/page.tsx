@@ -20,15 +20,11 @@ export default function Home() {
         <Hero />
         <Partners />
         <Metrics />
-        <hr className="section-divider mx-auto max-w-7xl" />
         <Testimonials />
-        <hr className="section-divider mx-auto max-w-7xl" />
         <FeaturesSchool />
         <FeaturesParents />
-        <hr className="section-divider mx-auto max-w-7xl" />
         <BeforeAfter />
         <HowItWorks />
-        <hr className="section-divider mx-auto max-w-7xl" />
         <Pricing />
         <Faq />
         <BottomCta />

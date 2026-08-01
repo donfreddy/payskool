@@ -1,16 +1,20 @@
 "use client";
 
 import { Menu, ShieldCheck, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 
-const navLinks = [
-  { label: "Fonctionnalités", href: "#features-school" },
-  { label: "Pour les Parents", href: "#features-parents" },
-  { label: "Tarifs", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+const navLinkHrefs = [
+  { href: "#features-school" },
+  { href: "#features-parents" },
+  { href: "#pricing" },
+  { href: "#faq" },
 ];
 
+const navLinkKeys = ["features", "parents", "pricing", "faq"] as const;
+
 export function Nav() {
+  const t = useTranslations("nav");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -37,13 +41,13 @@ export function Nav() {
         </a>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
+          {navLinkHrefs.map((link, i) => (
             <a
               key={link.href}
               href={link.href}
               className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-ardoise transition-colors hover:bg-encre/[0.04] hover:text-encre"
             >
-              {link.label}
+              {t(navLinkKeys[i]!)}
             </a>
           ))}
         </nav>
@@ -53,13 +57,13 @@ export function Nav() {
             href="#"
             className="rounded-lg border border-fil px-4 py-2 text-[13px] font-medium text-encre transition-colors hover:bg-encre/[0.03]"
           >
-            Connexion
+            {t("login")}
           </a>
           <a
             href="#cta"
             className="glow-btn rounded-lg bg-emeraude px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-emeraude/90"
           >
-            Essai gratuit
+            {t("cta")}
           </a>
         </div>
 
@@ -75,14 +79,14 @@ export function Nav() {
       {mobileOpen && (
         <div className="border-t border-fil bg-white px-4 pb-6 pt-4 md:hidden animate-fade-in">
           <nav className="flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {navLinkHrefs.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
                 className="rounded-lg px-3 py-3 text-sm font-medium text-ardoise transition-colors hover:bg-encre/[0.04] hover:text-encre"
               >
-                {link.label}
+                {t(navLinkKeys[i]!)}
               </a>
             ))}
           </nav>
@@ -91,14 +95,14 @@ export function Nav() {
               href="#"
               className="rounded-lg border border-fil px-4 py-3 text-center text-sm font-medium text-encre"
             >
-              Connexion
+              {t("login")}
             </a>
             <a
               href="#cta"
               onClick={() => setMobileOpen(false)}
               className="rounded-lg bg-emeraude px-4 py-3 text-center text-sm font-semibold text-white"
             >
-              Essai gratuit
+              {t("cta")}
             </a>
           </div>
         </div>

@@ -1,4 +1,10 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 export function Partners() {
+  const t = useTranslations("partners");
+
   const partners = [
     { name: "Wave", color: "#1DC9CE" },
     { name: "Orange Money", color: "#FF6600" },
@@ -12,7 +18,7 @@ export function Partners() {
     <section className="border-y border-fil bg-white py-5 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-center text-[11px] font-medium uppercase tracking-[0.2em] text-ardoise/60 mb-4">
-          Paiements traités via
+          {t("label")}
         </p>
         {/* Desktop: static row */}
         <div className="hidden sm:flex items-center justify-center gap-10 flex-wrap">

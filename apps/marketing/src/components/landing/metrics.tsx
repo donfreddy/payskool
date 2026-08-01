@@ -1,32 +1,22 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 const metrics = [
-  {
-    number: "98",
-    suffix: "%",
-    label: "Taux de recouvrement des tranches à échéance",
-  },
-  {
-    number: "0",
-    suffix: " min",
-    label: "De saisie manuelle. Confirmation en temps réel.",
-  },
-  {
-    number: "100",
-    suffix: "%",
-    label: "De traçabilité. Chaque encaissement est signé et horodaté.",
-  },
-  {
-    number: "3",
-    suffix: " clics",
-    label: "Pour un parent, de la relance WhatsApp au paiement terminé.",
-  },
-];
+  { number: "98", suffix: "%", labelKey: "item1Label" },
+  { number: "0", suffixKey: "item2Unit", labelKey: "item2Label" },
+  { number: "100", suffix: "%", labelKey: "item3Label" },
+  { number: "3", suffixKey: "item4Unit", labelKey: "item4Label" },
+] as const;
 
 export function Metrics() {
+  const t = useTranslations("metrics");
+
   return (
     <section className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-emeraude mb-12">
-          Des résultats concrets
+          {t("eyebrow")}
         </p>
 
         <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -44,11 +34,13 @@ export function Metrics() {
                   {metric.number}
                 </span>
                 <span className="text-lg font-normal text-ardoise">
-                  {metric.suffix}
+                  {"suffixKey" in metric
+                    ? t(metric.suffixKey)
+                    : metric.suffix}
                 </span>
               </div>
               <p className="mt-1 text-center text-sm leading-snug text-ardoise max-w-48">
-                {metric.label}
+                {t(metric.labelKey)}
               </p>
             </div>
           ))}

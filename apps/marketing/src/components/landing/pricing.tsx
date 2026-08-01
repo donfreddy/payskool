@@ -1,96 +1,66 @@
 "use client";
 
 import { Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-const plans = [
-  {
-    name: "Starter",
-    description: "Pour les petites écoles",
-    priceMonthly: "Gratuit",
-    priceAnnual: "Gratuit",
-    periodMonthly: "à vie",
-    periodAnnual: "à vie",
-    features: [
-      "Jusqu'à 100 élèves",
-      "Paiements cash et suivi de base",
-      "Reçus simples",
-      "Import Excel (1 école)",
-      "Support par email",
-    ],
-    excluded: [
-      "Paiement Mobile Money",
-      "Multi-établissements",
-      "Reçus avec QR code",
-      "Relances WhatsApp",
-      "Rapports avancés",
-    ],
-    cta: "Commencer",
-    highlighted: false,
-  },
-  {
-    name: "Pro",
-    description: "Le plus populaire",
-    priceMonthly: "25 000",
-    priceAnnual: "290 000",
-    currency: "FCFA",
-    periodMonthly: "/ mois",
-    periodAnnual: "/ an",
-    features: [
-      "Élèves illimités",
-      "Paiement Mobile Money (Wave, Orange, MTN)",
-      "Multi-établissements",
-      "Reçus avec QR code infalsifiable",
-      "Relances WhatsApp automatiques",
-      "Import Excel intelligent",
-      "Suivi de trésorerie",
-      "Support prioritaire WhatsApp",
-      "Formation incluse",
-    ],
-    excluded: [],
-    cta: "Essai gratuit 30 jours",
-    highlighted: true,
-    badge: "Le plus populaire",
-  },
-  {
-    name: "Groupe",
-    description: "Réseaux d'établissements",
-    priceMonthly: "Sur devis",
-    priceAnnual: "Sur devis",
-    periodMonthly: "",
-    periodAnnual: "",
-    features: [
-      "Tout le plan Pro",
-      "3+ établissements",
-      "Remise dégressive",
-      "Migration gratuite",
-      "Accès prioritaire",
-      "Interlocuteur dédié",
-      "Disponibilité garantie",
-      "Formation sur site",
-    ],
-    excluded: [],
-    cta: "Parler à un expert",
-    highlighted: false,
-  },
-];
-
 export function Pricing() {
+  const t = useTranslations("pricing");
   const [annual, setAnnual] = useState(true);
+
+  const plans = [
+    {
+      name: t("plan1Name"),
+      description: t("plan1Description"),
+      priceMonthly: "Gratuit",
+      priceAnnual: "Gratuit",
+      periodMonthly: t("plan1PeriodMonthly"),
+      periodAnnual: t("plan1PeriodAnnual"),
+      features: t.raw("plan1Features") as string[],
+      excluded: t.raw("plan1Excluded") as string[],
+      cta: t("plan1Cta"),
+      highlighted: false,
+    },
+    {
+      name: t("plan2Name"),
+      description: t("plan2Description"),
+      priceMonthly: "25 000",
+      priceAnnual: "290 000",
+      currency: "FCFA",
+      periodMonthly: t("plan2PeriodMonthly"),
+      periodAnnual: t("plan2PeriodAnnual"),
+      features: t.raw("plan2Features") as string[],
+      excluded: [],
+      cta: t("plan2Cta"),
+      highlighted: true,
+      badge: t("plan2Badge"),
+    },
+    {
+      name: t("plan3Name"),
+      description: t("plan3Description"),
+      priceMonthly: "Sur devis",
+      priceAnnual: "Sur devis",
+      periodMonthly: "",
+      periodAnnual: "",
+      features: t.raw("plan3Features") as string[],
+      excluded: [],
+      cta: t("plan3Cta"),
+      highlighted: false,
+    },
+  ];
 
   return (
     <section id="pricing" className="py-20 sm:py-28 bg-craie">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emeraude">
-            Tarifs
+            {t("eyebrow")}
           </p>
           <h2 className="display-heading mt-4 text-3xl text-encre sm:text-4xl">
-            Simple, transparent, sans surprise
+            {t("title")}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-ardoise">
-            Un abonnement, c&apos;est tout. Zéro commission sur vos
-            encaissements. L&apos;argent va directement sur votre compte.
+            {t("subtitle")}
           </p>
         </div>
 
@@ -102,7 +72,7 @@ export function Pricing() {
               !annual ? "text-encre" : "text-ardoise"
             }`}
           >
-            Mensuel
+            {t("monthly")}
           </button>
           <button
             onClick={() => setAnnual(!annual)}
@@ -122,9 +92,9 @@ export function Pricing() {
               annual ? "text-encre" : "text-ardoise"
             }`}
           >
-            Annuel
+            {t("annual")}
             <span className="ml-1.5 rounded-full bg-emeraude/10 px-2 py-0.5 text-[10px] font-semibold text-emeraude">
-              -20%
+              {t("annualDiscount")}
             </span>
           </button>
         </div>
