@@ -1,6 +1,6 @@
 {
   "name": "payskool",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "description": "PAYSKOOL — PayTech B2B SaaS for school fee management in West/Central Africa",
   "packageManager": "pnpm@9.15.0",

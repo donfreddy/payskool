@@ -9,12 +9,16 @@ import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
 export interface ApiClientConfig {
   baseURL: string
   getToken: () => string | null
+  getSchoolId: () => string | null
+  getWorkspaceId: () => string | null
   onUnauthorized?: () => void
 }
 
 export function createApiClient({
   baseURL,
   getToken,
+  getSchoolId,
+  getWorkspaceId,
   onUnauthorized,
 }: ApiClientConfig): AxiosInstance {
   const client = axios.create({
@@ -32,6 +36,14 @@ export function createApiClient({
       const token = getToken()
       if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`
+      }
+      const schoolId = getSchoolId()
+      if (schoolId && config.headers) {
+        config.headers['X-School-Id'] = schoolId
+      }
+      const workspaceId = getWorkspaceId()
+      if (workspaceId && config.headers) {
+        config.headers['X-Workspace-Id'] = workspaceId
       }
       return config
     },
