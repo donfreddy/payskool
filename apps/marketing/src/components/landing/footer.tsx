@@ -54,7 +54,7 @@ export function Footer() {
               {t("description")}
             </p>
             <p className="mt-4 text-xs text-ardoise/60">
-              Fait avec ❤️ depuis l&apos;Afrique
+              {t("madeWith")}
             </p>
           </div>
 
