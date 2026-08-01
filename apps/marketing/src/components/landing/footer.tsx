@@ -1,7 +1,7 @@
 "use client";
 
 import { Globe, Mail, MessageCircle, ShieldCheck } from "lucide-react";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { usePathname, useRouter, Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useTransition, ChangeEvent } from "react";
 
@@ -20,22 +20,22 @@ export function Footer() {
   };
 
   const productLinks = [
-    { label: t("linkFeatures"), href: "#features-school" },
-    { label: t("linkPricing"), href: "#pricing" },
-    { label: t("linkIntegrations"), href: "#features-parents" },
+    { label: t("linkFeatures"), href: "/#features-school" },
+    { label: t("linkPricing"), href: "/#pricing" },
+    { label: t("linkIntegrations"), href: "/#features-parents" },
   ];
 
   const companyLinks = [
-    { label: t("linkAbout"), href: "#" },
-    { label: t("linkCareers"), href: "#" },
-    { label: t("linkPress"), href: "#" },
+    { label: t("linkAbout"), href: "/about" },
+    { label: t("linkCareers"), href: "/careers" },
+    { label: t("linkPress"), href: "/press" },
   ];
 
   const legalLinks = [
-    { label: t("linkLegal"), href: "#" },
-    { label: t("linkPrivacy"), href: "#" },
-    { label: t("linkTerms"), href: "#" },
-    { label: t("linkCookies"), href: "#" },
+    { label: t("linkLegal"), href: "/legal" },
+    { label: t("linkPrivacy"), href: "/privacy" },
+    { label: t("linkTerms"), href: "/terms" },
+    { label: t("linkCookies"), href: "/cookies" },
   ];
 
   return (
@@ -64,12 +64,12 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               {productLinks.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-ardoise transition-colors hover:text-encre"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -81,12 +81,12 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               {companyLinks.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-ardoise transition-colors hover:text-encre"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -98,12 +98,12 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               {legalLinks.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-ardoise transition-colors hover:text-encre"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
