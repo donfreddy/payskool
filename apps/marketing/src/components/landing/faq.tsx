@@ -33,27 +33,27 @@ export function Faq() {
     <section id="faq" className="py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-payskool-emerald">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emeraude">
             Questions fréquentes
           </p>
-          <h2 className="display-heading mt-4 text-3xl text-payskool-navy sm:text-4xl">
+          <h2 className="display-heading mt-4 text-3xl text-encre sm:text-4xl">
             Tout ce que vous devez savoir
           </h2>
         </div>
 
-        <div className="mt-12 divide-y divide-slate-100">
+        <div className="mt-12 divide-y divide-fil">
           {faqs.map((faq, i) => (
             <details key={i} className="group py-5">
               <summary className="flex cursor-pointer items-center justify-between gap-4">
-                <span className="text-base font-medium text-payskool-navy group-open:text-payskool-emerald transition-colors">
+                <span className="text-base font-medium text-encre group-open:text-emeraude transition-colors">
                   {faq.question}
                 </span>
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-payskool-muted transition-all group-open:bg-payskool-emerald/10 group-open:text-payskool-emerald group-open:rotate-180">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-craie text-ardoise transition-all group-open:bg-emeraude/10 group-open:text-emeraude group-open:rotate-180">
                   <ChevronDown className="h-4 w-4 transition-transform duration-200" />
                 </span>
               </summary>
               <div className="mt-4 animate-fade-in">
-                <p className="text-sm leading-relaxed text-payskool-muted">
+                <p className="text-sm leading-relaxed text-ardoise">
                   {faq.answer}
                 </p>
               </div>
@@ -61,13 +61,13 @@ export function Faq() {
           ))}
         </div>
 
-        <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center">
-          <p className="text-sm text-payskool-muted">
+        <div className="mt-12 rounded-2xl border border-fil bg-white p-6 text-center">
+          <p className="text-sm text-ardoise">
             Vous avez d&apos;autres questions ?
           </p>
           <a
             href="#"
-            className="mt-2 inline-block text-sm font-semibold text-payskool-emerald hover:underline"
+            className="mt-2 inline-block text-sm font-semibold text-emeraude hover:underline"
           >
             Contactez-nous sur WhatsApp →
           </a>

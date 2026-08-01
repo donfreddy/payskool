@@ -21,36 +21,35 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-white">
+    <footer className="border-t border-fil bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-5">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="#" className="flex items-center gap-3 group">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-payskool-navy text-white transition-transform group-hover:scale-105">
-                <ShieldCheck className="h-5 w-5" />
-              </div>
-              <span className="text-xl font-bold tracking-tight text-payskool-navy">
-                PAYS<span className="text-payskool-emerald">KOOL</span>
+            <a href="#" className="flex items-center gap-2 group">
+              <ShieldCheck className="h-6 w-6 text-emeraude transition-transform group-hover:scale-110" />
+              <span className="text-xl font-extrabold tracking-tight text-encre">
+                PAYS<span className="text-emeraude">KOOL</span>
               </span>
             </a>
-            <p className="mt-5 text-sm leading-relaxed text-payskool-muted max-w-xs">
-              La plateforme de recouvrement de scolarité 100% automatisée pour
-              les écoles africaines.
+            <p className="mt-5 text-sm leading-relaxed text-ardoise max-w-xs">
+              La plateforme de recouvrement de scolarité 100% automatisée
+              pour les écoles africaines.
+            </p>
+            <p className="mt-4 text-xs text-ardoise/60">
+              Fait avec ❤️ depuis l&apos;Afrique
             </p>
           </div>
 
           {/* Produit */}
           <div>
-            <h4 className="text-sm font-semibold text-payskool-navy">
-              Produit
-            </h4>
+            <h4 className="text-sm font-semibold text-encre">Produit</h4>
             <ul className="mt-4 space-y-3">
               {productLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-payskool-muted transition-colors hover:text-payskool-navy"
+                    className="text-sm text-ardoise transition-colors hover:text-encre"
                   >
                     {link.label}
                   </a>
@@ -61,15 +60,13 @@ export function Footer() {
 
           {/* Entreprise */}
           <div>
-            <h4 className="text-sm font-semibold text-payskool-navy">
-              Entreprise
-            </h4>
+            <h4 className="text-sm font-semibold text-encre">Entreprise</h4>
             <ul className="mt-4 space-y-3">
               {companyLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-payskool-muted transition-colors hover:text-payskool-navy"
+                    className="text-sm text-ardoise transition-colors hover:text-encre"
                   >
                     {link.label}
                   </a>
@@ -80,13 +77,13 @@ export function Footer() {
 
           {/* Légal */}
           <div>
-            <h4 className="text-sm font-semibold text-payskool-navy">Légal</h4>
+            <h4 className="text-sm font-semibold text-encre">Légal</h4>
             <ul className="mt-4 space-y-3">
               {legalLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-payskool-muted transition-colors hover:text-payskool-navy"
+                    className="text-sm text-ardoise transition-colors hover:text-encre"
                   >
                     {link.label}
                   </a>
@@ -97,27 +94,28 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 border-t border-slate-100 pt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-payskool-muted">
-            &copy; {new Date().getFullYear()} PAYSKOOL. Tous droits réservés.
+        <div className="mt-16 border-t border-fil pt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-ardoise">
+            &copy; {new Date().getFullYear()} PAYSKOOL. Tous droits
+            réservés.
           </p>
 
           <div className="flex items-center gap-5">
             <a
               href="#"
-              className="inline-flex items-center gap-1.5 text-xs text-payskool-muted hover:text-payskool-navy transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs text-ardoise hover:text-encre transition-colors"
             >
               <MessageCircle className="h-3.5 w-3.5" />
               WhatsApp
             </a>
             <a
               href="#"
-              className="inline-flex items-center gap-1.5 text-xs text-payskool-muted hover:text-payskool-navy transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs text-ardoise hover:text-encre transition-colors"
             >
               <Mail className="h-3.5 w-3.5" />
               Email
             </a>
-            <button className="inline-flex items-center gap-1.5 text-xs text-payskool-muted hover:text-payskool-navy transition-colors">
+            <button className="inline-flex items-center gap-1.5 text-xs text-ardoise hover:text-encre transition-colors">
               <Globe className="h-3.5 w-3.5" />
               FR
             </button>

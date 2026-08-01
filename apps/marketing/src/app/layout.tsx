@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PAYSKOOL | Recouvrement de scolarité automatisé par Mobile Money",
+  title: "PAYSKOOL — Recouvrement de scolarité automatisé par Mobile Money",
   description:
-    "Sécurisez et automatisez le recouvrement des frais de scolarité. Wave, Orange Money, MTN MoMo. Reçus WhatsApp automatiques. 100% traçabilité.",
+    "Sécurisez la trésorerie de votre école. Paiements Wave, Orange Money, MTN tracés et réconciliés automatiquement. Reçus WhatsApp. Ledger infalsifiable. Essai gratuit.",
   keywords: [
     "paiement scolarité",
     "mobile money école",
@@ -24,12 +24,15 @@ export const metadata: Metadata = {
     "Wave",
     "Orange Money",
     "MTN MoMo",
+    "frais de scolarité Afrique",
+    "gestion école",
   ],
   openGraph: {
-    title: "PAYSKOOL | Recouvrement de scolarité automatisé",
+    title: "PAYSKOOL — Chaque franc de scolarité. Tracé, confirmé, réconcilié.",
     description:
-      "La solution n°1 de recouvrement de scolarité par Mobile Money en Afrique.",
+      "La plateforme de recouvrement de frais scolaires par Mobile Money. Adoptée par 50+ complexes scolaires en Afrique subsaharienne.",
     type: "website",
+    siteName: "PAYSKOOL",
   },
 };
 
@@ -44,7 +47,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-payskool-bg text-payskool-navy">
+      <body className="min-h-full flex flex-col bg-craie text-encre">
         {children}
       </body>
     </html>

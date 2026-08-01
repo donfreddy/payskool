@@ -35,13 +35,13 @@ export function HowItWorks() {
     <section className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-payskool-emerald">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emeraude">
             Démarrage express
           </p>
-          <h2 className="display-heading mt-4 text-3xl text-payskool-navy sm:text-4xl">
+          <h2 className="display-heading mt-4 text-3xl text-encre sm:text-4xl">
             Opérationnel en moins de 2 heures
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-payskool-muted">
+          <p className="mx-auto mt-4 max-w-xl text-ardoise">
             Trois étapes simples. Nous vous accompagnons du premier clic
             au premier encaissement.
           </p>
@@ -53,26 +53,32 @@ export function HowItWorks() {
               key={i}
               className="group relative flex flex-col items-center text-center"
             >
+              {/* Connecting dashed line */}
               {i < steps.length - 1 && (
                 <div className="absolute left-[calc(50%+4rem)] top-9 hidden h-[2px] w-[calc(100%-8rem)] lg:block">
-                  <div className="h-full w-full bg-[repeating-linear-gradient(90deg,theme(colors.slate.300)_0,theme(colors.slate.300)_4px,transparent_4px,transparent_8px)]" />
+                  <div
+                    className="h-full w-full"
+                    style={{
+                      backgroundImage: `repeating-linear-gradient(90deg, var(--color-fil) 0, var(--color-fil) 4px, transparent 4px, transparent 8px)`,
+                    }}
+                  />
                 </div>
               )}
 
-              <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-payskool-navy text-white shadow-lg shadow-payskool-navy/10 transition-transform group-hover:scale-105">
-                <step.icon className="h-6 w-6 text-payskool-emerald" />
-                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-payskool-emerald text-[10px] font-bold text-white">
+              <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-encre text-white shadow-lg shadow-encre/10 transition-transform group-hover:scale-105">
+                <step.icon className="h-6 w-6 text-emeraude" />
+                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-emeraude text-[10px] font-bold text-white">
                   {step.number}
                 </span>
               </div>
 
-              <h3 className="mt-5 text-lg font-semibold text-payskool-navy">
+              <h3 className="mt-5 text-lg font-semibold text-encre">
                 {step.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-payskool-muted">
+              <p className="mt-2 text-sm leading-relaxed text-ardoise">
                 {step.description}
               </p>
-              <p className="mt-3 rounded-lg bg-slate-50 px-3 py-2 text-[11px] text-payskool-muted">
+              <p className="mt-3 rounded-lg bg-craie border border-fil/50 px-3 py-2 text-[11px] text-ardoise">
                 {step.detail}
               </p>
             </div>
@@ -80,10 +86,11 @@ export function HowItWorks() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <div className="inline-flex items-center gap-3 rounded-2xl border border-payskool-emerald/20 bg-payskool-emerald/5 px-6 py-4">
-            <Clock className="h-5 w-5 text-payskool-emerald" />
-            <span className="text-sm font-semibold text-payskool-navy">
-              Temps total pour démarrer : moins de <span className="stat-number text-payskool-emerald">2 heures</span>
+          <div className="inline-flex items-center gap-3 rounded-2xl border border-emeraude/20 bg-emeraude/[0.05] px-6 py-4">
+            <Clock className="h-5 w-5 text-emeraude" />
+            <span className="text-sm font-semibold text-encre">
+              Temps total pour démarrer :{" "}
+              <span className="stat-number text-emeraude">2 heures</span>
             </span>
           </div>
         </div>

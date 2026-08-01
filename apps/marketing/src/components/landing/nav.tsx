@@ -24,17 +24,15 @@ export function Nav() {
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 backdrop-blur-lg border-b border-slate-200 shadow-sm"
+          ? "bg-white/75 backdrop-blur-xl border-b border-fil shadow-[0_1px_3px_0_rgb(0_0_0/0.04)]"
           : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#" className="flex items-center gap-2.5 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-payskool-navy text-white transition-transform group-hover:scale-105">
-            <ShieldCheck className="h-5 w-5" />
-          </div>
-          <span className="text-lg font-semibold tracking-tight text-payskool-navy">
-            PAYS<span className="text-payskool-emerald">KOOL</span>
+        <a href="#" className="flex items-center gap-2 group">
+          <ShieldCheck className="h-6 w-6 text-emeraude transition-transform group-hover:scale-110" />
+          <span className="text-[17px] font-extrabold tracking-tight text-encre">
+            PAYS<span className="text-emeraude">KOOL</span>
           </span>
         </a>
 
@@ -43,7 +41,7 @@ export function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-payskool-muted transition-colors hover:bg-slate-100 hover:text-payskool-navy"
+              className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-ardoise transition-colors hover:bg-encre/[0.04] hover:text-encre"
             >
               {link.label}
             </a>
@@ -53,21 +51,21 @@ export function Nav() {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href="#"
-            className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-payskool-navy transition-colors hover:bg-slate-50"
+            className="rounded-lg border border-fil px-4 py-2 text-[13px] font-medium text-encre transition-colors hover:bg-encre/[0.03]"
           >
             Connexion
           </a>
           <a
             href="#cta"
-            className="glow-btn rounded-lg bg-payskool-emerald px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-payskool-emerald/90"
+            className="glow-btn rounded-lg bg-emeraude px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-emeraude/90"
           >
-            Demander un accès pilote
+            Essai gratuit
           </a>
         </div>
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="rounded-lg p-2 text-payskool-navy hover:bg-slate-100 md:hidden"
+          className="rounded-lg p-2 text-encre hover:bg-encre/[0.04] md:hidden"
           aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -75,14 +73,14 @@ export function Nav() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-slate-200 bg-white px-4 pb-6 pt-4 md:hidden animate-fade-in">
+        <div className="border-t border-fil bg-white px-4 pb-6 pt-4 md:hidden animate-fade-in">
           <nav className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="rounded-lg px-3 py-3 text-sm font-medium text-payskool-muted transition-colors hover:bg-slate-100 hover:text-payskool-navy"
+                className="rounded-lg px-3 py-3 text-sm font-medium text-ardoise transition-colors hover:bg-encre/[0.04] hover:text-encre"
               >
                 {link.label}
               </a>
@@ -91,16 +89,16 @@ export function Nav() {
           <div className="mt-4 flex flex-col gap-2">
             <a
               href="#"
-              className="rounded-lg border border-slate-200 px-4 py-3 text-center text-sm font-medium text-payskool-navy"
+              className="rounded-lg border border-fil px-4 py-3 text-center text-sm font-medium text-encre"
             >
               Connexion
             </a>
             <a
               href="#cta"
               onClick={() => setMobileOpen(false)}
-              className="rounded-lg bg-payskool-emerald px-4 py-3 text-center text-sm font-semibold text-white"
+              className="rounded-lg bg-emeraude px-4 py-3 text-center text-sm font-semibold text-white"
             >
-              Demander un accès pilote
+              Essai gratuit
             </a>
           </div>
         </div>

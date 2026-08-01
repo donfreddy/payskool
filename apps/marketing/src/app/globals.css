@@ -3,9 +3,17 @@
 @import "@payskool/ui/global.css";
 @source "../../../../packages/ui/src";
 
+/* ── Design Tokens ── */
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-encre: #0C1220;
+  --color-craie: #F7F8FA;
+  --color-emeraude: #059669;
+  --color-ambre: #D97706;
+  --color-ardoise: #6B7A8D;
+  --color-fil: #E4E8EE;
 }
 
 /* ── Receipt perforation divider ── */
@@ -15,8 +23,8 @@
   background: linear-gradient(
     to right,
     transparent 0%,
-    #e2e8f0 15%,
-    #e2e8f0 85%,
+    var(--color-fil) 15%,
+    var(--color-fil) 85%,
     transparent 100%
   );
   border: none;
@@ -29,52 +37,33 @@
   transform: translateX(-50%);
   width: 48px;
   height: 7px;
-  background: radial-gradient(circle at center, #e2e8f0 1px, transparent 1px);
+  background: radial-gradient(circle at center, var(--color-fil) 1px, transparent 1px);
   background-size: 6px 7px;
   background-repeat: repeat-x;
 }
 
 /* ── Hero floating card animation ── */
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
-
 @utility animate-float {
   animation: float 5s ease-in-out infinite;
 }
 
 @keyframes float-delayed {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
-
 @utility animate-float-delayed {
   animation: float-delayed 6s ease-in-out 1.5s infinite;
 }
 
-/* ── Staggered fade-in for hero ── */
+/* ── Staggered fade-in ── */
 @keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 @utility animate-fade-up {
   animation: fade-up 0.6s ease-out both;
 }
@@ -91,22 +80,33 @@
   animation: fade-up 0.6s ease-out 0.55s both;
 }
 
-/* ── Number ticker reveal ── */
-@utility stat-number {
+/* ── Fade-in only ── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@utility animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+
+/* ── Display heading ── */
+@utility display-heading {
   font-family: var(--font-sans), Inter, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+/* ── Stat/number treatment ── */
+@utility stat-number {
+  font-family: var(--font-mono), monospace;
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
   letter-spacing: -0.03em;
   line-height: 1;
 }
 
-/* ── h1/h2 display headings ── */
-@utility display-heading {
-  font-family: var(--font-sans), Inter, system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
-
-/* ── Monospaced data treatment ── */
+/* ── Monospaced data ── */
 @utility mono-data {
   font-family: var(--font-mono), monospace;
   font-variant-numeric: tabular-nums;
@@ -127,7 +127,21 @@
 @utility glass-card {
   background: oklch(1 0 0 / 0.72);
   backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid oklch(0.915 0.012 255 / 0.6);
+  border: 1px solid var(--color-fil);
+}
+
+/* ── Ledger line — subtle horizontal rule inside data cards ── */
+@utility ledger-line {
+  border-bottom: 1px dashed var(--color-fil);
+}
+
+/* ── Partner ticker ── */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@utility animate-ticker {
+  animation: ticker 25s linear infinite;
 }
 
 /* ── FAQ details reset ── */
@@ -140,9 +154,7 @@ details summary::-webkit-details-marker {
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
