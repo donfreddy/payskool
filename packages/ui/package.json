@@ -1,0 +1,37 @@
+{
+  "name": "@payskool/ui",
+  "version": "0.0.1",
+  "private": true,
+  "description": "PAYSKOOL — Shared UI Component library (Shadcn UI + Tailwind)",
+  "exports": {
+    "./*": "./src/*.tsx",
+    "./utils": "./src/lib/utils.ts"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.460.0",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@payskool/config-eslint": "workspace:*",
+    "@payskool/config-tailwind": "workspace:*",
+    "@payskool/config-typescript": "workspace:*",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

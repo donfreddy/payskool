@@ -20,7 +20,7 @@ The monorepo must support 5 distinct applications and shared internal packages:
 4. `packages/config-typescript`: Shared `tsconfig.json` base files (base, nestjs, react, nextjs).
 5. `packages/config-tailwind`: Shared Tailwind CSS configuration and design tokens.
 6. `packages/config-eslint`: Shared ESLint & Prettier rules.
-7. `packages/database`: Shared database configuration (Prisma schema, migrations).
+7. `packages/db`: Shared database configuration (Prisma schema, migrations).
 8. `packages/utils`: Shared utility functions.
 
 ---
