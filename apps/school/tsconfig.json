@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@payskool/config-typescript/nextjs",
   "compilerOptions": {
+    "jsx": "preserve",
     "noEmit": true,
     "paths": {
       "@/*": ["./src/*"]

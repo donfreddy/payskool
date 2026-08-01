@@ -2,9 +2,13 @@
   "name": "@payskool/config-eslint",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "description": "Shared ESLint configurations for PAYSKOOL monorepo",
   "exports": {
-    "./base": "./base.js",
+    "./base": {
+      "types": "./base.d.ts",
+      "default": "./base.js"
+    },
     "./next": "./next.js",
     "./react-internal": "./react-internal.js"
   },

@@ -69,19 +69,19 @@ dev: ## Start all apps in parallel (via Turbo)
 	$(TURBO) run dev
 
 dev-api: ## Start NestJS API in watch mode
-	$(FILTER) api pnpm start:dev
+	$(FILTER) api run start:dev
 
 dev-marketing: ## Start marketing Next.js app
-	$(FILTER) marketing pnpm dev
+	$(FILTER) marketing run dev
 
 dev-platform: ## Start platform Next.js app
-	$(FILTER) platform pnpm dev
+	$(FILTER) platform run dev
 
 dev-school: ## Start school Next.js app
-	$(FILTER) school pnpm dev
+	$(FILTER) school run dev
 
 dev-parent: ## Start parent Vite app
-	$(FILTER) parent pnpm dev
+	$(FILTER) parent run dev
 
 # ==============================================================================
 #  BUILD
@@ -93,19 +93,19 @@ build: ## Build all packages and apps (topological via Turbo)
 	$(TURBO) run build
 
 build-api: ## Build NestJS API only
-	$(FILTER) api pnpm build
+	$(FILTER) api run build
 
 build-marketing: ## Build marketing app only
-	$(FILTER) marketing pnpm build
+	$(FILTER) marketing run build
 
 build-platform: ## Build platform app only
-	$(FILTER) platform pnpm build
+	$(FILTER) platform run build
 
 build-school: ## Build school app only
-	$(FILTER) school pnpm build
+	$(FILTER) school run build
 
 build-parent: ## Build parent Vite app only
-	$(FILTER) parent pnpm build
+	$(FILTER) parent run build
 
 # ==============================================================================
 #  START (production)
@@ -114,7 +114,7 @@ build-parent: ## Build parent Vite app only
 ## Production
 
 start-api: build-api ## Build then start NestJS API in production mode
-	$(FILTER) api pnpm start:prod
+	$(FILTER) api run start:prod
 
 # ==============================================================================
 #  LINT & FORMAT
@@ -150,16 +150,16 @@ typecheck: ## Run tsc --noEmit across all packages
 test: test-api ## Run all tests
 
 test-api: ## Run NestJS unit tests
-	$(FILTER) api pnpm test
+	$(FILTER) api run test
 
 test-api-watch: ## Run NestJS tests in watch mode
-	$(FILTER) api pnpm test:watch
+	$(FILTER) api run test:watch
 
 test-api-cov: ## Run NestJS tests with coverage report
-	$(FILTER) api pnpm test:cov
+	$(FILTER) api run test:cov
 
 test-api-e2e: ## Run NestJS end-to-end tests
-	$(FILTER) api pnpm test:e2e
+	$(FILTER) api run test:e2e
 
 # ==============================================================================
 #  DATABASE (Prisma / @payskool/db)
@@ -184,7 +184,7 @@ db-studio: ## Open Prisma Studio in the browser
 	$(PRISMA) studio
 
 db-seed: ## Run database seed script
-	$(FILTER) @payskool/db pnpm db:seed
+	$(FILTER) @payskool/db run db:seed
 
 db-reset: ## Reset DB and re-apply all migrations (⚠ destructive)
 	@printf "$(RED)$(BOLD)⚠  This will drop and recreate your database!$(RESET)\n"
