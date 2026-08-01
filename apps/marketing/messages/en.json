@@ -16,11 +16,11 @@
   },
   "hero": {
     "badge": "Available in Senegal, Ivory Coast, Cameroon",
-    "headline": "Every franc of tuition.",
-    "headlineStat": "98%",
-    "headlineRest": "Tracked, confirmed, reconciled.",
-    "subheadline": "Wave, Orange Money and MTN payments are automatically verified and allocated. Parents get WhatsApp reminders. Your ledger is tamper-proof.",
-    "primaryCta": "Start for free",
+    "headline": "Secure your treasury.",
+    "headlineStat": "",
+    "headlineRest": "Finance your growth.",
+    "subheadline": "The only financial platform that guarantees zero cash leakage and certifies your revenue history to unlock future bank credits.",
+    "primaryCta": "Request pilot access",
     "secondaryCta": "Watch demo",
     "trustLabel": "Trusted by",
     "trustCount": "50+",
@@ -77,44 +77,44 @@
     "t3StatLabel": "managed in real time"
   },
   "featuresSchool": {
-    "eyebrow": "For School Owners & Administrators",
-    "title": "Manage your school finances with peace of mind",
-    "subtitle": "Tools designed with school owners and directors to eliminate cash discrepancies and maximize recovery.",
-    "tab1Label": "Multi-School",
-    "tab1Title": "Oversee all your schools from a single account",
-    "tab1Description": "Manage multiple schools from one workspace. Each school has its own pricing, its own users, and all information flows into a single overview.",
+    "eyebrow": "The PAYSKOOL Solution",
+    "title": "Take back total control of your finances",
+    "subtitle": "A system designed to protect your cash and validate your school with banks.",
+    "tab1Label": "100% Secure Collection",
+    "tab1Title": "Protect your cashiers and your money",
+    "tab1Description": "Every franc received via Mobile Money or at the counter is tracked, timestamped, and tamper-proof. Your cashiers are protected from suspicion, and your money reaches its destination.",
     "tab1Highlights": [
-      "Consolidated view of all your schools",
-      "Independent setup per school",
-      "Per-school or consolidated financial reports",
-      "Unified billing for the entire group"
-    ],
-    "tab2Label": "Cash Desk & Receipts",
-    "tab2Title": "Tamper-proof receipts with QR code verification",
-    "tab2Description": "Collect cash payments in 5 seconds at the counter. Every transaction is timestamped, tracked, and can never be altered. Your cashiers are accountable, your treasury is protected.",
-    "tab2Highlights": [
-      "Over-the-counter collection in 5 seconds",
-      "No transaction can be modified or deleted",
-      "QR code verification on every receipt",
+      "Receipts with QR code verification",
+      "Unalterable timestamping and tracking",
+      "Zero contact with cash online",
       "Automatic anomaly alerts"
     ],
-    "tab3Label": "Excel Import",
-    "tab3Title": "Import your student files in 2 minutes, change nothing",
-    "tab3Description": "Keep your existing Excel files. The system automatically detects your columns, imports your data in one click, and provides a full validation report.",
-    "tab3Highlights": [
-      "Automatic column detection",
-      "Your preferences are saved for future imports",
-      "Validation report before import",
-      "Up to 10,000 students in a single import"
+    "tab2Label": "Live Treasury",
+    "tab2Title": "Zero cash leakage. Decide with clarity.",
+    "tab2Description": "Instantly see who has paid and who owes you money directly from your smartphone. No more illegible ledgers and weekend tallying hours.",
+    "tab2Highlights": [
+      "Real-time tracking on smartphone",
+      "Clear payment statuses (up-to-date, overdue)",
+      "Automatic bank reconciliation",
+      "Targeted WhatsApp reminders"
     ],
-    "tab4Label": "Treasury",
-    "tab4Title": "Know exactly what every student owes, in real time",
-    "tab4Description": "See your treasury status at a glance. Identify classes with late payments, students who need reminders, and forecast your cash flow.",
+    "tab3Label": "Your Credit Passport",
+    "tab3Title": "Unlock bank financing",
+    "tab3Description": "Payskool generates a certified and unalterable revenue history. Easily prove your solvency to financial institutions to secure cash advances.",
+    "tab3Highlights": [
+      "100% reliable certified financial history",
+      "Reports compliant with banking standards",
+      "Cash flow forecasting",
+      "Facilitates loans and cash advances"
+    ],
+    "tab4Label": "Group Management",
+    "tab4Title": "The big picture for School Owners",
+    "tab4Description": "Manage multiple schools from a single access. Each school keeps its rules, but your vision remains centralized and consolidated.",
     "tab4Highlights": [
-      "Real-time balance per class and per student",
-      "Automatic status: paid, partial, overdue",
-      "30 and 90-day cash flow forecasts",
-      "Full export in one click"
+      "Multi-school supervision",
+      "Global performance in one click",
+      "Data isolation per school",
+      "Strict user access control"
     ],
     "performanceLabel": "PERFORMANCE",
     "statRecovery": "Recovery rate",
@@ -150,19 +150,17 @@
     "card4Description": "Every payment generates a receipt sent instantly on WhatsApp. Full history and QR code verification included."
   },
   "beforeAfter": {
-    "beforeEyebrow": "Without Payskool",
-    "beforeTitle": "The collection headache",
-    "beforeSubtitle": "This is the daily reality for most schools today.",
-    "afterEyebrow": "With Payskool",
-    "afterTitle": "Peace of mind",
-    "afterSubtitle": "What you get by switching to Payskool.",
-    "afterCta": "Switch to Payskool",
+    "beforeEyebrow": "The Real Problem",
+    "beforeTitle": "What is truly holding back your school's development",
+    "beforeSubtitle": "The major daily hurdles you face.",
+    "afterEyebrow": "The Solution",
+    "afterTitle": "Take back full control",
+    "afterSubtitle": "Secure your revenues and prove your solvency.",
+    "afterCta": "Discover the platform",
     "comparisons": [
-      { "before": "Illegible, crossed-out, lost paper ledgers", "after": "Complete, tamper-proof digital history" },
-      { "before": "Cash vanishing between the counter and the bank", "after": "Every franc is tracked, from collection to account" },
-      { "before": "Manual reminders by phone, one by one", "after": "Automatic, scheduled WhatsApp reminders" },
-      { "before": "No visibility: who owes what?", "after": "Real-time balances per class and per student" },
-      { "before": "Parents disputing, no proof of payment", "after": "Receipts with QR code, sent instantly" }
+      { "before": "Millions of francs vanish every year between the school counter and the bank account.", "after": "100% secure collection. Every franc is tracked, timestamped and tamper-proof." },
+      { "before": "Manual management and fake bank slips make it impossible to tell a real payment from fraud.", "after": "Live treasury. Instantly see who has paid and who owes you money on your smartphone." },
+      { "before": "Without a certified treasury history, banks refuse to finance your projects (buses, classrooms, equipment).", "after": "Certified and unalterable revenue history. Easily prove your solvency to financial institutions." }
     ]
   },
   "howItWorks": {
@@ -180,6 +178,22 @@
     "step3Detail": "Automatic WhatsApp reminders. One-tap payment. Real-time reconciliation.",
     "totalTimePrefix": "Total time to get started: under",
     "totalTimeValue": "2 hours"
+  },
+  "comparison": {
+    "eyebrow": "The Advantage",
+    "title": "Traditional Method vs The Payskool Platform",
+    "subtitle": "Why working only with your bank is not enough to secure your school's operations.",
+    "col1Title": "Bank / Traditional",
+    "col2Title": "Payskool Platform",
+    "row1Label": "Visibility",
+    "row1Col1": "Total opacity: You don't know who paid for 48 hours.",
+    "row1Col2": "Real Time: Instant reconciliation of every payment.",
+    "row2Label": "Security",
+    "row2Col1": "High risk: Cash handling prone to discrepancies.",
+    "row2Col2": "Absolute security: Zero handling, tamper-proof QR receipts.",
+    "row3Label": "Financing",
+    "row3Col1": "An obstacle course without certified financials.",
+    "row3Col2": "Your revenue streams are proven, structured, and bank-ready."
   },
   "pricing": {
     "eyebrow": "Pricing",
@@ -261,14 +275,14 @@
     "a5": "Wave, Orange Money, MTN Mobile Money, CinetPay and Paystack. As well as cash and cheque payments through our Cash Desk module. We regularly add new payment methods based on our schools' needs."
   },
   "bottomCta": {
-    "eyebrow": "Pilot access",
-    "title": "Ready to secure your school's treasury?",
-    "subtitle": "Join the schools that have digitized their payments this year. Request your pilot access and discover the platform.",
+    "eyebrow": "Stop letting money vanish",
+    "title": "You are likely losing money every day without knowing it",
+    "subtitle": "Take 10 minutes with a Payskool financial expert to discover how to secure your treasury and accelerate your school's growth.",
     "placeholderName": "School owner name",
     "placeholderCity": "City",
     "placeholderStudents": "Number of students",
     "placeholderWhatsapp": "WhatsApp number",
-    "cta": "Request pilot access for my school",
+    "cta": "Book my 10-minute demo",
     "disclaimer": "No commitment. Your information is never shared.",
     "thanksPrefix": "Thank you,",
     "thanksSuffix": "! Your request has been received.",

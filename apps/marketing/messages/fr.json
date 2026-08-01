@@ -16,11 +16,11 @@
   },
   "hero": {
     "badge": "Disponible au Sénégal, Côte d'Ivoire, Cameroun",
-    "headline": "Chaque franc de scolarité.",
-    "headlineStat": "98%",
-    "headlineRest": "Tracé, confirmé, réconcilié.",
-    "subheadline": "Les paiements Wave, Orange Money et MTN arrivent, sont vérifiés et ventilés automatiquement. Les parents sont relancés par WhatsApp. Votre registre est infalsifiable.",
-    "primaryCta": "Commencer gratuitement",
+    "headline": "Sécurisez votre caisse.",
+    "headlineStat": "",
+    "headlineRest": "Financez votre croissance.",
+    "subheadline": "La seule plateforme financière qui garantit zéro fuite de cash et certifie votre historique de revenus pour débloquer vos futurs crédits bancaires.",
+    "primaryCta": "Demander un accès pilote",
     "secondaryCta": "Voir la démo",
     "trustLabel": "Adopté par",
     "trustCount": "50+",
@@ -77,44 +77,44 @@
     "t3StatLabel": "pilotées en temps réel"
   },
   "featuresSchool": {
-    "eyebrow": "Pour le Promoteur et l'Administration",
-    "title": "Pilotez vos finances scolaires avec sérénité",
-    "subtitle": "Des outils pensés avec des promoteurs et directeurs d'école pour éliminer les écarts de caisse et maximiser le recouvrement.",
-    "tab1Label": "Multi-Établissements",
-    "tab1Title": "Pilotez tous vos établissements depuis un seul compte",
-    "tab1Description": "Gérez plusieurs écoles depuis un espace unique. Chaque établissement a ses propres tarifs, ses propres utilisateurs, et toute l'information remonte dans un seul tableau.",
+    "eyebrow": "La Solution PAYSKOOL",
+    "title": "Reprenez le contrôle total de vos finances",
+    "subtitle": "Un système pensé pour protéger votre cash et valoriser votre école auprès des banques.",
+    "tab1Label": "Encaissement 100% blindé",
+    "tab1Title": "Protégez vos caissiers et votre argent",
+    "tab1Description": "Chaque franc reçu par Mobile Money ou au guichet est tracé, horodaté et rendu infalsifiable. Vos caissiers sont protégés de toute suspicion, et votre argent arrive à destination.",
     "tab1Highlights": [
-      "Vue d'ensemble de toutes vos écoles",
-      "Paramétrage indépendant par établissement",
-      "Rapports financiers par école ou consolidés",
-      "Facturation unifiée pour tout le groupe"
-    ],
-    "tab2Label": "Caisse & Reçus",
-    "tab2Title": "Des reçus infalsifiables avec QR code de vérification",
-    "tab2Description": "Encaissement en 5 secondes au guichet. Chaque paiement est horodaté, tracé et ne peut plus jamais être modifié. Vos caissiers sont responsabilisés, votre trésorerie est protégée.",
-    "tab2Highlights": [
-      "Encaissement caisse en 5 secondes",
-      "Aucune transaction ne peut être modifiée ou supprimée",
-      "QR code de vérification sur chaque reçu",
+      "Reçus avec QR code de vérification",
+      "Horodatage et traçabilité inaltérables",
+      "Zéro contact avec le liquide en ligne",
       "Alerte automatique en cas d'anomalie"
     ],
-    "tab3Label": "Import Excel",
-    "tab3Title": "Importez vos fichiers élèves en 2 minutes, sans rien changer",
-    "tab3Description": "Gardez vos fichiers Excel habituels. Le système reconnaît automatiquement les colonnes, importe vos données en un clic et vous fournit un rapport de validation complet.",
-    "tab3Highlights": [
-      "Reconnaissance automatique de vos colonnes",
-      "Vos préférences sont mémorisées pour les imports suivants",
-      "Rapport de validation avant import",
-      "Jusqu'à 10 000 élèves en un seul import"
+    "tab2Label": "Trésorerie en direct",
+    "tab2Title": "Zéro fuite de cash. Décidez avec clarté.",
+    "tab2Description": "Visualisez instantanément qui a payé et qui vous doit de l'argent depuis votre smartphone. Fini les registres illisibles et les heures de pointage le week-end.",
+    "tab2Highlights": [
+      "Suivi en temps réel sur smartphone",
+      "Statuts de paiement clairs (à jour, retard)",
+      "Réconciliation bancaire automatique",
+      "Relances WhatsApp ciblées"
     ],
-    "tab4Label": "Trésorerie",
-    "tab4Title": "Sachez exactement ce que chaque élève doit, en temps réel",
-    "tab4Description": "Visualisez d'un coup d'oeil l'état de votre trésorerie. Identifiez les classes en retard de paiement, les élèves à relancer, et anticipez vos rentrées d'argent.",
+    "tab3Label": "Votre passeport crédit",
+    "tab3Title": "Débloquez les financements bancaires",
+    "tab3Description": "Payskool génère un historique de revenus certifié et inaltérable. Vous prouvez facilement votre solvabilité aux institutions financières pour obtenir des avances de trésorerie.",
+    "tab3Highlights": [
+      "Historique financier certifié 100% fiable",
+      "Rapports conformes aux standards bancaires",
+      "Prévisions de flux de trésorerie",
+      "Facilite l'octroi d'avances et de prêts"
+    ],
+    "tab4Label": "Pilotage Groupe",
+    "tab4Title": "La vue d'ensemble pour les Promoteurs",
+    "tab4Description": "Gérez plusieurs établissements depuis un seul accès. Chaque école a ses règles, mais votre vision reste centralisée et consolidée.",
     "tab4Highlights": [
-      "Solde en temps réel par classe et par élève",
-      "Statuts automatiques : payé, partiel, en retard",
-      "Prévisions de trésorerie à 30 et 90 jours",
-      "Export complet en un clic"
+      "Supervision multi-établissements",
+      "Performance globale en un clic",
+      "Isolement des données par école",
+      "Contrôle strict des accès utilisateurs"
     ],
     "performanceLabel": "PERFORMANCE",
     "statRecovery": "Taux de recouvrement",
@@ -150,19 +150,17 @@
     "card4Description": "Chaque paiement génère un reçu envoyé instantanément sur WhatsApp. Historique complet et QR code de vérification inclus."
   },
   "beforeAfter": {
-    "beforeEyebrow": "Sans Payskool",
-    "beforeTitle": "Le casse-tête du recouvrement",
-    "beforeSubtitle": "Voici le quotidien de la plupart des écoles aujourd'hui.",
-    "afterEyebrow": "Avec Payskool",
-    "afterTitle": "La tranquillité d'esprit",
-    "afterSubtitle": "Ce que vous obtenez en basculant sur Payskool.",
-    "afterCta": "Passer à Payskool",
+    "beforeEyebrow": "Le vrai problème",
+    "beforeTitle": "Ce qui freine réellement le développement de votre école",
+    "beforeSubtitle": "Les obstacles majeurs auxquels vous faites face au quotidien.",
+    "afterEyebrow": "La solution",
+    "afterTitle": "Reprenez le contrôle total",
+    "afterSubtitle": "Sécurisez vos revenus et prouvez votre solvabilité.",
+    "afterCta": "Découvrir la plateforme",
     "comparisons": [
-      { "before": "Registres papier illisibles, raturés, perdus", "after": "Historique numérique complet, infalsifiable" },
-      { "before": "Cash qui disparaît entre la caisse et la banque", "after": "Chaque franc est tracé, de l'encaissement au compte" },
-      { "before": "Relances manuelles par appels, un à un", "after": "Relances WhatsApp automatiques, programmées" },
-      { "before": "Aucune visibilité : qui doit quoi ?", "after": "Soldes en temps réel par classe et par élève" },
-      { "before": "Parents qui contestent, pas de preuve de paiement", "after": "Reçus avec QR code, envoyés instantanément" }
+      { "before": "Des millions de francs s'évaporent chaque année entre le guichet de l'école et le compte en banque.", "after": "Encaissement 100% blindé. Chaque franc est tracé, horodaté et rendu infalsifiable." },
+      { "before": "La gestion manuelle et les faux bordereaux rendent impossible la distinction entre un vrai paiement et une fraude.", "after": "Trésorerie en direct. Visualisez instantanément qui a payé et qui doit de l'argent sur votre smartphone." },
+      { "before": "Sans un historique de trésorerie certifié, les banques refusent de financer vos projets (bus, salles de classe, matériel).", "after": "Historique de revenus certifié et inaltérable. Prouvez facilement votre solvabilité aux institutions financières." }
     ]
   },
   "howItWorks": {
@@ -180,6 +178,22 @@
     "step3Detail": "Relances WhatsApp automatiques. Paiement en un geste. Réconciliation en temps réel.",
     "totalTimePrefix": "Temps total pour démarrer : moins de",
     "totalTimeValue": "2 heures"
+  },
+  "comparison": {
+    "eyebrow": "L'avantage",
+    "title": "La méthode traditionnelle vs La plateforme Payskool",
+    "subtitle": "Pourquoi travailler uniquement avec votre banque ne suffit pas à sécuriser vos opérations scolaires.",
+    "col1Title": "Banque / Traditionnel",
+    "col2Title": "Plateforme Payskool",
+    "row1Label": "Visibilité",
+    "row1Col1": "Opacité totale : Vous ne savez pas qui a payé avant 48h.",
+    "row1Col2": "Temps Réel : Rapprochement instantané de chaque paiement.",
+    "row2Label": "Sécurité",
+    "row2Col1": "Risque élevé : Manipulation d'espèces propice aux écarts de caisse.",
+    "row2Col2": "Sécurité absolue : Zéro manipulation, reçus QR code infalsifiables.",
+    "row3Label": "Financement",
+    "row3Col1": "Parcours du combattant sans état financier certifié.",
+    "row3Col2": "Vos flux de revenus sont prouvés, structurés et prêts pour le banquier."
   },
   "pricing": {
     "eyebrow": "Tarifs",
@@ -261,14 +275,14 @@
     "a5": "Wave, Orange Money, MTN Mobile Money, CinetPay et Paystack. Ainsi que les paiements en espèces et par chèque via notre module Guichet. Nous ajoutons régulièrement de nouveaux moyens de paiement selon les besoins de nos écoles."
   },
   "bottomCta": {
-    "eyebrow": "Accès pilote",
-    "title": "Prêt à sécuriser la trésorerie de votre établissement ?",
-    "subtitle": "Rejoignez les écoles qui ont digitalisé leurs paiements cette année. Demandez votre accès pilote et découvrez la plateforme.",
+    "eyebrow": "Ne laissez plus l'argent s'évaporer",
+    "title": "Vous perdez très certainement de l'argent chaque jour sans le savoir",
+    "subtitle": "Prenez 10 minutes avec un expert financier Payskool pour découvrir comment blinder votre caisse et accélérer la croissance de votre établissement.",
     "placeholderName": "Nom du promoteur",
     "placeholderCity": "Ville",
     "placeholderStudents": "Nombre d'élèves",
     "placeholderWhatsapp": "WhatsApp du promoteur",
-    "cta": "Demander un accès pilote pour mon école",
+    "cta": "Réserver ma démo de 10 minutes",
     "disclaimer": "Sans engagement. Vos informations ne sont jamais partagées.",
     "thanksPrefix": "Merci,",
     "thanksSuffix": "! Votre demande a bien été reçue.",

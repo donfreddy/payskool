@@ -3,7 +3,7 @@
 import { ArrowRight, Ban, CheckCircle2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-const COMPARISON_COUNT = 5;
+const COMPARISON_COUNT = 3;
 
 export function BeforeAfter() {
   const t = useTranslations("beforeAfter");

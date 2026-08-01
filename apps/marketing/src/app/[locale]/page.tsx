@@ -1,5 +1,6 @@
 import { BeforeAfter } from "@/components/landing/before-after";
 import { BottomCta } from "@/components/landing/bottom-cta";
+import { Comparison } from "@/components/landing/comparison";
 import { Faq } from "@/components/landing/faq";
 import { FeaturesParents } from "@/components/landing/features-parents";
 import { FeaturesSchool } from "@/components/landing/features-school";
@@ -25,6 +26,7 @@ export default function Home() {
         <FeaturesParents />
         <BeforeAfter />
         <HowItWorks />
+        <Comparison />
         <Pricing />
         <Faq />
         <BottomCta />
