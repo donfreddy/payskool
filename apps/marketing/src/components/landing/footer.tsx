@@ -31,10 +31,10 @@ export function Footer() {
   ];
 
   const legalLinks = [
-    { label: t("linkLegal"), href: "/legal" },
-    { label: t("linkPrivacy"), href: "/privacy" },
-    { label: t("linkTerms"), href: "/terms" },
-    { label: t("linkCookies"), href: "/cookies" },
+    { label: t("linkLegal"), href: "/legal/mentions" },
+    { label: t("linkPrivacy"), href: "/legal/privacy" },
+    { label: t("linkTerms"), href: "/legal/terms" },
+    { label: t("linkCookies"), href: "/legal/cookies" },
   ];
 
   return (

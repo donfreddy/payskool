@@ -292,7 +292,7 @@
   },
   "footer": {
     "tagline": "Recouvrement scolaire",
-    "description": "La plateforme de recouvrement des frais de scolarité par Mobile Money. Zéro fuite de cash. 100% de traçabilité. La tranquillité d'esprit pour les promoteurs et directeurs d'école.",
+    "description": "L'infrastructure financière des écoles en Afrique. Sécurisez votre trésorerie, automatisez le recouvrement et débloquez l'accès au crédit bancaire pour votre développement.",
     "columnProduct": "Produit",
     "linkFeatures": "Fonctionnalités",
     "linkPricing": "Tarifs",
@@ -430,6 +430,45 @@
       "req3": "Excellente maîtrise de Figma et des bonnes pratiques d'accessibilité.",
       "ben1": "Impact majeur sur un produit utilisé par des dizaines d'écoles.",
       "ben2": "Autonomie totale sur la direction design et budget formation."
+    }
+  },
+  "legal": {
+    "lastUpdated": "Dernière mise à jour : Août 2026",
+    "mentions": {
+      "title": "Mentions Légales",
+      "p1": "Éditeur du site",
+      "p2": "Le site Payskool (getpayskool.com) est édité par Lehmora Labs, société par actions simplifiée au capital de 10 000 000 FCFA, dont le siège social est situé Douala, Cameroun. Immatriculée au Registre du Commerce et du Crédit Mobilier (RCCM).",
+      "p3": "Hébergement",
+      "p4": "Ce site est hébergé par Vercel Inc. et Amazon Web Services (AWS), garantissant une sécurité et une disponibilité maximales de nos infrastructures cloud.",
+      "p5": "Propriété intellectuelle",
+      "p6": "L'ensemble de ce site relève des législations camerounaises et internationales sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents iconographiques et photographiques."
+    },
+    "privacy": {
+      "title": "Politique de Confidentialité",
+      "p1": "Collecte et traitement des données",
+      "p2": "Dans le cadre de l'utilisation de nos services de recouvrement et de financement, Payskool est amenée à collecter des données personnelles (noms, numéros de téléphone pour Mobile Money, informations financières des établissements).",
+      "p3": "Sécurité et confidentialité",
+      "p4": "Nous appliquons les standards de sécurité les plus stricts (chiffrement de bout en bout, bases de données isolées) pour garantir la confidentialité absolue des données financières de nos établissements partenaires et de leurs élèves.",
+      "p5": "Vos droits",
+      "p6": "Conformément à la réglementation en vigueur sur la protection des données personnelles, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Contactez-nous à privacy@payskool.africa."
+    },
+    "terms": {
+      "title": "Conditions Générales d'Utilisation",
+      "p1": "Objet",
+      "p2": "Les présentes CGU régissent l'accès et l'utilisation de la plateforme SaaS Payskool par les établissements scolaires (les 'Promoteurs') et leurs équipes administratives.",
+      "p3": "Obligations de l'utilisateur",
+      "p4": "L'utilisateur s'engage à utiliser la plateforme conformément à sa destination : la gestion et le recouvrement des frais scolaires. Toute tentative de fraude, de falsification de données ou d'utilisation abusive entraînera la suspension immédiate du compte.",
+      "p5": "Disponibilité du service",
+      "p6": "Payskool s'efforce de maintenir un accès au service 24h/24 et 7j/7, avec un taux de disponibilité cible de 99.9%, sous réserve des opérations de maintenance planifiées."
+    },
+    "cookies": {
+      "title": "Politique des Cookies",
+      "p1": "Qu'est-ce qu'un cookie ?",
+      "p2": "Un cookie est un petit fichier texte déposé sur votre terminal lors de la visite d'un site ou de la consultation d'une publicité.",
+      "p3": "Cookies utilisés par Payskool",
+      "p4": "Nous utilisons principalement des cookies strictement nécessaires au fonctionnement de la plateforme (authentification sécurisée des caissiers et promoteurs) et des cookies de mesure d'audience anonymes pour améliorer nos services.",
+      "p5": "Gestion des cookies",
+      "p6": "Vous pouvez à tout moment choisir de désactiver ces cookies depuis les paramètres de votre navigateur. Cependant, cela pourrait altérer l'accès à certains de nos services sécurisés."
     }
   }
 }

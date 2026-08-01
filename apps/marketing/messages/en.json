@@ -292,7 +292,7 @@
   },
   "footer": {
     "tagline": "Tuition collection",
-    "description": "The tuition fee collection platform via Mobile Money. Zero cash leakage. 100% traceability. Peace of mind for school owners and directors.",
+    "description": "The financial infrastructure for schools in Africa. Secure your cash flow, automate collection, and unlock access to bank credit for your development.",
     "columnProduct": "Product",
     "linkFeatures": "Features",
     "linkPricing": "Pricing",
@@ -430,6 +430,45 @@
       "req3": "Excellent mastery of Figma and accessibility best practices.",
       "ben1": "Major impact on a product used by dozens of schools.",
       "ben2": "Total autonomy over design direction and a training budget."
+    }
+  },
+  "legal": {
+    "lastUpdated": "Last updated: August 2026",
+    "mentions": {
+      "title": "Legal Notice",
+      "p1": "Site Publisher",
+      "p2": "The Payskool website (getpayskool.com) is published by Lehmora Labs, a simplified joint-stock company with a share capital of 10,000,000 FCFA, headquartered in Douala, Cameroon. Registered with the Trade and Personal Property Credit Register (RCCM).",
+      "p3": "Hosting",
+      "p4": "This site is hosted by Vercel Inc. and Amazon Web Services (AWS), ensuring maximum security and availability of our cloud infrastructure.",
+      "p5": "Intellectual Property",
+      "p6": "The entirety of this site is subject to Cameroonian and international legislation on copyright and intellectual property. All reproduction rights are reserved, including for iconographic and photographic documents."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "p1": "Data Collection and Processing",
+      "p2": "As part of using our collection and financing services, Payskool collects personal data (names, phone numbers for Mobile Money, financial information of institutions).",
+      "p3": "Security and Confidentiality",
+      "p4": "We apply the strictest security standards (end-to-end encryption, isolated databases) to guarantee the absolute confidentiality of the financial data of our partner institutions and their students.",
+      "p5": "Your Rights",
+      "p6": "In accordance with current regulations on the protection of personal data, you have the right to access, rectify, and delete your data. Contact us at privacy@payskool.africa."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "p1": "Purpose",
+      "p2": "These Terms govern the access and use of the Payskool SaaS platform by educational institutions (the 'Promoters') and their administrative teams.",
+      "p3": "User Obligations",
+      "p4": "The user agrees to use the platform in accordance with its intended purpose: the management and collection of school fees. Any attempt at fraud, data falsification, or misuse will result in immediate account suspension.",
+      "p5": "Service Availability",
+      "p6": "Payskool strives to maintain access to the service 24/7, with a target availability rate of 99.9%, subject to scheduled maintenance operations."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "p1": "What is a cookie?",
+      "p2": "A cookie is a small text file placed on your device when visiting a site or viewing an advertisement.",
+      "p3": "Cookies Used by Payskool",
+      "p4": "We primarily use cookies strictly necessary for the operation of the platform (secure authentication of cashiers and promoters) and anonymous audience measurement cookies to improve our services.",
+      "p5": "Cookie Management",
+      "p6": "You can choose to disable these cookies at any time from your browser settings. However, this may impair access to some of our secure services."
     }
   }
 }
