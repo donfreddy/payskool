@@ -10,8 +10,8 @@ interface BottomNavProps {
 export function BottomNav({ activeTab, onChangeTab }: BottomNavProps) {
   const navItems = [
     { id: 'home', icon: Home, label: 'Accueil' },
-    { id: 'receipts', icon: Receipt, label: 'Reçus' },
     { id: 'students', icon: Users, label: 'Élèves' },
+    { id: 'receipts', icon: Receipt, label: 'Reçus' },
     { id: 'support', icon: MessageCircle, label: 'Support' },
   ] as const;
 

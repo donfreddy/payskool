@@ -88,7 +88,8 @@ function AppContent() {
                         </div>
                         <div>
                           <span className="block text-sm font-bold text-slate-navy">{child.name}</span>
-                          <span className="block text-xs font-medium text-slate-500 mt-0.5">Classe : {child.grade}</span>
+                          <span className="block text-xs font-medium text-slate-500 mt-0.5">Classe : {child.grade} · Année {child.school.academicYear}</span>
+                          <span className="block text-sm font-extrabold text-slate-800 mt-1">{child.totalRemaining.toLocaleString('fr-FR')} FCFA</span>
                         </div>
                       </div>
                       {isActive && (
