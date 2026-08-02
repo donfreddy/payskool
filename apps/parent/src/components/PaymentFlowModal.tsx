@@ -6,11 +6,12 @@ interface PaymentFlowModalProps {
   isOpen: boolean;
   onClose: () => void;
   amount: number;
+  installmentTitle?: string;
 }
 
 type PaymentStep = 'form' | 'processing' | 'success';
 
-export function PaymentFlowModal({ isOpen, onClose, amount }: PaymentFlowModalProps) {
+export function PaymentFlowModal({ isOpen, onClose, amount, installmentTitle }: PaymentFlowModalProps) {
   const [step, setStep] = useState<PaymentStep>('form');
   const [phone, setPhone] = useState('07 00 00 00 00');
   const [operator, setOperator] = useState<'orange' | 'mtn' | 'wave'>('orange');
@@ -60,7 +61,9 @@ export function PaymentFlowModal({ isOpen, onClose, amount }: PaymentFlowModalPr
           {step === 'form' && (
             <div className="p-6 pb-safe animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="text-center mb-8">
-                <span className="block text-sm font-bold text-slate-500 mb-1">Montant à régler</span>
+                <span className="block text-sm font-bold text-slate-500 mb-1">
+                  {installmentTitle ?? 'Montant à régler'}
+                </span>
                 <span className="block text-4xl font-extrabold text-slate-navy tracking-tighter">
                   {amount.toLocaleString('fr-FR')} <span className="text-lg text-slate-400 font-bold">FCFA</span>
                 </span>

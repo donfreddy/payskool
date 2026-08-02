@@ -11,7 +11,9 @@ import { useActiveStudent } from './contexts/ActiveStudentContext';
 import { BottomSheet } from './components/BottomSheet';
 import { NotificationsModal } from './components/NotificationsModal';
 import { PaymentFlowModal } from './components/PaymentFlowModal';
-import { Check } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
+import { parentProfile } from './mocks/dashboardData';
+import type { Installment } from './types/models';
 import clsx from 'clsx';
 
 export type TabId = 'home' | 'receipts' | 'students' | 'support';
@@ -20,12 +22,15 @@ function AppContent() {
   const [activeTab, setActiveTab] = useState<TabId>('home');
   const [isSwitcherOpen, setIsSwitcherOpen] = useState(false);
   const [isNotifsOpen, setIsNotifsOpen] = useState(false);
-  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [paymentContext, setPaymentContext] = useState<{ amount: number; title: string } | null>(null);
   const { activeStudent, students, setActiveStudentId } = useActiveStudent();
+
+  const openPayment = (amount: number, title?: string) => {
+    setPaymentContext({ amount, title: title ?? 'Paiement scolarité' });
+  };
 
   return (
     <div className="mx-auto max-w-md min-h-screen bg-slate-50 pb-24 relative shadow-2xl overflow-x-hidden">
-      {/* Header is only shown on Home page, or always? Let's show it only on home to match the immersive views, or always on top? The original Header is fixed. Let's show it only on home. */}
       {activeTab === 'home' && (
         <>
           <Header 
@@ -33,14 +38,35 @@ function AppContent() {
             onNotificationsClick={() => setIsNotifsOpen(true)}
           />
           <main>
+            {/* Greeting */}
+            <div className="px-4 pt-2 pb-0">
+              <p className="text-sm font-medium text-slate-500">
+                Bonjour, <span className="font-bold text-slate-navy">{parentProfile.name.split(' ')[0]} 👋</span>
+              </p>
+            </div>
+
             <HeroCard 
               school={activeStudent.school} 
               totalRemaining={activeStudent.totalRemaining} 
-              onPayClick={() => setIsPaymentOpen(true)}
+              onPayClick={() => openPayment(activeStudent.totalRemaining, 'Total scolarité')}
             />
-            <InstallmentsTimeline installments={activeStudent.installments} />
-            {/* Limit receipts to 3 on home */}
-            <ReceiptsList receipts={activeStudent.recentReceipts.slice(0, 3)} />
+            <InstallmentsTimeline 
+              installments={activeStudent.installments} 
+              onPayInstallment={(inst: Installment) => openPayment(inst.amount, inst.title)}
+            />
+            {/* Receipts preview with "See all" link */}
+            <div className="px-4 py-4 mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold text-slate-navy">Derniers reçus</h2>
+                <button 
+                  onClick={() => setActiveTab('receipts')}
+                  className="flex items-center gap-1 text-xs font-bold text-emeraude hover:bg-emeraude/10 px-2 py-1.5 rounded-lg transition-colors"
+                >
+                  Voir tout <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <ReceiptsList receipts={activeStudent.recentReceipts.slice(0, 3)} />
+            </div>
           </main>
         </>
       )}
@@ -114,9 +140,10 @@ function AppContent() {
 
       {/* Payment Flow Modal */}
       <PaymentFlowModal
-        isOpen={isPaymentOpen}
-        onClose={() => setIsPaymentOpen(false)}
-        amount={activeStudent.totalRemaining}
+        isOpen={paymentContext !== null}
+        onClose={() => setPaymentContext(null)}
+        amount={paymentContext?.amount ?? 0}
+        {...(paymentContext?.title ? { installmentTitle: paymentContext.title } : {})}
       />
     </div>
   );

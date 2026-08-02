@@ -1,6 +1,7 @@
 import { GraduationCap, Check, Phone } from 'lucide-react';
 import clsx from 'clsx';
 import { useActiveStudent } from '../contexts/ActiveStudentContext';
+import { parentProfile } from '../mocks/dashboardData';
 
 interface StudentsViewProps {
   onSelectStudent: () => void;
@@ -24,7 +25,7 @@ export function StudentsView({ onSelectStudent }: StudentsViewProps) {
         </div>
         <div>
           <span className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-0.5">Compte Parent</span>
-          <span className="block text-sm font-extrabold text-slate-navy">+225 07 00 00 00 00</span>
+          <span className="block text-sm font-extrabold text-slate-navy">{parentProfile.phone}</span>
         </div>
       </div>
 

@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import { MessageCircle, HelpCircle, PhoneCall, ChevronRight, ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
+import { useState } from 'react';
 
 export function SupportView() {
+  const supportPhone = '+225 27 22 00 00';
   const faqs = [
     {
       question: "Comment modifier un paiement en cours ?",
@@ -47,18 +48,22 @@ export function SupportView() {
       </a>
 
       {/* Phone */}
-      <button className="w-full flex items-center justify-between p-4 bg-white rounded-2xl border border-slate-200 shadow-sm mb-8 active:bg-slate-50 transition-colors">
+      <a
+        href={`tel:${supportPhone.replace(/\s/g, '')}`} 
+        className="w-full flex items-center justify-between p-4 bg-white rounded-2xl border border-slate-200 shadow-sm mb-8 active:bg-slate-50 transition-colors"
+      >
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
             <PhoneCall className="w-5 h-5 text-slate-600" />
           </div>
           <div className="text-left">
             <span className="block text-sm font-bold text-slate-navy">Appeler le support</span>
-            <span className="block text-xs font-medium text-slate-500">Lundi - Samedi, 8h - 18h</span>
+            <span className="block text-sm font-medium text-emeraude mt-0.5">{supportPhone}</span>
+            <span className="block text-xs text-slate-400">Lundi - Samedi, 8h - 18h</span>
           </div>
         </div>
         <ChevronRight className="w-5 h-5 text-slate-400" />
-      </button>
+      </a>
 
       {/* FAQ */}
       <section>

@@ -1,5 +1,10 @@
 import type { Student } from '../types/models';
 
+export const parentProfile = {
+  name: 'KOUASSI Ambroise',
+  phone: '+225 07 00 00 00 00',
+};
+
 export const students: Student[] = [
   {
     id: 'stu_1',
@@ -19,15 +24,17 @@ export const students: Student[] = [
         amount: 50000,
         status: 'PAID',
         date: '15 Sept 2026',
+        dueDate: '15 Sept 2026',
         statusLabel: 'PAYÉ'
       },
       {
         id: 'inst_2',
         title: 'Tranche 2 - Deuxième Versement',
         amount: 40000,
-        status: 'DUE',
-        date: '15 DEC',
-        statusLabel: 'À PAYER AVANT LE 15 DEC'
+        status: 'OVERDUE',
+        date: '15 Nov 2026',
+        dueDate: '15 Nov 2026',
+        statusLabel: 'EN RETARD'
       },
       {
         id: 'inst_3',
@@ -35,6 +42,7 @@ export const students: Student[] = [
         amount: 35000,
         status: 'UPCOMING',
         date: '15 MARS 2027',
+        dueDate: '15 Mars 2027',
         statusLabel: 'À VENIR'
       }
     ],

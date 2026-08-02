@@ -1,4 +1,4 @@
-export type InstallmentStatus = 'PAID' | 'DUE' | 'UPCOMING';
+export type InstallmentStatus = 'PAID' | 'DUE' | 'OVERDUE' | 'UPCOMING';
 
 export interface School {
   id: string;
@@ -12,6 +12,7 @@ export interface Installment {
   amount: number;
   status: InstallmentStatus;
   date: string;
+  dueDate?: string;
   statusLabel: string;
 }
 
