@@ -1,9 +1,9 @@
 export type InstallmentStatus = 'PAID' | 'DUE' | 'UPCOMING';
 
-export interface Student {
+export interface School {
   id: string;
   name: string;
-  grade: string;
+  academicYear: string;
 }
 
 export interface Installment {
@@ -21,18 +21,15 @@ export interface Receipt {
   title: string;
   amount: number;
   date: string;
+  category?: 'Scolarité' | 'Cantine' | 'Tenue' | 'Autre';
 }
 
-export interface School {
+export interface Student {
   id: string;
   name: string;
-  academicYear: string;
-}
-
-export interface DashboardData {
+  initials: string;
+  grade: string;
   school: School;
-  activeStudent: Student;
-  students: Student[];
   totalRemaining: number;
   installments: Installment[];
   recentReceipts: Receipt[];
