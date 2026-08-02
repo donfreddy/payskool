@@ -10,7 +10,12 @@ interface Notification {
   isRead: boolean;
 }
 
-export function NotificationsView() {
+interface NotificationsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function NotificationsModal({ isOpen, onClose }: NotificationsModalProps) {
   const notifications: Notification[] = [
     {
       id: 'notif_1',
@@ -50,15 +55,34 @@ export function NotificationsView() {
   };
 
   return (
-    <div className="pt-20 px-4 pb-28 min-h-screen bg-slate-50">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-extrabold text-slate-navy tracking-tight">Notifications</h1>
-        <button className="text-xs font-bold text-emeraude hover:bg-emeraude/10 px-3 py-1.5 rounded-full transition-colors">
-          Tout marquer lu
-        </button>
+    <div 
+      className={clsx(
+        "fixed inset-0 z-[110] bg-slate-50 transition-transform duration-300 ease-out flex flex-col",
+        isOpen ? "translate-y-0" : "translate-y-full"
+      )}
+    >
+      {/* Header */}
+      <div className="pt-safe bg-white border-b border-slate-200 shrink-0">
+        <div className="h-14 px-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={onClose}
+              className="p-2 -ml-2 text-slate-400 hover:text-slate-700 hover:bg-slate-50 rounded-full transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <h1 className="text-xl font-extrabold text-slate-navy tracking-tight">Notifications</h1>
+          </div>
+          <button className="text-xs font-bold text-emeraude hover:bg-emeraude/10 px-3 py-1.5 rounded-full transition-colors">
+            Tout marquer lu
+          </button>
+        </div>
       </div>
 
-      <div className="space-y-3">
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto overscroll-contain p-4 pb-safe space-y-3">
         {notifications.map(notif => (
           <div 
             key={notif.id} 

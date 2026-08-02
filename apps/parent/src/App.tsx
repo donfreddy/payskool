@@ -7,30 +7,37 @@ import { BottomNav } from './components/BottomNav';
 import { StudentsView } from './views/StudentsView';
 import { ReceiptsView } from './views/ReceiptsView';
 import { SupportView } from './views/SupportView';
-import { NotificationsView } from './views/NotificationsView';
 import { useActiveStudent } from './contexts/ActiveStudentContext';
 import { BottomSheet } from './components/BottomSheet';
+import { NotificationsModal } from './components/NotificationsModal';
+import { PaymentFlowModal } from './components/PaymentFlowModal';
 import { Check } from 'lucide-react';
 import clsx from 'clsx';
 
-export type TabId = 'home' | 'receipts' | 'students' | 'support' | 'notifications';
+export type TabId = 'home' | 'receipts' | 'students' | 'support';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState<TabId>('home');
   const [isSwitcherOpen, setIsSwitcherOpen] = useState(false);
+  const [isNotifsOpen, setIsNotifsOpen] = useState(false);
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const { activeStudent, students, setActiveStudentId } = useActiveStudent();
 
   return (
     <div className="mx-auto max-w-md min-h-screen bg-slate-50 pb-24 relative shadow-2xl overflow-x-hidden">
       {/* Header is only shown on Home page, or always? Let's show it only on home to match the immersive views, or always on top? The original Header is fixed. Let's show it only on home. */}
-      {(activeTab === 'home' || activeTab === 'notifications') && (
+      {activeTab === 'home' && (
         <>
           <Header 
             onSwitchStudentClick={() => setIsSwitcherOpen(true)} 
-            onNotificationsClick={() => setActiveTab('notifications')}
+            onNotificationsClick={() => setIsNotifsOpen(true)}
           />
           <main>
-            <HeroCard school={activeStudent.school} totalRemaining={activeStudent.totalRemaining} />
+            <HeroCard 
+              school={activeStudent.school} 
+              totalRemaining={activeStudent.totalRemaining} 
+              onPayClick={() => setIsPaymentOpen(true)}
+            />
             <InstallmentsTimeline installments={activeStudent.installments} />
             {/* Limit receipts to 3 on home */}
             <ReceiptsList receipts={activeStudent.recentReceipts.slice(0, 3)} />
@@ -38,7 +45,6 @@ function AppContent() {
         </>
       )}
 
-      {activeTab === 'notifications' && <NotificationsView />}
       {activeTab === 'receipts' && <ReceiptsView />}
       {activeTab === 'students' && <StudentsView onSelectStudent={() => setActiveTab('home')} />}
       {activeTab === 'support' && <SupportView />}
@@ -98,6 +104,19 @@ function AppContent() {
           })}
         </div>
       </BottomSheet>
+
+      {/* Notifications Full Modal */}
+      <NotificationsModal 
+        isOpen={isNotifsOpen} 
+        onClose={() => setIsNotifsOpen(false)} 
+      />
+
+      {/* Payment Flow Modal */}
+      <PaymentFlowModal
+        isOpen={isPaymentOpen}
+        onClose={() => setIsPaymentOpen(false)}
+        amount={activeStudent.totalRemaining}
+      />
     </div>
   );
 }
