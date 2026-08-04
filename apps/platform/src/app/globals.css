@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@config "../../../../packages/ui/tailwind.config.ts";
+@import "@payskool/ui/global.css";
+@source "../../../../packages/ui/src";
 
 :root {
   --background: #ffffff;

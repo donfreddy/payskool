@@ -9,11 +9,17 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@payskool/api-client": "workspace:*",
+    "@payskool/db": "workspace:*",
+    "@payskool/shared": "workspace:*",
+    "@payskool/ui": "workspace:*",
     "next": "16.2.12",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@payskool/config-eslint": "workspace:*",
+    "@payskool/config-typescript": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
