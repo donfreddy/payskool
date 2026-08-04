@@ -249,6 +249,18 @@ importers:
 
   apps/school:
     dependencies:
+      '@payskool/api-client':
+        specifier: workspace:*
+        version: link:../../packages/api-client
+      '@payskool/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      '@payskool/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+      '@payskool/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       next:
         specifier: 16.2.12
         version: 16.2.12(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -259,6 +271,12 @@ importers:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
     devDependencies:
+      '@payskool/config-eslint':
+        specifier: workspace:*
+        version: link:../../packages/config-eslint
+      '@payskool/config-typescript':
+        specifier: workspace:*
+        version: link:../../packages/config-typescript
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.3
