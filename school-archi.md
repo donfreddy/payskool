@@ -224,3 +224,17 @@ Conséquence directe du choix URL : `school-switcher.tsx` n'a besoin d'aucun sto
 - **Provider d'authentification** non figé ici (Auth.js, Clerk, ou JWT custom géré par `apps/api`) — conditionne le contenu réel de `core/auth/session.server.ts`.
 - **Génération de `@payskool/api-client`** : écrit à la main vs généré depuis un schéma OpenAPI exposé par `apps/api`. Impacte directement la vitesse à laquelle ce package reste synchronisé avec le backend.
 - **Séparation `apps/api` / `apps/workers`** (BullMQ) toujours en dette depuis la discussion précédente — sans lien direct avec cette structure front, mais à garder en tête pour le SLA de `cashier` (paiement en ligne → webhook → notification).
+
+---
+
+## 6. Règles d'or additionnelles (Team Guidelines)
+
+### 6.1 La règle d'or des imports (Isolation des Features)
+Pour maintenir l'architecture propre sur le long terme, les dossiers dans `features/` ne doivent **jamais** s'importer entre eux. 
+- Par exemple, `features/cashier` ne doit pas importer un composant ou un type de `features/students`. 
+- Si deux features ont besoin de partager de la logique, un type, ou un composant, cette ressource doit être remontée dans `core/`, dans `components/shared/`, ou encapsulée dans le package `@payskool/shared`.
+
+### 6.2 Gestion des erreurs (Error Boundaries)
+Il est impératif d'ajouter un fichier `error.tsx` au niveau de `app/(dashboard)/[schoolId]/error.tsx`.
+- Cela permet d'attraper élégamment les erreurs (par exemple: `schoolId` inexistant, échec de validation de la session, permissions insuffisantes) sans faire crasher l'intégralité du dashboard.
+- L'utilisateur pourra ainsi voir un message d'erreur propre et un bouton "Retour aux écoles" plutôt qu'une page d'erreur fatale de Next.js.
