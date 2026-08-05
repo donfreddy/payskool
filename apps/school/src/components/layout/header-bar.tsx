@@ -6,7 +6,7 @@ import { Input } from "@payskool/ui/components/ui/input";
 
 export function HeaderBar() {
   return (
-    <header className="h-16 border-b border-slate-200 bg-white flex items-center justify-between px-6 shrink-0">
+    <header className="h-16 border-b border-slate-200 bg-white flex items-center justify-between px-4 sm:px-6 shrink-0">
       <div className="flex items-center gap-4 flex-1">
         <h1 className="text-lg font-semibold text-[#0F172A]">Vue d'ensemble</h1>
         

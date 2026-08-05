@@ -1,12 +1,16 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Shield } from "lucide-react";
+import { Shield, PanelLeft } from "lucide-react";
+import { cn } from "@payskool/ui/utils";
 import { getNavItems, Role } from "@/features/auth/rbac/nav-items";
 import { SchoolSwitcher } from "@/features/school-switcher/components/school-switcher";
 import { FAKE_SCHOOLS, FAKE_USER } from "@/core/mocks/fake-data";
 import { Avatar, AvatarFallback } from "@payskool/ui/components/ui/avatar";
+import { Button } from "@payskool/ui/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@payskool/ui/components/ui/tooltip";
 
 interface SidebarProps {
   schoolId: string;
@@ -14,63 +18,108 @@ interface SidebarProps {
 
 export function Sidebar({ schoolId }: SidebarProps) {
   const pathname = usePathname();
-  // Using FAKE_USER for now
-  const userRole = FAKE_USER.role as Role; 
-  
+  const [collapsed, setCollapsed] = React.useState(false);
+  const userRole = FAKE_USER.role as Role;
   const navItems = getNavItems(userRole, schoolId);
 
   return (
-    <aside className="w-64 border-r border-slate-200 bg-[#F8FAFC] flex flex-col h-full">
-      {/* Logo Area */}
-      <div className="p-6 pb-4">
-        <Link href={`/${schoolId}/dashboard`} className="flex items-center gap-2 mb-6">
-          <Shield className="w-6 h-6 text-[#059669]" />
-          <span className="text-xl font-bold tracking-tight text-[#0F172A]">
+    <TooltipProvider delayDuration={0}>
+      <aside
+        data-collapsed={collapsed}
+        className={cn(
+          "group relative flex h-screen flex-col border-r border-slate-200 bg-white transition-all duration-300 ease-in-out shrink-0",
+          collapsed ? "w-[56px]" : "w-[240px]"
+        )}
+      >
+        {/* Collapse toggle button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setCollapsed((v) => !v)}
+          className="absolute -right-3.5 top-5 z-20 h-7 w-7 rounded-full border border-slate-200 bg-white shadow-sm hover:bg-slate-50"
+          aria-label="Toggle sidebar"
+        >
+          <PanelLeft className={cn("h-4 w-4 text-slate-500 transition-transform duration-300", collapsed && "rotate-180")} />
+        </Button>
+
+        {/* Logo */}
+        <Link
+          href={`/${schoolId}/dashboard`}
+          className="flex items-center gap-2 px-3 py-4 overflow-hidden"
+        >
+          <Shield className="h-6 w-6 shrink-0 text-[#059669]" />
+          <span className={cn("text-xl font-bold tracking-tight text-[#0F172A] whitespace-nowrap transition-all duration-300", collapsed && "w-0 opacity-0 overflow-hidden")}>
             Pay<span className="text-[#059669]">skool</span>
           </span>
         </Link>
-        <SchoolSwitcher schools={FAKE_SCHOOLS} />
-      </div>
 
-      {/* Navigation Filtered by Role */}
-      <nav className="flex-1 px-4 space-y-1 mt-4 overflow-y-auto">
-        {navItems.map((item) => {
-          const isActive = pathname.startsWith(item.href);
-          return (
-            <Link 
-              key={item.href} 
-              href={item.href} 
-              className={`flex items-center px-3 py-2 rounded-md text-sm transition-colors ${
-                isActive 
-                  ? "bg-[#0F172A]/5 text-[#0F172A] font-medium" 
-                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-              }`}
-            >
-              <item.icon className={`mr-3 h-5 w-5 ${isActive ? "text-[#0F172A]" : "text-slate-400"}`} />
-              {item.title}
-            </Link>
-          );
-        })}
-      </nav>
+        {/* School Switcher */}
+        <div className={cn("px-2 transition-all duration-300", collapsed && "px-1")}>
+          <SchoolSwitcher schools={FAKE_SCHOOLS} collapsed={collapsed} />
+        </div>
 
-      {/* User Profile */}
-      <div className="p-4 border-t border-slate-200 mt-auto">
-        <div className="flex items-center gap-3">
-          <Avatar className="h-9 w-9">
-            <AvatarFallback className="bg-[#0F172A] text-white">
+        {/* Nav items */}
+        <nav className="mt-2 flex flex-col gap-1 flex-1 overflow-y-auto px-2">
+          {!collapsed && (
+            <p className="px-2 py-1 text-xs font-medium text-slate-400 uppercase tracking-wider">
+              Menu Principal
+            </p>
+          )}
+          {navItems.map((item) => {
+            const isActive = pathname.startsWith(item.href);
+
+            if (collapsed) {
+              return (
+                <Tooltip key={item.href}>
+                  <TooltipTrigger asChild>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "flex h-9 w-9 items-center justify-center rounded-md mx-auto transition-colors",
+                        isActive
+                          ? "bg-[#059669]/10 text-[#059669]"
+                          : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                      )}
+                    >
+                      <item.icon className="h-4 w-4" />
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">{item.title}</TooltipContent>
+                </Tooltip>
+              );
+            }
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium transition-colors",
+                  isActive
+                    ? "bg-[#059669]/10 text-[#059669]"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                )}
+              >
+                <item.icon className="h-4 w-4 shrink-0" />
+                <span>{item.title}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Footer - user profile */}
+        <div className={cn("mt-auto border-t border-slate-200 p-3 flex items-center gap-3 overflow-hidden", collapsed && "justify-center")}>
+          <Avatar className="h-8 w-8 rounded-lg shrink-0">
+            <AvatarFallback className="rounded-lg bg-[#0F172A] text-white text-sm">
               {FAKE_USER.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-slate-900 leading-none">
-              {FAKE_USER.name}
-            </span>
-            <span className="text-xs text-slate-500 mt-1 capitalize">
-              {FAKE_USER.role.toLowerCase()}
-            </span>
+          <div className={cn("grid text-left text-sm leading-tight transition-all duration-300", collapsed && "w-0 opacity-0 overflow-hidden")}>
+            <span className="truncate font-semibold text-slate-900">{FAKE_USER.name}</span>
+            <span className="truncate text-xs text-slate-500 capitalize">{FAKE_USER.role.toLowerCase()}</span>
           </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </TooltipProvider>
   );
 }
