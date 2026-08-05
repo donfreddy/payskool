@@ -1,11 +1,12 @@
 "use client";
 
-import { Search, Menu } from "lucide-react";
+import { Menu, CalendarDays } from "lucide-react";
 import { Button } from "@payskool/ui/components/ui/button";
-import { Input } from "@payskool/ui/components/ui/input";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { FullscreenToggle } from "./full-screen-toggle";
 import { UserDropdown } from "./user-dropdown";
+import { NotificationDropdown } from "./notification-dropdown";
+import { SearchCommand } from "./search-command";
 
 interface HeaderBarProps {
   onMenuClick?: () => void;
@@ -13,7 +14,7 @@ interface HeaderBarProps {
 
 export function HeaderBar({ onMenuClick }: HeaderBarProps) {
   return (
-    <header className="h-16 border-b border-border bg-card flex items-center justify-between px-4 sm:px-6 shrink-0">
+    <header className="h-14 border-b border-border bg-card flex items-center justify-between px-4 sm:px-6 shrink-0">
       <div className="flex items-center gap-4 flex-1">
         <Button
           variant="ghost"
@@ -25,23 +26,23 @@ export function HeaderBar({ onMenuClick }: HeaderBarProps) {
           <Menu className="h-5 w-5" />
         </Button>
 
-        <div className="relative hidden md:flex items-center max-w-md w-full ml-4">
-          <Search className="absolute left-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Rechercher un élève, un reçu... (Cmd+K)"
-            className="w-full pl-9 h-9 bg-muted border-border focus-visible:ring-payskool-emerald"
-          />
-        </div>
+        <SearchCommand />
       </div>
 
-      <div className="flex items-center gap-4">
-        <div className="text-sm text-muted-foreground hidden sm:block">
-          Filtre Année Scolaire: <span className="font-medium text-foreground">2026-2027</span>
-        </div>
-        
+      <div className="flex items-center gap-2">
+        {/* <SearchCommand /> */}
+
+        <button className="flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+          <CalendarDays className="size-4 text-muted-foreground" />
+          Année Scolaire : 2026-2027
+        </button>
+
+        <div className="h-6 w-0.5 bg-muted ml-1.5" />
+
+        <NotificationDropdown />
         <FullscreenToggle />
         <ThemeToggle />
+        <div className="h-6 w-0.5 bg-muted mr-1.5" />
         <UserDropdown />
       </div>
     </header>

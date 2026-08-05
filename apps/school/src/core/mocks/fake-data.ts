@@ -1,7 +1,8 @@
 export const FAKE_USER = {
   id: "u_1",
   name: "Marc K.",
-  email: "marc.kalson@company.com",
+  email: "marc.k@company.com",
+  avatar: "/images/avatars/male-01.svg",
   role: "PROMOTER",
 };
 
@@ -61,6 +62,52 @@ export const FAKE_RECENT_PAYMENTS = [
     date: "2026-08-04T09:10:00Z",
   },
 ];
+
+export const FAKE_NOTIFICATIONS = {
+  unreadCount: 3,
+  notifications: [
+    {
+      id: "notif_1",
+      content: "Nouveau paiement de 50.000 FCFA de Marc K. Junior",
+      date: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
+      isRead: false,
+      icon: "CreditCard" as const,
+      url: "/cs-sainte-marie/dashboard",
+    },
+    {
+      id: "notif_2",
+      content: "Rappel : 5 élèves en retard de paiement pour la 6ème A",
+      date: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
+      isRead: false,
+      icon: "AlertTriangle" as const,
+      url: "/cs-sainte-marie/dashboard",
+    },
+    {
+      id: "notif_3",
+      content: "Nouvel élève inscrit : Sarah Diop en 4ème C",
+      date: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
+      isRead: false,
+      icon: "UserPlus" as const,
+      url: "/cs-sainte-marie/dashboard",
+    },
+    {
+      id: "notif_4",
+      content: "Reçu #8919 généré par Caissier A",
+      date: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
+      isRead: true,
+      icon: "Receipt" as const,
+      url: "/cs-sainte-marie/dashboard",
+    },
+    {
+      id: "notif_5",
+      content: "Export des données mensuel prêt",
+      date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+      isRead: true,
+      icon: "Download" as const,
+      url: "/cs-sainte-marie/dashboard",
+    },
+  ],
+};
 
 export const FAKE_LIVE_FEED = [
   {

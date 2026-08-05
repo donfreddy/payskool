@@ -39,7 +39,7 @@ export function SchoolSwitcher({ schools, collapsed = false }: SchoolSwitcherPro
           <Tooltip>
             <TooltipTrigger asChild>
               <DropdownMenuTrigger asChild>
-                <button className="flex h-9 w-9 items-center justify-center rounded-md mx-auto text-slate-600 hover:bg-slate-100 transition-colors">
+                <button className="flex h-9 w-9 items-center justify-center rounded-md mx-auto text-muted-foreground hover:bg-accent transition-colors">
                   <Building2 className="h-4 w-4" />
                 </button>
               </DropdownMenuTrigger>
@@ -78,7 +78,7 @@ export function SchoolSwitcher({ schools, collapsed = false }: SchoolSwitcherPro
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="w-full justify-start gap-2 px-2 py-2 h-auto font-normal text-slate-700 hover:bg-slate-100"
+          className="w-full justify-start gap-2 px-2 py-2 h-auto font-normal text-foreground hover:bg-accent"
         >
           <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#059669] text-white">
             <Building2 className="h-3.5 w-3.5" />
@@ -86,7 +86,7 @@ export function SchoolSwitcher({ schools, collapsed = false }: SchoolSwitcherPro
           <span className={cn("flex-1 text-left text-sm truncate transition-all duration-300", collapsed && "w-0 opacity-0 overflow-hidden")}>
             {currentSchool?.name || "Sélectionner..."}
           </span>
-          <ChevronsUpDown className={cn("h-3.5 w-3.5 text-slate-400 shrink-0", collapsed && "hidden")} />
+          <ChevronsUpDown className={cn("h-3.5 w-3.5 text-muted-foreground shrink-0", collapsed && "hidden")} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start" side="right" sideOffset={4}>

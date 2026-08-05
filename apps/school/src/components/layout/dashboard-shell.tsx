@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Sidebar } from "./sidebar";
+import { PayskoolSidebar } from "./sidebar";
 import { HeaderBar } from "./header-bar";
 import { Footer } from "./footer";
 
@@ -24,7 +24,7 @@ export function DashboardShell({ schoolId, children }: DashboardShellProps) {
         />
       )}
 
-      <Sidebar
+      <PayskoolSidebar
         schoolId={schoolId}
         mobileOpen={sidebarOpen}
         onMobileClose={() => setSidebarOpen(false)}

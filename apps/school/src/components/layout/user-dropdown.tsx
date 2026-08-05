@@ -19,9 +19,9 @@ export function UserDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="default"
           size="icon"
-          className="rounded-lg"
+          className="rounded-full"
           aria-label="User"
         >
           <Avatar className="size-9">

@@ -18,7 +18,7 @@ interface SidebarProps {
   onMobileClose?: () => void;
 }
 
-export function Sidebar({ schoolId, mobileOpen = false, onMobileClose }: SidebarProps) {
+export function PayskoolSidebar({ schoolId, mobileOpen = false, onMobileClose }: SidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = React.useState(false);
   const userRole = FAKE_USER.role as Role;
@@ -130,7 +130,7 @@ export function Sidebar({ schoolId, mobileOpen = false, onMobileClose }: Sidebar
         </nav>
 
         {/* Footer - user profile */}
-        <div className={cn("mt-auto border-t border-border p-3 flex items-center gap-3 overflow-hidden", collapsed && "justify-center")}>
+        {/* <div className={cn("mt-auto border-t border-border p-3 flex items-center gap-3 overflow-hidden", collapsed && "justify-center")}>
           <Avatar className="h-8 w-8 rounded-lg shrink-0">
             <AvatarFallback className="rounded-lg bg-[#0F172A] text-white text-sm">
               {FAKE_USER.name.charAt(0)}
@@ -142,7 +142,7 @@ export function Sidebar({ schoolId, mobileOpen = false, onMobileClose }: Sidebar
               <span className="truncate text-xs text-muted-foreground capitalize">{FAKE_USER.role.toLowerCase()}</span>
             </div>
           )}
-        </div>
+        </div> */}
       </aside>
     </TooltipProvider>
   );
