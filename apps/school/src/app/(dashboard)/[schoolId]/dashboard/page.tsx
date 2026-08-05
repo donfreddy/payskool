@@ -1,8 +1,10 @@
-import { FAKE_METRICS, FAKE_RECENT_PAYMENTS, FAKE_LIVE_FEED } from "@/core/mocks/fake-data";
+import { FAKE_METRICS, FAKE_RECENT_PAYMENTS, FAKE_LIVE_FEED, FAKE_USER } from "@/core/mocks/fake-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@payskool/ui/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@payskool/ui/components/ui/table";
 import { Badge } from "@payskool/ui/components/ui/badge";
 import { Button } from "@payskool/ui/components/ui/button";
+import { Home, Download, Plus } from "lucide-react";
+import { PageHeader } from "@/components/layout/page-header";
 
 export default function DashboardPage() {
   const formatCurrency = (amount: number) => {
@@ -14,7 +16,25 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
+      <PageHeader
+        breadcrumbs={[
+          { label: "Vue d'ensemble", icon: Home }
+        ]}
+        greetingName={FAKE_USER.name.split(' ')[0]}
+        subtitle="Voici ce qui se passe dans votre établissement aujourd'hui."
+        actions={
+          <>
+            <Button variant="inverted" className="shadow-sm h-9">
+              <Download className="mr-2 h-4 w-4" /> Exporter
+            </Button>
+            <Button className="bg-[#059669] hover:bg-[#059669]/90 text-white shadow-sm h-9">
+              <Plus className="mr-2 h-4 w-4" /> Nouveau règlement
+            </Button>
+          </>
+        }
+      />
+
       {/* Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="border-slate-200 shadow-sm">
