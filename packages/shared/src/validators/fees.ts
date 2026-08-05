@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { FEE_TYPES, DISCOUNT_TYPES } from '../constants.js'
+import { FEE_TYPES, DISCOUNT_TYPES } from '../constants'
 
 // =============================================================================
 // Fee Engine Zod Validators

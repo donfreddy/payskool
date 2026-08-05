@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { PHONE_REGEX, PASSWORD_REGEX } from '../constants.js'
+import { PHONE_REGEX, PASSWORD_REGEX } from '../constants'
 
 // =============================================================================
 // Auth Zod Validators

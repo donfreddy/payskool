@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Sidebar } from "./sidebar";
 import { HeaderBar } from "./header-bar";
+import { Footer } from "./footer";
 
 interface DashboardShellProps {
   schoolId: string;
@@ -31,9 +32,10 @@ export function DashboardShell({ schoolId, children }: DashboardShellProps) {
 
       <div className="flex flex-col flex-1 overflow-hidden min-w-0">
         <HeaderBar onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 overflow-y-auto bg-slate-50 p-4 md:p-6">
+        <main className="flex-1 overflow-y-auto bg-muted/40 min-h-[calc(100svh-6.82rem)] p-4 md:p-6">
           {children}
         </main>
+        <Footer />
       </div>
     </div>
   );

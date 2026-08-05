@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { GENDERS, STUDENT_STATUSES } from '../constants.js'
+import { GENDERS, STUDENT_STATUSES } from '../constants'
 
 // =============================================================================
 // Student Zod Validators

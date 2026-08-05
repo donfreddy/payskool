@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { SCHOOL_TYPES, SUPPORTED_CURRENCIES, SUPPORTED_COUNTRIES, USER_ROLES } from '../constants.js'
+import { SCHOOL_TYPES, SUPPORTED_CURRENCIES, SUPPORTED_COUNTRIES, USER_ROLES } from '../constants'
 
 // =============================================================================
 // School Zod Validators

@@ -3,15 +3,14 @@
 // =============================================================================
 
 // ---- Constants ----
-export * from './constants.js'
-
-// ---- Validators ----
-export * from './validators/auth.js'
-export * from './validators/schools.js'
-export * from './validators/students.js'
-export * from './validators/fees.js'
-export * from './validators/transactions.js'
+export * from './constants'
+export * from './validators/auth'
+export * from './validators/schools'
+export * from './validators/students'
+export * from './validators/fees'
+export * from './validators/transactions'
 
 // ---- Utils ----
-export * from './utils/currency.js'
-export * from './utils/reference.js'
+export * from './utils/currency'
+export * from './utils/helpers'
+export * from './utils/reference'

@@ -1,6 +1,7 @@
 export const FAKE_USER = {
   id: "u_1",
   name: "Marc K.",
+  email: "marc.kalson@company.com",
   role: "PROMOTER",
 };
 

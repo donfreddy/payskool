@@ -3,6 +3,9 @@
 import { Search, Menu } from "lucide-react";
 import { Button } from "@payskool/ui/components/ui/button";
 import { Input } from "@payskool/ui/components/ui/input";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { FullscreenToggle } from "./full-screen-toggle";
+import { UserDropdown } from "./user-dropdown";
 
 interface HeaderBarProps {
   onMenuClick?: () => void;
@@ -10,40 +13,36 @@ interface HeaderBarProps {
 
 export function HeaderBar({ onMenuClick }: HeaderBarProps) {
   return (
-    <header className="h-16 border-b border-slate-200 bg-white flex items-center justify-between px-4 sm:px-6 shrink-0">
+    <header className="h-16 border-b border-border bg-card flex items-center justify-between px-4 sm:px-6 shrink-0">
       <div className="flex items-center gap-4 flex-1">
-        {/* Hamburger button — mobile only */}
         <Button
           variant="ghost"
           size="icon"
           onClick={onMenuClick}
-          className="lg:hidden h-9 w-9 text-slate-500"
+          className="lg:hidden h-9 w-9 text-muted-foreground"
           aria-label="Ouvrir le menu"
         >
           <Menu className="h-5 w-5" />
         </Button>
 
-        <h1 className="text-lg font-semibold text-[#0F172A]">Vue d'ensemble</h1>
-
-        {/* Search Bar */}
         <div className="relative hidden md:flex items-center max-w-md w-full ml-4">
-          <Search className="absolute left-2.5 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Rechercher un élève, un reçu... (Cmd+K)"
-            className="w-full pl-9 h-9 bg-slate-50 border-slate-200 focus-visible:ring-[#059669]"
+            className="w-full pl-9 h-9 bg-muted border-border focus-visible:ring-payskool-emerald"
           />
         </div>
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="text-sm text-slate-600 hidden sm:block">
-          Filtre Année Scolaire: <span className="font-medium text-slate-900">2026-2027</span>
+        <div className="text-sm text-muted-foreground hidden sm:block">
+          Filtre Année Scolaire: <span className="font-medium text-foreground">2026-2027</span>
         </div>
         
-        <Button className="bg-[#059669] hover:bg-[#059669]/90 text-white h-9 shadow-sm hidden sm:flex">
-          + Nouveau Règlement
-        </Button>
+        <FullscreenToggle />
+        <ThemeToggle />
+        <UserDropdown />
       </div>
     </header>
   );

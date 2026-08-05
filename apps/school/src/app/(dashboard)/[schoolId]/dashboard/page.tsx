@@ -21,11 +21,11 @@ export default function DashboardPage() {
         breadcrumbs={[
           { label: "Vue d'ensemble", icon: Home }
         ]}
-        greetingName={FAKE_USER.name.split(' ')[0]}
+        greetingName={FAKE_USER.name.split(" ")[0]!}
         subtitle="Voici ce qui se passe dans votre établissement aujourd'hui."
         actions={
           <>
-            <Button variant="inverted" className="shadow-sm h-9">
+            <Button variant="outline" className="shadow-sm h-9">
               <Download className="mr-2 h-4 w-4" /> Exporter
             </Button>
             <Button className="bg-[#059669] hover:bg-[#059669]/90 text-white shadow-sm h-9">

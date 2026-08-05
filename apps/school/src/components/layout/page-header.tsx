@@ -38,20 +38,20 @@ export function PageHeader({ breadcrumbs, title, subtitle, greetingName, actions
     <div className="flex flex-wrap items-end justify-between gap-4">
       <div>
         <Breadcrumb className="mb-2">
-          <BreadcrumbList className="text-xs font-medium text-slate-500">
+          <BreadcrumbList className="text-xs font-medium text-muted-foreground">
             {breadcrumbs.map((crumb, index) => {
               const isLast = index === breadcrumbs.length - 1;
               return (
                 <React.Fragment key={crumb.label}>
                   <BreadcrumbItem>
                     {isLast || !crumb.href ? (
-                      <BreadcrumbPage className="flex items-center gap-1.5 font-medium text-slate-600">
+                      <BreadcrumbPage className="flex items-center gap-1.5 font-medium text-muted-foreground">
                         {crumb.icon && <crumb.icon className="h-3.5 w-3.5" />}
                         {crumb.label}
                       </BreadcrumbPage>
                     ) : (
                       <BreadcrumbLink asChild>
-                        <Link href={crumb.href} className="flex items-center gap-1.5 hover:text-slate-900 transition-colors">
+                        <Link href={crumb.href} className="flex items-center gap-1.5 hover:text-foreground transition-colors">
                           {crumb.icon && <crumb.icon className="h-3.5 w-3.5" />}
                           {crumb.label}
                         </Link>
@@ -66,13 +66,13 @@ export function PageHeader({ breadcrumbs, title, subtitle, greetingName, actions
         </Breadcrumb>
         
         {displayTitle && (
-          <h1 suppressHydrationWarning className="font-display text-3xl font-bold tracking-tight lg:text-[34px] text-slate-900">
+          <h1 suppressHydrationWarning className="font-display text-3xl font-bold tracking-tight lg:text-[34px] text-foreground">
             {displayTitle}
           </h1>
         )}
         
         {subtitle && (
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-muted-foreground">
             {subtitle}
           </p>
         )}

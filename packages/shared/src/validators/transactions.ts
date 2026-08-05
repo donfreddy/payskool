@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { TRANSACTION_CHANNELS, PAYMENT_PROVIDERS } from '../constants.js'
+import { TRANSACTION_CHANNELS, PAYMENT_PROVIDERS } from '../constants'
 
 // =============================================================================
 // Transaction Zod Validators

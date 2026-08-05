@@ -1,4 +1,4 @@
-import { TRANSACTION_PREFIX, RECEIPT_PREFIX } from '../constants.js'
+import { TRANSACTION_PREFIX, RECEIPT_PREFIX } from '../constants'
 
 // =============================================================================
 // Reference Code Generators — PAYSKOOL
