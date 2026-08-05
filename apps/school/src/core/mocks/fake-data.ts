@@ -3,7 +3,7 @@ export const FAKE_USER = {
   name: "Marc K.",
   email: "marc.k@company.com",
   avatar: "/images/avatars/male-01.svg",
-  role: "PROMOTER",
+  role: "OWNER",
 };
 
 export const FAKE_SCHOOLS = [
