@@ -42,6 +42,15 @@
   --color-momo-mtn: #FFCC00;
   --color-momo-wave: #1DC9CE;
 
+  --color-success: hsl(160 84% 30%);
+  --color-success-soft: hsl(160 84% 30% / 0.1);
+  --color-brand-orange: hsl(24 95% 45%);
+  --color-brand-orange-soft: hsl(24 95% 45% / 0.1);
+  --color-brand-cyan: hsl(180 75% 45%);
+  --color-brand-cyan-soft: hsl(180 75% 45% / 0.1);
+  --color-warning: hsl(38 92% 40%);
+  --color-warning-soft: hsl(38 92% 40% / 0.1);
+
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);

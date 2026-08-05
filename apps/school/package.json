@@ -13,11 +13,14 @@
     "@payskool/db": "workspace:*",
     "@payskool/shared": "workspace:*",
     "@payskool/ui": "workspace:*",
+    "@radix-ui/react-progress": "^1.1.16",
+    "@radix-ui/react-select": "^2.3.7",
     "lucide-react": "^0.460.0",
     "next": "16.2.12",
     "next-themes": "^0.4.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@payskool/config-eslint": "workspace:*",

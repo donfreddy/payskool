@@ -25,19 +25,17 @@ export function HeaderBar({ onMenuClick }: HeaderBarProps) {
         >
           <Menu className="h-5 w-5" />
         </Button>
-
-        <SearchCommand />
       </div>
 
       <div className="flex items-center gap-2">
-        {/* <SearchCommand /> */}
+        <SearchCommand />
 
         <button className="flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
           <CalendarDays className="size-4 text-muted-foreground" />
           Année Scolaire : 2026-2027
         </button>
 
-        <div className="h-6 w-0.5 bg-muted ml-1.5" />
+        <div className="h-6 w-0.5 bg-muted m-1.5" />
 
         <NotificationDropdown />
         <FullscreenToggle />
