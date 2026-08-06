@@ -3,25 +3,25 @@ import { Home, Download, Plus } from "lucide-react";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@payskool/ui/components/ui/button";
 import { MetricsGrid } from "@/components/smart/metrics";
-import { PaymentsTable } from "@/components/smart/payments-table";
+import { PaymentsTable } from "@/components/smart/payment-table";
 import { ChartsRow } from "@/components/smart/charts";
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-5">
       <PageHeader
         breadcrumbs={[
           { label: "Vue d'ensemble", icon: Home }
         ]}
-        greetingName={FAKE_USER.name.split(" ")[0]!}
+        greetingName={`M. ${FAKE_USER.name.split(" ")[0]!}`}
         subtitle="Voici ce qui se passe dans votre établissement aujourd'hui."
         actions={
           <>
-            <Button variant="outline" className="shadow-sm h-9">
-              <Download className="mr-2 h-4 w-4" /> Exporter
+            <Button variant="outline">
+              <Download /> Exporter
             </Button>
-            <Button className="bg-payskool-emerald hover:bg-payskool-emerald/90 text-white shadow-sm h-9">
-              <Plus className="mr-2 h-4 w-4" /> Nouveau règlement
+            <Button variant="emerald">
+              <Plus /> Nouveau règlement
             </Button>
           </>
         }

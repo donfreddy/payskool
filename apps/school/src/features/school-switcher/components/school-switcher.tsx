@@ -78,7 +78,7 @@ export function SchoolSwitcher({ schools, collapsed = false }: SchoolSwitcherPro
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="w-full justify-start gap-2 px-2 py-2 h-auto font-normal text-foreground hover:bg-accent"
+          className="w-full justify-start gap-2 px-2.5 py-2.5 h-auto font-normal text-foreground hover:bg-accent"
         >
           <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#059669] text-white">
             <Building2 className="h-3.5 w-3.5" />

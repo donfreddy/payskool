@@ -68,10 +68,10 @@ function NavLink({
         <button
           onClick={() => setOpen((v) => !v)}
           className={cn(
-            "w-full flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium transition-colors",
+            "w-full flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium transition-colors du",
             expanded
               ? "text-payskool-emerald"
-              : "text-muted-foreground hover:bg-accent hover:text-foreground"
+              : "text-current/80 hover:bg-accent hover:text-foreground"
           )}
         >
           <item.icon className="h-4 w-4 shrink-0" />
@@ -97,10 +97,10 @@ function NavLink({
       href={item.href!}
       {...(onMobileClose ? { onClick: onMobileClose as React.MouseEventHandler<HTMLAnchorElement> } : {})}
       className={cn(
-        "flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium transition-colors",
+        "flex items-center gap-2 rounded-md px-2 py-2 text-sm font-medium transition-colors duration-300",
         isActive
           ? "bg-payskool-emerald/10 text-payskool-emerald"
-          : "text-muted-foreground hover:bg-accent hover:text-foreground",
+          : "text-current/80 hover:bg-accent hover:text-foreground",
         children && "pl-4"
       )}
     >
@@ -122,7 +122,7 @@ export function Sidebar({ schoolId, mobileOpen = false, onMobileClose }: Sidebar
         className={cn(
           "relative flex h-screen flex-col border-r border-border bg-card shrink-0 z-30",
           "transition-all duration-300 ease-in-out",
-          collapsed ? "w-14" : "w-60",
+          collapsed ? "w-14" : "w-64",
           "fixed inset-y-0 left-0 lg:static",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
@@ -147,20 +147,20 @@ export function Sidebar({ schoolId, mobileOpen = false, onMobileClose }: Sidebar
           <X className="h-4 w-4 text-muted-foreground" />
         </Button>
 
-        <Link
+        {/* <Link
           href={`/${schoolId}/dashboard`}
           className="flex items-center gap-2 px-3 py-4 overflow-hidden"
           {...(onMobileClose ? { onClick: onMobileClose as React.MouseEventHandler<HTMLAnchorElement> } : {})}
         >
-          <Shield className="h-6 w-6 shrink-0 text-[#059669]" />
+          <Shield className="h-6 w-6 shrink-0 text-payskool-emerald" />
           {!collapsed && (
             <span className="text-xl font-bold tracking-tight text-foreground whitespace-nowrap">
-              Pay<span className="text-[#059669]">skool</span>
+              Pay<span className="text-payskool-emerald">skool</span>
             </span>
           )}
-        </Link>
+        </Link> */}
 
-        <div className="px-2">
+        <div className="px-3 pt-4 pb-2">
           <SchoolSwitcher schools={FAKE_SCHOOLS} collapsed={collapsed} />
         </div>
 
@@ -168,23 +168,25 @@ export function Sidebar({ schoolId, mobileOpen = false, onMobileClose }: Sidebar
           {sections.map((section) => (
             <div key={section.heading} className="mb-4">
               {!collapsed && (
-                <p className="px-2 py-1 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                <p className="px-2 py-1 text-xs font-medium text-muted-foreground">
                   {section.heading}
                 </p>
               )}
-              {section.items.map((item) => (
-                <NavLink
-                  key={item.title}
-                  item={item}
-                  collapsed={collapsed}
-                  {...(onMobileClose ? { onMobileClose } : {})}
-                />
-              ))}
+              <div className="space-y-0.5">
+                {section.items.map((item) => (
+                  <NavLink
+                    key={item.title}
+                    item={item}
+                    collapsed={collapsed}
+                    {...(onMobileClose ? { onMobileClose } : {})}
+                  />
+                ))}
+              </div>
             </div>
           ))}
         </nav>
 
-        <div className={cn("mt-auto border-t border-border p-3 flex items-center gap-3 overflow-hidden", collapsed && "justify-center")}>
+        {/* <div className={cn("mt-auto border-t border-border p-3 flex items-center gap-3 overflow-hidden", collapsed && "justify-center")}>
           <Avatar className="h-8 w-8 rounded-lg shrink-0">
             <AvatarFallback className="rounded-lg bg-[#0F172A] text-white text-sm">
               {FAKE_USER.name.charAt(0)}
@@ -196,7 +198,7 @@ export function Sidebar({ schoolId, mobileOpen = false, onMobileClose }: Sidebar
               <span className="truncate text-xs text-muted-foreground capitalize">{FAKE_USER.role.toLowerCase()}</span>
             </div>
           )}
-        </div>
+        </div> */}
       </aside>
     </TooltipProvider>
   );

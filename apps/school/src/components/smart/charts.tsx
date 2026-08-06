@@ -17,6 +17,13 @@ import {
 import { TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@payskool/ui/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@payskool/ui/components/ui/select";
 
 function ChartFrame({ height, children }: { height: number; children: React.ReactElement }) {
   const [mounted, setMounted] = useState(false);
@@ -271,13 +278,16 @@ export function ChartsRow() {
         title="Modes de règlement"
         subtitle="Sur les encaissements"
         right={
-          <Tabs value={mixPeriod} onValueChange={setMixPeriod}>
-            <TabsList>
-              <TabsTrigger value="week">Sem.</TabsTrigger>
-              <TabsTrigger value="month">Mois</TabsTrigger>
-              <TabsTrigger value="year">Année</TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <Select value={mixPeriod} onValueChange={setMixPeriod}>
+            <SelectTrigger className="h-7 w-[110px] text-xs">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="week">Cette semaine</SelectItem>
+              <SelectItem value="month">Ce mois</SelectItem>
+              <SelectItem value="year">Cette année</SelectItem>
+            </SelectContent>
+          </Select>
         }
       >
         <div className="grid grid-cols-[1fr_1.15fr] items-center gap-4">

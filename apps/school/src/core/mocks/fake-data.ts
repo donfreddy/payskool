@@ -1,7 +1,7 @@
 export const FAKE_USER = {
   id: "u_1",
-  name: "Marc K.",
-  email: "marc.k@company.com",
+  name: "Erick Kouam",
+  email: "erickkouam@example.com",
   avatar: "/images/avatars/male-01.svg",
   role: "OWNER",
 };
