@@ -4,6 +4,7 @@ import { Menu, ShieldCheck, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import { Link } from "@/i18n/navigation";
+import { Button } from "@payskool/ui/components/ui/button";
 
 const navLinkHrefs = [
   { href: "/about" },
@@ -28,11 +29,10 @@ export function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled
           ? "bg-white/75 backdrop-blur-xl border-b border-fil shadow-[0_1px_3px_0_rgb(0_0_0/0.04)]"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2 group">
@@ -55,18 +55,14 @@ export function Nav() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <a
-            href="#"
-            className="rounded-lg border border-fil px-4 py-2 text-[13px] font-medium text-encre transition-colors hover:bg-encre/[0.03]"
-          >
+          <Button size="default" variant="outline">
             {t("login")}
-          </a>
-          <a
-            href="#cta"
-            className="glow-btn rounded-lg bg-emeraude px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-emeraude/90"
-          >
+          </Button>
+          <Button
+            onClick={() => { }}
+            size="default" variant="emerald">
             {t("cta")}
-          </a>
+          </Button>
         </div>
 
         <button

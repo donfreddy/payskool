@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@payskool/ui/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -17,16 +18,6 @@ export function Hero() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Text — centered */}
         <div className="flex flex-col items-center text-center gap-6">
-          <div className="animate-fade-up-1">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emeraude/20 bg-emeraude/[0.06] px-3 py-1 text-xs font-medium text-emeraude">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emeraude opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emeraude" />
-              </span>
-              {t("badge")}
-            </span>
-          </div>
-
           <h1 className="display-heading animate-fade-up-2 text-4xl text-encre sm:text-5xl lg:text-[3.5rem]">
             {t("headline")}
             <br />
@@ -38,20 +29,14 @@ export function Hero() {
           </p>
 
           <div className="animate-fade-up-4 flex flex-wrap justify-center gap-3">
-            <a
-              href="#cta"
-              className="glow-btn inline-flex items-center gap-2 rounded-xl bg-emeraude px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-emeraude/90"
-            >
+            <Button size="lg" variant="emerald" className="py-6">
               {t("primaryCta")}
               <ArrowRight className="h-4 w-4" />
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 rounded-xl border border-fil bg-white px-6 py-3.5 text-sm font-medium text-encre transition-colors hover:bg-encre/[0.03]"
-            >
-              <Play className="h-4 w-4 text-emeraude" />
-              {t("secondaryCta")}
-            </a>
+            </Button>
+             <Button size="lg" variant="outline" className="py-6">
+               <Play className="h-4 w-4 text-emeraude" />
+                {t("secondaryCta")}
+            </Button>
           </div>
 
           {/* Social proof */}

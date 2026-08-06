@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@payskool/ui";
 import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -68,29 +69,25 @@ export function Pricing() {
         <div className="mt-10 flex items-center justify-center gap-4">
           <button
             onClick={() => setAnnual(false)}
-            className={`text-sm font-medium transition-colors ${
-              !annual ? "text-encre" : "text-ardoise"
-            }`}
+            className={`text-sm font-medium transition-colors ${!annual ? "text-encre" : "text-ardoise"
+              }`}
           >
             {t("monthly")}
           </button>
           <button
             onClick={() => setAnnual(!annual)}
-            className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors ${
-              annual ? "bg-emeraude" : "bg-fil"
-            }`}
+            className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors ${annual ? "bg-emeraude" : "bg-fil"
+              }`}
           >
             <span
-              className={`inline-block h-5 w-5 rounded-full bg-white shadow transition-transform ${
-                annual ? "translate-x-6" : "translate-x-1"
-              }`}
+              className={`inline-block h-5 w-5 rounded-full bg-white shadow transition-transform ${annual ? "translate-x-6" : "translate-x-1"
+                }`}
             />
           </button>
           <button
             onClick={() => setAnnual(true)}
-            className={`text-sm font-medium transition-colors ${
-              annual ? "text-encre" : "text-ardoise"
-            }`}
+            className={`text-sm font-medium transition-colors ${annual ? "text-encre" : "text-ardoise"
+              }`}
           >
             {t("annual")}
             <span className="ml-1.5 rounded-full bg-emeraude/10 px-2 py-0.5 text-[10px] font-semibold text-emeraude">
@@ -104,11 +101,10 @@ export function Pricing() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative flex flex-col rounded-2xl border bg-white p-8 transition-all ${
-                plan.highlighted
+              className={`relative flex flex-col rounded-2xl border bg-white p-8 transition-all ${plan.highlighted
                   ? "border-emeraude shadow-xl shadow-emeraude/6 lg:scale-105"
                   : "border-fil hover:shadow-lg hover:shadow-encre/3"
-              }`}
+                }`}
             >
               {plan.badge && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-emeraude px-4 py-1 text-[11px] font-semibold text-white shadow-lg shadow-emeraude/20">
@@ -164,17 +160,12 @@ export function Pricing() {
                   </li>
                 ))}
               </ul>
-
-              <a
-                href="#cta"
-                className={`block rounded-xl px-6 py-3 text-center text-sm font-semibold transition-colors ${
-                  plan.highlighted
-                    ? "glow-btn bg-emeraude text-white hover:bg-emeraude/90"
-                    : "border border-fil text-encre hover:bg-encre/3"
-                }`}
-              >
+              <Button
+                onClick={() => { }}
+                size="default" variant={plan.highlighted ? "emerald" : "outline"}
+                className="py-5">
                 {plan.cta}
-              </a>
+              </Button>
             </div>
           ))}
         </div>

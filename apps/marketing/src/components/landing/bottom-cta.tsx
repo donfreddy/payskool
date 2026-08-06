@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@payskool/ui/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -24,7 +25,7 @@ export function BottomCta() {
           {/* Receipt perforation ornament */}
           <div className="absolute top-0 left-8 right-8">
             <div
-              className="h-[6px] w-full"
+              className="h-1.5 w-full"
               style={{
                 backgroundImage:
                   "radial-gradient(circle at center, oklch(0.72 0.13 258 / 0.15) 1px, transparent 1px)",
@@ -62,7 +63,7 @@ export function BottomCta() {
                     onChange={(e) => setName(e.target.value)}
                     placeholder={t("placeholderName")}
                     required
-                    className="h-12 w-full rounded-xl bg-white/[0.08] px-4 text-sm text-white placeholder:text-white/30 outline-none ring-1 ring-inset ring-white/10 transition-all focus:bg-white/[0.12] focus:ring-emeraude/40 sm:w-52"
+                    className="h-12 w-full rounded-xl bg-white/8 px-4 text-sm text-white placeholder:text-white/30 outline-none ring-1 ring-inset ring-white/10 transition-all focus:bg-white/12 focus:ring-emeraude/40 sm:w-52"
                   />
                   <input
                     type="tel"
@@ -70,16 +71,16 @@ export function BottomCta() {
                     onChange={(e) => setWhatsapp(e.target.value)}
                     placeholder={t("placeholderWhatsapp")}
                     required
-                    className="h-12 w-full rounded-xl bg-white/[0.08] px-4 text-sm text-white placeholder:text-white/30 outline-none ring-1 ring-inset ring-white/10 transition-all focus:bg-white/[0.12] focus:ring-emeraude/40 sm:w-52"
+                    className="h-12 w-full rounded-xl bg-white/8 px-4 text-sm text-white placeholder:text-white/30 outline-none ring-1 ring-inset ring-white/10 transition-all focus:bg-white/12 focus:ring-emeraude/40 sm:w-52"
                   />
                 </div>
-                <button
-                  type="submit"
-                  className="mx-auto flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-emeraude px-8 text-sm font-semibold text-white transition-colors hover:bg-emeraude/90 sm:w-auto sm:min-w-52"
-                >
-                  {t("cta")}
+
+                <Button
+                  onClick={() => { }}
+                  size="default" variant="emerald" className="mx-auto flex h-12 sm:w-auto sm:min-w-52 px-6 ">
+                 {t("cta")}
                   <ArrowRight className="h-4 w-4" />
-                </button>
+                </Button>
               </form>
             )}
 
