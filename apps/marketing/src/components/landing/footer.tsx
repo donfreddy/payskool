@@ -1,9 +1,11 @@
 "use client";
 
-import { Globe, Mail, MessageCircle, ShieldCheck } from "lucide-react";
-import { usePathname, useRouter, Link } from "@/i18n/navigation";
+import { Globe } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import { useTransition, ChangeEvent } from "react";
+import { useTransition, type ChangeEvent } from "react";
+
+
+import { usePathname, useRouter, Link } from "@/i18n/navigation";
 
 export function Footer() {
   const t = useTranslations("footer");
@@ -38,99 +40,56 @@ export function Footer() {
   ];
 
   return (
-    <footer className="border-t border-fil bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-5">
+    <footer className="border-t border-fil/60 bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div className="grid gap-10 sm:grid-cols-[1fr_auto_auto_auto]">
           {/* Brand */}
-          <div className="lg:col-span-2">
-            <a href="#" className="flex items-center gap-2 group">
-              <ShieldCheck className="h-6 w-6 text-emeraude transition-transform group-hover:scale-110" />
-              <span className="text-xl font-extrabold tracking-tight text-encre">
-                PAYS<span className="text-emeraude">KOOL</span>
-              </span>
-            </a>
-            <p className="mt-5 text-sm leading-relaxed text-ardoise max-w-xs">
+          <div>
+            <span className="text-xl font-extrabold tracking-tight text-encre">
+              PAYS<span className="text-emeraude">KOOL</span>
+            </span>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-ardoise">
               {t("description")}
             </p>
-            <p className="mt-4 text-xs text-ardoise/60">
-              {t("madeWith")}
-            </p>
           </div>
 
-          {/* Produit */}
-          <div>
-            <h4 className="text-sm font-semibold text-encre">{t("columnProduct")}</h4>
-            <ul className="mt-4 space-y-3">
-              {productLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-ardoise transition-colors hover:text-encre"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Entreprise */}
-          <div>
-            <h4 className="text-sm font-semibold text-encre">{t("columnCompany")}</h4>
-            <ul className="mt-4 space-y-3">
-              {companyLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-ardoise transition-colors hover:text-encre"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Légal */}
-          <div>
-            <h4 className="text-sm font-semibold text-encre">{t("columnLegal")}</h4>
-            <ul className="mt-4 space-y-3">
-              {legalLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-ardoise transition-colors hover:text-encre"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {[
+            { title: t("columnProduct"), links: productLinks },
+            { title: t("columnCompany"), links: companyLinks },
+            { title: t("columnLegal"), links: legalLinks },
+          ].map((col) => (
+            <div key={col.title}>
+              <h4 className="text-xs font-semibold text-ardoise">{col.title}</h4>
+              <ul className="mt-3 space-y-2">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-encre/70 transition-colors hover:text-encre"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 border-t border-fil pt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-ardoise">
+        <div className="mt-14 flex flex-col gap-3 border-t border-fil/60 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-ardoise/60">
             &copy; {new Date().getFullYear()} {t("copyright")}
           </p>
 
-          <div className="flex items-center gap-5">
-            <a
-              href="#"
-              className="inline-flex items-center gap-1.5 text-xs text-ardoise hover:text-encre transition-colors"
-            >
-              <MessageCircle className="h-3.5 w-3.5" />
+          <div className="flex items-center gap-5 text-xs text-ardoise">
+            <a href="#" className="hover:text-encre transition-colors">
               {t("whatsapp")}
             </a>
-            <a
-              href="#"
-              className="inline-flex items-center gap-1.5 text-xs text-ardoise hover:text-encre transition-colors"
-            >
-              <Mail className="h-3.5 w-3.5" />
+            <a href="#" className="hover:text-encre transition-colors">
               {t("email")}
             </a>
-            <div className="relative inline-flex items-center gap-1.5 text-xs text-ardoise transition-colors hover:text-encre">
+            <div className="relative inline-flex items-center gap-1.5 transition-colors hover:text-encre">
               <Globe className="h-3.5 w-3.5 pointer-events-none" />
               <select
                 value={locale}
@@ -138,8 +97,8 @@ export function Footer() {
                 disabled={isPending}
                 className="appearance-none bg-transparent py-1 pl-1 pr-4 font-medium outline-none cursor-pointer"
               >
-                <option value="fr">Français (FR)</option>
-                <option value="en">English (EN)</option>
+                <option value="fr">Français</option>
+                <option value="en">English</option>
               </select>
               <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2">
                 <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
