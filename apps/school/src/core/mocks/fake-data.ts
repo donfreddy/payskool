@@ -494,13 +494,15 @@ export const FAKE_STUDENTS: FakeStudent[] = [
 
 export type CashMethod = "CASH" | "CHEQUE";
 
+export type TxMethod = CashMethod | "ORANGE_MONEY" | "MTN_MOMO" | "WAVE";
+
 export interface FakeTx {
   id: string;
   studentId: string;
   studentName: string;
   classLevel: string;
   amount: number;
-  method: CashMethod | "ORANGE_MONEY" | "MTN_MOMO" | "WAVE";
+  method: TxMethod;
   receipt: string;
   date: string; // ISO
 }
@@ -565,4 +567,234 @@ export const FAKE_TODAY_TRANSACTIONS: FakeTx[] = [
     receipt: "#8956",
     date: "2026-11-20T11:18:00Z",
   },
+];
+
+// ---------------------------------------------------------------------------
+// Reçus (historique du registre) — générés de façon déterministe à partir des
+// plans de paiement afin que la liste des reçus, le journal des encaissements
+// et les soldes des élèves restent parfaitement cohérents.
+// ---------------------------------------------------------------------------
+
+export interface FakeReceiptAllocation {
+  installmentId: string;
+  label: string;
+  amount: number;
+}
+
+export interface FakeReceipt {
+  id: string;
+  number: string; // "#8952"
+  studentId: string;
+  studentName: string;
+  classLevel: string;
+  matricule: string;
+  amount: number;
+  method: TxMethod;
+  chequeNumber?: string;
+  chequeBank?: string;
+  allocations: FakeReceiptAllocation[];
+  cashier: string;
+  createdAt: string; // ISO
+}
+
+const CASHIER_NAMES = ["A. Kamga (Caissier)", "Erick Kouam"] as const;
+const TX_METHOD_CYCLE: TxMethod[] = ["ORANGE_MONEY", "MTN_MOMO", "WAVE", "CASH", "CHEQUE"];
+
+/** Ventilation FIFO locale (reprise au montant payé) pour étiqueter l'allocation. */
+function fifoAlloc(plan: FakeFeePlan, amount: number): FakeReceiptAllocation[] {
+  const out: FakeReceiptAllocation[] = [];
+  let rest = amount;
+  for (const i of plan.installments) {
+    if (rest <= 0) break;
+    const rem = Math.max(i.amount - i.paid, 0);
+    if (rem <= 0) continue;
+    const allocated = Math.min(rem, rest);
+    out.push({ installmentId: i.id, label: i.label, amount: allocated });
+    rest -= allocated;
+  }
+  return out;
+}
+
+function buildReceiptsSeed(): FakeReceipt[] {
+  const now = MOCK_NOW;
+  const out: FakeReceipt[] = [];
+  let seq = 8888;
+
+  FAKE_STUDENTS.forEach((s, si) => {
+    s.feePlan.installments.forEach((inst, ii) => {
+      if (inst.paid <= 0) return;
+      const due = new Date(`${inst.dueDate}T00:00:00Z`);
+      const paidAt = new Date(due.getTime() + (ii * 2 + 1) * 24 * 3600 * 1000);
+      const method = TX_METHOD_CYCLE[(si + ii) % TX_METHOD_CYCLE.length]!;
+      out.push({
+        id: `rec_seed_${si}_${ii}`,
+        number: `#${seq++}`,
+        studentId: s.id,
+        studentName: `${s.firstName} ${s.lastName}`,
+        classLevel: s.classLevel,
+        matricule: s.matricule,
+        amount: inst.paid,
+        method,
+        ...(method === "CHEQUE"
+          ? { chequeNumber: `AFC${2431 + si * 7 + ii}`, chequeBank: si % 2 ? "SCB Cameroun" : "Afriland First Bank" }
+          : {}),
+        allocations: [{ installmentId: inst.id, label: inst.label, amount: inst.paid }],
+        cashier: CASHIER_NAMES[(si + ii) % 2]!,
+        createdAt: (paidAt > now ? now : paidAt).toISOString(),
+      });
+    });
+  });
+
+  // La séquence de caisse du matin (journal en direct) est aussi archivée en reçus.
+  FAKE_TODAY_TRANSACTIONS.forEach((t, ti) => {
+    const student = FAKE_STUDENTS.find((s) => s.id === t.studentId);
+    const allocations = student ? fifoAlloc(student.feePlan, t.amount) : [];
+    out.push({
+      id: `rec_day_${ti}`,
+      number: t.receipt,
+      studentId: t.studentId,
+      studentName: t.studentName,
+      classLevel: t.classLevel,
+      matricule: student?.matricule ?? "—",
+      amount: t.amount,
+      method: t.method,
+      allocations,
+      cashier: "A. Kamga (Caissier)",
+      createdAt: t.date,
+    });
+  });
+
+  // Journal : plus récent en premier.
+  return out.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export const FAKE_RECEIPTS: FakeReceipt[] = buildReceiptsSeed();
+
+// ---------------------------------------------------------------------------
+// Grilles tarifaires — le contrat de scolarité de chaque classe : montants des
+// tranches et leurs échéances. Données canoniques dont les échéanciers élèves
+// de FAKE_STUDENTS sont des instances.
+// ---------------------------------------------------------------------------
+
+export interface FakeFeeStructureInstallment {
+  label: string;
+  amount: number;
+  dueDate: string; // "yyyy-mm-dd"
+}
+
+export interface FakeFeeStructure {
+  id: string;
+  classLevel: string;
+  total: number;
+  installments: FakeFeeStructureInstallment[];
+}
+
+export const FAKE_FEE_STRUCTURES: FakeFeeStructure[] = [
+  {
+    id: "fs_cm2",
+    classLevel: "CM2",
+    total: 230000,
+    installments: [
+      { label: "Tranche 1 — Inscription", amount: 70000, dueDate: "2026-09-22" },
+      { label: "Tranche 2 — 1er Trimestre", amount: 80000, dueDate: "2026-11-22" },
+      { label: "Tranche 3 — 2ème Trimestre", amount: 80000, dueDate: "2027-02-22" },
+    ],
+  },
+  {
+    id: "fs_6a",
+    classLevel: "6ème A",
+    total: 350000,
+    installments: [
+      { label: "Tranche 1 — Inscription", amount: 100000, dueDate: "2026-09-15" },
+      { label: "Tranche 2 — 1er Trimestre", amount: 125000, dueDate: "2026-11-15" },
+      { label: "Tranche 3 — 2ème Trimestre", amount: 125000, dueDate: "2027-02-15" },
+    ],
+  },
+  {
+    id: "fs_6b",
+    classLevel: "6ème B",
+    total: 350000,
+    installments: [
+      { label: "Tranche 1 — Inscription", amount: 100000, dueDate: "2026-09-15" },
+      { label: "Tranche 2 — 1er Trimestre", amount: 125000, dueDate: "2026-11-15" },
+      { label: "Tranche 3 — 2ème Trimestre", amount: 125000, dueDate: "2027-02-15" },
+    ],
+  },
+  {
+    id: "fs_5a",
+    classLevel: "5ème A",
+    total: 310000,
+    installments: [
+      { label: "Tranche 1 — Inscription", amount: 90000, dueDate: "2026-09-20" },
+      { label: "Tranche 2 — 1er Trimestre", amount: 110000, dueDate: "2026-11-20" },
+      { label: "Tranche 3 — 2ème Trimestre", amount: 110000, dueDate: "2027-02-20" },
+    ],
+  },
+  {
+    id: "fs_4c",
+    classLevel: "4ème C",
+    total: 295000,
+    installments: [
+      { label: "Tranche 1 — Inscription", amount: 85000, dueDate: "2026-09-18" },
+      { label: "Tranche 2 — 1er Trimestre", amount: 105000, dueDate: "2026-11-18" },
+      { label: "Tranche 3 — 2ème Trimestre", amount: 105000, dueDate: "2027-02-18" },
+    ],
+  },
+  {
+    id: "fs_3b",
+    classLevel: "3ème B",
+    total: 325000,
+    installments: [
+      { label: "Tranche 1 — Inscription", amount: 95000, dueDate: "2026-09-20" },
+      { label: "Tranche 2 — 1er Trimestre", amount: 115000, dueDate: "2026-11-20" },
+      { label: "Tranche 3 — 2ème Trimestre", amount: 115000, dueDate: "2027-02-20" },
+    ],
+  },
+  {
+    id: "fs_2a",
+    classLevel: "2nde A",
+    total: 400000,
+    installments: [
+      { label: "Tranche 1 — Inscription", amount: 120000, dueDate: "2026-09-25" },
+      { label: "Tranche 2 — 1er Trimestre", amount: 140000, dueDate: "2026-11-25" },
+      { label: "Tranche 3 — 2ème Trimestre", amount: 140000, dueDate: "2027-02-25" },
+    ],
+  },
+  {
+    id: "fs_tle",
+    classLevel: "Terminale C",
+    total: 425000,
+    installments: [
+      { label: "Tranche 1 — Inscription", amount: 125000, dueDate: "2026-09-10" },
+      { label: "Tranche 2 — 1er Trimestre", amount: 150000, dueDate: "2026-11-10" },
+      { label: "Tranche 3 — 2ème Trimestre", amount: 150000, dueDate: "2027-02-10" },
+    ],
+  },
+];
+
+/** Statut d'une période d'échéance par rapport à la date de référence de la démo. */
+export function installmentPeriod(dueDate: string, now: Date = MOCK_NOW): "open" | "past" | "upcoming" {
+  const due = new Date(`${dueDate}T00:00:00`);
+  const monthEnd = new Date(now);
+  if (due < now) return "past";
+  if (due.getTime() - now.getTime() <= 45 * 24 * 3600 * 1000) return "open";
+  return "upcoming";
+}
+
+/** Types de bourses / réductions proposés dans la grille. */
+export interface FakeDiscountType {
+  id: string;
+  label: string;
+  kind: "percent" | "fixed";
+  defaultPercent?: number;
+  defaultAmount?: number;
+  tone: "emerald" | "azure" | "violet" | "amber" | "slate";
+}
+
+export const FAKE_DISCOUNT_TYPES: FakeDiscountType[] = [
+  { id: "bourse-merite", label: "Bourse mérite", kind: "percent", defaultPercent: 25, tone: "emerald" },
+  { id: "bourse-region", label: "Bourse du conseil régional", kind: "percent", defaultPercent: 15, tone: "azure" },
+  { id: "bourse-partenariat", label: "Bourse partenariat", kind: "fixed", defaultAmount: 100000, tone: "violet" },
+  { id: "fratrie", label: "Remise fratrie", kind: "percent", defaultPercent: 10, tone: "amber" },
+  { id: "remise-cash", label: "Remise paiement d'avance", kind: "fixed", defaultAmount: 25000, tone: "slate" },
 ];

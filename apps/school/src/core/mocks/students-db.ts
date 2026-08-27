@@ -1,7 +1,12 @@
 import {
   FAKE_CAISSE_TODAY,
+  FAKE_FEE_STRUCTURES,
+  FAKE_RECEIPTS,
   FAKE_STUDENTS,
   FAKE_TODAY_TRANSACTIONS,
+  type FakeFeePlan,
+  type FakeFeeStructure,
+  type FakeReceipt,
   type FakeStudent,
   type FakeTx,
 } from "@/core/mocks/fake-data";
@@ -15,6 +20,8 @@ import {
 let seeded = false;
 const students: FakeStudent[] = [];
 let txns: FakeTx[] = [];
+let receipts: FakeReceipt[] = [];
+let feeStructures: FakeFeeStructure[] = [];
 let caisse = { ...FAKE_CAISSE_TODAY };
 
 export interface DailyCaisse {
@@ -29,6 +36,8 @@ function seed() {
   if (seeded) return;
   students.push(...FAKE_STUDENTS.map((s) => structuredClone(s)));
   txns = FAKE_TODAY_TRANSACTIONS.map((t) => structuredClone(t));
+  receipts = FAKE_RECEIPTS.map((r) => structuredClone(r));
+  feeStructures = FAKE_FEE_STRUCTURES.map((s) => structuredClone(s));
   seeded = true;
 }
 
@@ -57,14 +66,78 @@ export function getTransactionsSync(): FakeTx[] {
   return txns;
 }
 
+export function fetchReceipts(): Promise<FakeReceipt[]> {
+  seed();
+  return new Promise((resolve) => setTimeout(() => resolve(receipts.slice()), 300));
+}
+
+export function getReceiptsSync(): FakeReceipt[] {
+  seed();
+  return receipts;
+}
+
+export function fetchTransactionsHistory(): Promise<FakeTx[]> {
+  seed();
+  const journal = receipts.map((r) => ({
+    id: r.id,
+    studentId: r.studentId,
+    studentName: r.studentName,
+    classLevel: r.classLevel,
+    amount: r.amount,
+    method: r.method,
+    receipt: r.number,
+    date: r.createdAt,
+  }));
+  return new Promise((resolve) => setTimeout(() => resolve(journal), 320));
+}
+
 export function addStudent(student: FakeStudent): void {
   seed();
   students.unshift(student);
 }
 
+export function patchStudent(studentId: string, patch: Partial<Omit<FakeStudent, "feePlan">> & { feePlan?: Partial<FakeFeePlan> }): void {
+  seed();
+  const index = students.findIndex((s) => s.id === studentId);
+  if (index >= 0) {
+    const current = students[index]!;
+    students[index] = {
+      ...current,
+      ...patch,
+      feePlan: patch.feePlan ? { ...current.feePlan, ...patch.feePlan } : current.feePlan,
+    };
+  }
+}
+
+export function fetchFeeStructures(): Promise<FakeFeeStructure[]> {
+  seed();
+  return new Promise((resolve) => setTimeout(() => resolve(feeStructures.slice()), 260));
+}
+
+export function patchFeeStructure(
+  structureId: string,
+  installments: FakeFeeStructure["installments"],
+): void {
+  seed();
+  const index = feeStructures.findIndex((s) => s.id === structureId);
+  if (index >= 0) {
+    const structure = feeStructures[index]!;
+    feeStructures[index] = {
+      ...structure,
+      total: installments.reduce((sum, i) => sum + i.amount, 0),
+      installments: installments.map((i) => ({ ...i })),
+    };
+  }
+}
+
 export function prependTransaction(txn: FakeTx): void {
   seed();
   txns = [txn, ...txns];
+}
+
+export function addReceipt(receipt: FakeReceipt): void {
+  seed();
+  receipts = [receipt, ...receipts];
 }
 
 export function registerCaisse(collected: number, method: "CASH" | "CHEQUE"): void {

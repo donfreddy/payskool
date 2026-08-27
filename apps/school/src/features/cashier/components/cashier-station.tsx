@@ -9,6 +9,7 @@ import {
   getDailyCaisse,
   getTodayTransactions,
   listStudents,
+  persistReceipt,
   persistTransaction,
 } from "@/features/cashier/api/cashier.mock";
 import { CaisseDuJour } from "@/features/cashier/components/caisse-du-jour";
@@ -105,6 +106,7 @@ export function CashierStation({ schoolId }: { schoolId: string }) {
       date: createdAt,
     };
     persistTransaction(txn);
+    persistReceipt(rec);
     registerCaisse(amount, method);
 
     const byMethod =

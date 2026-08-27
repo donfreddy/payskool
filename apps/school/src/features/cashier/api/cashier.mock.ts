@@ -1,11 +1,13 @@
 import type { FakeStudent, FakeTx } from "@/core/mocks/fake-data";
 import type { DailyCaisse } from "@/core/mocks/students-db";
 import {
+  addReceipt,
   fetchDailyCaisse,
   fetchStudents,
   fetchTodayTransactions,
   prependTransaction,
 } from "@/core/mocks/students-db";
+import type { ReceiptRecord } from "@/features/cashier/types";
 
 /**
  * Couche d'accès simulée du domaine Caisse.
@@ -27,4 +29,8 @@ export function getTodayTransactions(_schoolId: string): Promise<FakeTx[]> {
 
 export function persistTransaction(tx: FakeTx): void {
   prependTransaction(tx);
+}
+
+export function persistReceipt(rec: ReceiptRecord): void {
+  addReceipt(rec);
 }
