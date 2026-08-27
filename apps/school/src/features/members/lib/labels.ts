@@ -6,7 +6,6 @@ export const ROLE_LABELS: Record<MemberRole, string> = {
   SCHOOL_ADMIN: "Administration",
   CASHIER: "Caissier",
   ACCOUNTANT: "Comptable",
-  TEACHER: "Enseignant",
 };
 
 export const ROLE_TONES: Record<MemberRole, string> = {
@@ -14,7 +13,6 @@ export const ROLE_TONES: Record<MemberRole, string> = {
   SCHOOL_ADMIN: "bg-violet-100 text-violet-700",
   CASHIER: "bg-payskool-orange/10 text-payskool-orange",
   ACCOUNTANT: "bg-amber-100 text-amber-700",
-  TEACHER: "bg-cyan-100 text-cyan-700",
 };
 
 export const STATUS_LABELS: Record<MemberStatus, string> = {

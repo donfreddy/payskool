@@ -17,7 +17,7 @@ import type { MemberRole } from "@/core/mocks/fake-data";
 import type { InviteMemberDraft } from "@/features/members/api/members.mock";
 import { ROLE_LABELS } from "@/features/members/lib/labels";
 
-const ROLE_OPTIONS: MemberRole[] = ["SCHOOL_ADMIN", "CASHIER", "ACCOUNTANT", "TEACHER"];
+const ROLE_OPTIONS: MemberRole[] = ["SCHOOL_ADMIN", "CASHIER", "ACCOUNTANT"];
 
 export function InviteMemberDialog({
   onClose,

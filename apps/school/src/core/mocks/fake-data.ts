@@ -939,7 +939,7 @@ export const FAKE_NOTIFICATION_HISTORY: FakeNotification[] = buildNotificationHi
 // (A. Kamga est l'un des caissiers listés sur les reçus).
 // ---------------------------------------------------------------------------
 
-export type MemberRole = "OWNER" | "SCHOOL_ADMIN" | "CASHIER" | "ACCOUNTANT" | "TEACHER";
+export type MemberRole = "OWNER" | "SCHOOL_ADMIN" | "CASHIER" | "ACCOUNTANT";
 export type MemberStatus = "ACTIVE" | "INVITED" | "SUSPENDED";
 
 export interface FakeMember {
@@ -998,16 +998,6 @@ export const FAKE_MEMBERS: FakeMember[] = [
   },
   {
     id: "mem_05",
-    name: "Blaise Tchaptchet",
-    email: "b.tchaptchet@cs-sainte-marie.cm",
-    phone: "+237 673 04 19 88",
-    role: "TEACHER",
-    status: "ACTIVE",
-    joinedAt: "2026-09-05",
-    lastActiveAt: "2026-11-18T11:05:00Z",
-  },
-  {
-    id: "mem_06",
     name: "Claire Ewang",
     email: "c.ewang@cs-sainte-marie.cm",
     phone: "+237 690 71 36 52",

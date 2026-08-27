@@ -31,7 +31,7 @@ export function DashboardShell({ schoolId, children }: DashboardShellProps) {
       />
 
       <div className="flex flex-col flex-1 overflow-hidden min-w-0">
-        <HeaderBar onMenuClick={() => setSidebarOpen(true)} />
+        <HeaderBar onMenuClick={() => setSidebarOpen(true)} schoolId={schoolId} />
         <main className="flex-1 overflow-y-auto bg-muted/40 min-h-[calc(100svh-6.82rem)] p-4 md:p-6">
           {children}
         </main>
