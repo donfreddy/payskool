@@ -798,3 +798,138 @@ export const FAKE_DISCOUNT_TYPES: FakeDiscountType[] = [
   { id: "fratrie", label: "Remise fratrie", kind: "percent", defaultPercent: 10, tone: "amber" },
   { id: "remise-cash", label: "Remise paiement d'avance", kind: "fixed", defaultAmount: 25000, tone: "slate" },
 ];
+
+// ---------------------------------------------------------------------------
+// Relances & notifications — règles configurables + historique d'envoi généré
+// de façon déterministe à partir des élèves pour rester cohérent avec le
+// recouvrement (impayés) et la campagne de relance.
+// ---------------------------------------------------------------------------
+
+export type RelanceChannel = "WHATSAPP" | "SMS" | "VOICE";
+export type NotificationStatus = "SENT" | "DELIVERED" | "READ" | "FAILED";
+
+export interface FakeRelanceRule {
+  id: string;
+  name: string;
+  /** Canal d'envoi de la règle. */
+  channel: RelanceChannel;
+  /** Nombre de jours après l'échéance impayée. */
+  delayDays: number;
+  enabled: boolean;
+  description: string;
+  /** Modèle de message : {parent} {élève} {montant} {échéance}. */
+  template: string;
+}
+
+export interface FakeNotification {
+  id: string;
+  studentId: string;
+  studentName: string;
+  classLevel: string;
+  matricule: string;
+  parentName: string;
+  parentPhone: string;
+  ruleId: string;
+  ruleName: string;
+  channel: RelanceChannel;
+  status: NotificationStatus;
+  content: string;
+  createdAt: string; // ISO
+}
+
+const RULE_TEMPLATE = `Bonjour {parent}, une échéance de {montant} reste en attente pour {élève} (échéance du {échéance}). Règlement possible sur app.payskool.africa. Merci.`;
+
+export const FAKE_RELANCE_RULES: FakeRelanceRule[] = [
+  {
+    id: "rule_01",
+    name: "Rappel WhatsApp à J+1",
+    channel: "WHATSAPP",
+    delayDays: 1,
+    enabled: true,
+    description: "Premier rappel courtois aux parents, le lendemain d'une échéance impayée.",
+    template: RULE_TEMPLATE,
+  },
+  {
+    id: "rule_02",
+    name: "SMS du secrétariat à J+7",
+    channel: "SMS",
+    delayDays: 7,
+    enabled: true,
+    description: "Relance écrite par le secrétariat une semaine après l'échéance.",
+    template: RULE_TEMPLATE,
+  },
+  {
+    id: "rule_03",
+    name: "Appel après 30 jours",
+    channel: "VOICE",
+    delayDays: 30,
+    enabled: false,
+    description: "Appel direct du secrétariat pour un rendez-vous de règlement sous 72 h.",
+    template: RULE_TEMPLATE,
+  },
+];
+
+function shortDate(iso: string): string {
+  const d = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+}
+
+function render(template: string, values: Record<string, string>): string {
+  let out = template;
+  for (const [key, value] of Object.entries(values)) {
+    out = out.split(`{${key}}`).join(value);
+  }
+  return out;
+}
+
+const CHANNEL_CYCLE: RelanceChannel[] = ["WHATSAPP", "WHATSAPP", "SMS", "WHATSAPP", "VOICE", "SMS"];
+const STATUS_CYCLE: NotificationStatus[] = ["READ", "DELIVERED", "DELIVERED", "READ", "SENT", "READ", "FAILED"];
+
+function buildNotificationHistorySeed(): FakeNotification[] {
+  const now = MOCK_NOW;
+  const out: FakeNotification[] = [];
+  const rules = [...FAKE_RELANCE_RULES];
+  let seq = 0;
+
+  FAKE_STUDENTS.slice(0, 14).forEach((s, si) => {
+    // Un envoi par règle et par élève, échelonnés avant "aujourd'hui".
+    const overdue = s.feePlan.installments.find((i) => i.paid < i.amount) ?? s.feePlan.installments[0]!;
+    const dueDate = overdue.dueDate;
+    const remaining = Math.max(
+      s.feePlan.installments.reduce((sum, i) => sum + (i.amount - i.paid), 0),
+      0,
+    );
+    const fmtRemaining = remaining.toLocaleString("fr-FR");
+
+    rules.forEach((rule, ri) => {
+      const createdAt = new Date(now.getTime() - (si * 37 + ri * 9 + 2) * 3600 * 1000);
+      if (createdAt > now) return;
+      const content = render(rule.template, {
+        parent: s.parentName,
+        élève: `${s.firstName} ${s.lastName}`,
+        montant: `${fmtRemaining} FCFA`,
+        échéance: shortDate(dueDate),
+      });
+      out.push({
+        id: `notif_seed_${seq++}`,
+        studentId: s.id,
+        studentName: `${s.firstName} ${s.lastName}`,
+        classLevel: s.classLevel,
+        matricule: s.matricule,
+        parentName: s.parentName,
+        parentPhone: s.parentPhone,
+        ruleId: rule.id,
+        ruleName: rule.name,
+        channel: CHANNEL_CYCLE[(si + ri) % CHANNEL_CYCLE.length]!,
+        status: STATUS_CYCLE[(si + ri) % STATUS_CYCLE.length]!,
+        content,
+        createdAt: createdAt.toISOString(),
+      });
+    });
+  });
+
+  return out.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export const FAKE_NOTIFICATION_HISTORY: FakeNotification[] = buildNotificationHistorySeed();

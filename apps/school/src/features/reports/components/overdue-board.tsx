@@ -17,6 +17,7 @@ import { PaymentBadge } from "@/components/shared/payment-badge";
 import { StudentAvatar } from "@/components/shared/student-avatar";
 import type { FakeStudent } from "@/core/mocks/fake-data";
 import { listStudentsForFees } from "@/features/fees/api/fees.mock";
+import { sendRelance } from "@/features/notifications/api/notifications.mock";
 import {
   overdueBuckets,
   overdueStudents,
@@ -89,8 +90,11 @@ export function OverdueBoard({ schoolId }: { schoolId: string }) {
   const totalArrears = overdue.reduce((sum, o) => sum + o.arrears, 0);
   const totalTranchesLate = sumUnpaidTranches(overdue);
 
-  const relance = (id: string) =>
-    setSent((prev) => new Set(prev).add(id));
+  const relance = (o: OverdueStudent) => {
+    sendRelance(schoolId, o.student).then((notif) => {
+      if (notif) setSent((prev) => new Set(prev).add(o.student.id));
+    });
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -242,7 +246,7 @@ export function OverdueBoard({ schoolId }: { schoolId: string }) {
                         size="sm"
                         className={cn("h-8 gap-1.5 text-xs", isSent && "cursor-default")}
                         disabled={isSent}
-                        onClick={() => relance(s.id)}
+                        onClick={() => relance(o)}
                       >
                         <Send className="size-3.5" />
                         {isSent ? "Relance envoyée" : "Relancer"}
