@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@payskool/ui/components/ui/card";
-import { ArrowRight, CircleDollarSign, CreditCard, School, Settings, UserCog } from "lucide-react";
+import { ArrowRight, CircleDollarSign, CreditCard, LifeBuoy, School, Settings, UserCog } from "lucide-react";
 import Link from "next/link";
 
 import { PageHeader } from "@/components/layout/page-header";
@@ -42,6 +42,13 @@ const CARDS = [
     title: "Facturation Payskool",
     description: "Abonnement de l’école à la plateforme : plan, cycle, moyen de paiement et factures.",
     roles: "Propriétaire",
+  },
+  {
+    href: "support",
+    icon: LifeBuoy,
+    title: "Aide & Support",
+    description: "FAQ, canal prioritaire selon votre plan, contact WhatsApp/email et suivi de vos tickets.",
+    roles: "Propriétaire · Administration · Caissier",
   },
 ];
 

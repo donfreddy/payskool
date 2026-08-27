@@ -20,6 +20,7 @@ import {
   School,
   CreditCard,
   CircleDollarSign,
+  LifeBuoy,
   type LucideIcon,
 } from "lucide-react";
 
@@ -201,6 +202,12 @@ const buildNavSections = (schoolId: string): NavSection[] => [
         href: `/${schoolId}/settings/billing`,
         icon: CircleDollarSign,
         allowedRoles: ["OWNER"],
+      },
+      {
+        title: "Aide & Support",
+        href: `/${schoolId}/settings/support`,
+        icon: LifeBuoy,
+        allowedRoles: ["OWNER", "SCHOOL_ADMIN", "CASHIER"],
       },
     ],
   },
