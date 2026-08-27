@@ -1,6 +1,15 @@
 import { cn } from "@payskool/ui/utils";
 
-import type { InvoiceStatus, SubscriptionStatus } from "@/core/mocks/platform-billing-db";
+import type { BillingCycle, InvoiceStatus, SubscriptionStatus } from "@/core/mocks/platform-billing-db";
+import { formatCFA } from "@/lib/format";
+
+
+/** Prix facturé selon le plan et le cycle : « Sur devis », « Gratuit » ou montant FCFA. */
+export function formatPlanPrice(price: number | null, cycle: BillingCycle): string {
+  if (price === null) return "Sur devis";
+  if (price === 0) return "Gratuit";
+  return `${formatCFA(price)} ${cycle === "MONTHLY" ? "/mois" : "/an"}`;
+}
 
 const STATUS_TONES: Record<SubscriptionStatus, string> = {
   ACTIVE: "bg-payskool-emerald/10 text-payskool-emerald",

@@ -1,8 +1,9 @@
 /** Facturation de la plateforme Payskool : abonnement de l'établissement.
- * Un plan actif, facturé mensuellement ou annuellement, avec un moyen de
- * paiement (carte, prélèvement bancaire ou mobile money).
+ * Plans alignés sur le site vitrine (apps/marketing → « Tarifs ») :
+ * Starter (Gratuit), Pro (25 000 FCFA/mois · 290 000 FCFA/an), Groupe (sur devis).
+ * Remise annuelle affichée : -20 %.
  */
-export type BillingPlanId = "ESSENTIEL" | "PRO" | "PREMIUM";
+export type BillingPlanId = "STARTER" | "PRO" | "GROUPE";
 
 export type BillingCycle = "MONTHLY" | "ANNUAL";
 
@@ -15,10 +16,18 @@ export type PaymentMethodKind = "DIRECT_DEBIT" | "CARD" | "MOBILE_MONEY";
 export interface BillingPlan {
   id: BillingPlanId;
   name: string;
-  pricePerMonth: number; // FCFA, hors remise annuelle
-  tagline: string;
-  seats: number | null; // null = illimité
+  description: string;
+  /** FCFA par mois ; null = sur devis. */
+  priceMonthly: number | null;
+  /** FCFA par an ; null = sur devis. */
+  priceAnnual: number | null;
+  highlighted?: boolean;
+  badge?: string;
+  /** null = élèves illimités. */
+  seats: number | null;
   features: string[];
+  excluded?: string[];
+  cta: string;
 }
 
 export interface FakePaymentMethod {
@@ -34,7 +43,8 @@ export interface FakeSubscription {
   startedAt: string; // ISO
   renewsAt: string;  // ISO
   seats: number | null;
-  price: number;     // prochaine échéance (FCFA)
+  /** Prochaine échéance (FCFA) ; null = sur devis ; 0 = gratuit (essai). */
+  price: number | null;
   paymentMethod: FakePaymentMethod;
 }
 
@@ -51,45 +61,68 @@ export interface FakeBillingInvoice {
 
 export const PAYSKOOL_PLANS: BillingPlan[] = [
   {
-    id: "ESSENTIEL",
-    name: "Essentiel",
-    pricePerMonth: 7500,
-    tagline: "Pour les petites écoles qui démarrent.",
-    seats: 12,
+    id: "STARTER",
+    name: "Starter",
+    description: "Pour les petites écoles",
+    priceMonthly: 0,
+    priceAnnual: 0,
+    seats: 100,
     features: [
-      "Jusqu’à 12 élèves actifs",
-      "Un guichet de caisse",
-      "Reçus & encaissements",
-      "Relances SMS (basique)",
+      "Jusqu’à 100 élèves",
+      "Paiements cash et suivi de base",
+      "Reçus simples",
+      "Import Excel (1 école)",
+      "Support par email",
     ],
+    excluded: [
+      "Paiement Mobile Money",
+      "Multi-établissements",
+      "Reçus avec QR code",
+      "Relances WhatsApp",
+      "Rapports avancés",
+    ],
+    cta: "Commencer",
   },
   {
     id: "PRO",
     name: "Pro",
-    pricePerMonth: 14750,
-    tagline: "L’offre la plus choisie par les établissements.",
-    seats: 40,
+    description: "Le plus populaire",
+    priceMonthly: 25_000,
+    priceAnnual: 290_000,
+    highlighted: true,
+    badge: "Le plus populaire",
+    seats: null,
     features: [
-      "Élèves illimités du bâtiment (40 places incluses)",
-      "Guichets multi-caisses",
-      "Grilles tarifaires & échéances",
-      "Relances automatisées (SMS, WhatsApp, appel)",
-      "Intégration paiement en ligne",
+      "Élèves illimités",
+      "Paiement Mobile Money (Wave, Orange, MTN)",
+      "Multi-établissements",
+      "Reçus avec QR code infalsifiable",
+      "Relances WhatsApp automatiques",
+      "Import Excel intelligent",
+      "Suivi de trésorerie",
+      "Support prioritaire WhatsApp",
+      "Formation incluse",
     ],
+    cta: "Essai gratuit 30 jours",
   },
   {
-    id: "PREMIUM",
-    name: "Premium",
-    pricePerMonth: 29400,
-    tagline: "Pilotage fin et support dédié.",
+    id: "GROUPE",
+    name: "Groupe",
+    description: "Réseaux d’établissements",
+    priceMonthly: null,
+    priceAnnual: null,
     seats: null,
     features: [
       "Tout le plan Pro",
-      "Élèves illimités",
-      "Analyses avancées & export comptable",
-      "API & connecteurs (banque, comptables)",
-      "Support dédié & onboarding",
+      "3+ établissements",
+      "Remise dégressive",
+      "Migration gratuite",
+      "Accès prioritaire",
+      "Interlocuteur dédié",
+      "Disponibilité garantie",
+      "Formation sur site",
     ],
+    cta: "Parler à un expert",
   },
 ];
 
@@ -99,38 +132,35 @@ export const PAYMENT_METHOD_OPTIONS: FakePaymentMethod[] = [
   { kind: "MOBILE_MONEY", label: "Mobile money", detail: "MTN MoMo +237 671 12 34 01" },
 ];
 
-const PLAN_ANNUAL_DISCOUNT = 0.15;
-
-/** Prix facturé selon le plan et le cycle (remise annuelle -15 %). */
-export function planPrice(planId: BillingPlanId, cycle: BillingCycle): number {
+/** Prix du plan selon le cycle ; null pour les plans « sur devis ». */
+export function planPrice(planId: BillingPlanId, cycle: BillingCycle): number | null {
   const plan = PAYSKOOL_PLANS.find((p) => p.id === planId)!;
-  if (cycle === "MONTHLY") return plan.pricePerMonth;
-  return Math.round(plan.pricePerMonth * 12 * (1 - PLAN_ANNUAL_DISCOUNT));
+  return cycle === "MONTHLY" ? plan.priceMonthly : plan.priceAnnual;
 }
 
 const bce = (schoolId: string): FakeSubscription => {
   const now = new Date().toISOString();
   if (schoolId === "lycee-saint-paul") {
     return {
-      planId: "PREMIUM",
+      planId: "GROUPE",
       cycle: "ANNUAL",
       status: "ACTIVE",
       startedAt: "2026-07-01T09:00:00Z",
       renewsAt: "2027-07-01T09:00:00Z",
       seats: null,
-      price: planPrice("PREMIUM", "ANNUAL"),
+      price: 480_000, // devis personnalisé
       paymentMethod: { kind: "CARD", label: "Carte bancaire", detail: "Visa •••• 4242 · exp. 09/28" },
     };
   }
   if (schoolId === "maternelle-bisounours") {
     return {
-      planId: "ESSENTIEL",
+      planId: "PRO",
       cycle: "MONTHLY",
       status: "TRIAL",
       startedAt: now,
       renewsAt: "2026-12-20T09:00:00Z",
-      seats: 12,
-      price: 0, // période d'essai
+      seats: null,
+      price: 0, // essai gratuit 30 jours
       paymentMethod: { kind: "DIRECT_DEBIT", label: "Prélèvement automatique", detail: "BICEC •••• 0142" },
     };
   }
@@ -141,7 +171,7 @@ const bce = (schoolId: string): FakeSubscription => {
     status: "ACTIVE",
     startedAt: "2026-06-02T09:00:00Z",
     renewsAt: "2026-12-05T09:00:00Z",
-    seats: 40,
+    seats: null,
     price: planPrice("PRO", "MONTHLY"),
     paymentMethod: { kind: "DIRECT_DEBIT", label: "Prélèvement automatique", detail: "BICEC •••• 0142" },
   };
@@ -153,36 +183,23 @@ const inv = (schoolId: string): FakeBillingInvoice[] => {
       {
         id: "inv_lp_annual",
         reference: "FAC-2026-07-0007",
-        period: "Abonnement annuel 2026-2027",
+        period: "Abonnement réseau annuel 2026-2027",
         issuedAt: "2026-07-01T09:00:00Z",
-        amount: planPrice("PREMIUM", "ANNUAL"),
+        amount: 480_000,
         status: "PAID",
         paidAt: "2026-07-01T09:12:00Z",
         paymentLabel: "Visa •••• 4242",
       },
     ];
   }
-  if (schoolId === "maternelle-bisounours") {
-    return [
-      {
-        id: "inv_mb_trial",
-        reference: "FAC-2026-11-0121",
-        period: "Période d’essai — accessibilité gratuite",
-        issuedAt: "2026-11-01T09:00:00Z",
-        amount: 0,
-        status: "OPEN",
-        paymentLabel: "Prélèvement à venir",
-      },
-    ];
-  }
-  // cs-sainte-marie
+  // cs-sainte-marie (cf. maternelle-bisounours : en cours d’essai, aucune facture)
   const rows: Array<[string, string, number, InvoiceStatus, string]> = [
-    ["FAC-2026-11-0118", "Novembre 2026", 14750, "OPEN", ""],
-    ["FAC-2026-10-0104", "Octobre 2026", 14750, "PAID", "2026-10-01T08:00:00Z"],
-    ["FAC-2026-09-0091", "Septembre 2026", 14750, "PAID", "2026-09-01T08:00:00Z"],
-    ["FAC-2026-08-0078", "Août 2026", 14750, "PAID", "2026-08-01T08:00:00Z"],
-    ["FAC-2026-07-0062", "Juillet 2026", 14750, "PAID", "2026-07-01T08:00:00Z"],
-    ["FAC-2026-06-0049", "Juin 2026", 14750, "PAID", "2026-06-01T08:00:00Z"],
+    ["FAC-2026-11-0118", "Novembre 2026", 25_000, "OPEN", ""],
+    ["FAC-2026-10-0104", "Octobre 2026", 25_000, "PAID", "2026-10-01T08:00:00Z"],
+    ["FAC-2026-09-0091", "Septembre 2026", 25_000, "PAID", "2026-09-01T08:00:00Z"],
+    ["FAC-2026-08-0078", "Août 2026", 25_000, "PAID", "2026-08-01T08:00:00Z"],
+    ["FAC-2026-07-0062", "Juillet 2026", 25_000, "PAID", "2026-07-01T08:00:00Z"],
+    ["FAC-2026-06-0049", "Juin 2026", 25_000, "PAID", "2026-06-01T08:00:00Z"],
   ];
   return rows.map(([reference, period, amount, status, paidAt], i) => ({
     id: `inv_cs_${i}`,

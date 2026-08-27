@@ -12,11 +12,17 @@ import {
   type BillingPlanId,
   type FakeSubscription,
 } from "@/core/mocks/platform-billing-db";
-import { formatCFA } from "@/lib/format";
+
+import { formatPlanPrice } from "./billing-badges";
 
 const CYCLE_LABELS: Record<BillingCycle, string> = {
   MONTHLY: "Mensuel",
-  ANNUAL: "Annuel (−15 %)",
+  ANNUAL: "Annuel (−20 %)",
+};
+
+const CYCLE_SHORT: Record<BillingCycle, string> = {
+  MONTHLY: "mensuel",
+  ANNUAL: "annuel",
 };
 
 interface ChangePlanDialogProps {
@@ -52,10 +58,20 @@ export function ChangePlanDialog({ current, preselect, onConfirm, onDone, onClos
           </span>
           <h3 className="mt-3 font-display text-lg font-bold text-foreground">Abonnement mis à jour</h3>
           <p className="mx-auto mt-1 max-w-sm text-xs text-muted-foreground">
-            Votre établissement est passé au plan{" "}
-            <span className="font-semibold text-foreground">{saved.planId}</span> ({CYCLE_LABELS[saved.cycle].split(" ")[0]}) à{" "}
-            <span className="font-mono font-semibold text-foreground">{formatCFA(saved.price)}</span> /
-            {saved.cycle === "MONTHLY" ? "mois" : "an"}. Le prorata du mois en cours sera ajusté sur la prochaine facture.
+            {saved.price === null ? (
+              <>
+                Votre établissement est passé au plan{" "}
+                <span className="font-semibold text-foreground">{target.name}</span> ({CYCLE_SHORT[saved.cycle]}). Un devis
+                personnalisé vous sera transmis par notre équipe.
+              </>
+            ) : (
+              <>
+                Votre établissement est passé au plan{" "}
+                <span className="font-semibold text-foreground">{target.name}</span> ({CYCLE_SHORT[saved.cycle]}) à{" "}
+                <span className="font-mono font-semibold text-foreground">{formatPlanPrice(saved.price, saved.cycle)}</span>.
+                Le prorata du mois en cours sera ajusté sur la prochaine facture.
+              </>
+            )}
           </p>
           <Button variant="emerald" size="lg" className="mt-5" onClick={onClose}>
             <Check className="size-4" /> Terminer
@@ -95,19 +111,26 @@ export function ChangePlanDialog({ current, preselect, onConfirm, onDone, onClos
                 <span className="min-w-0">
                   <span className="block text-sm font-semibold text-foreground">
                     {p.name}
+                    {p.highlighted && (
+                      <span className="ml-2 rounded bg-payskool-orange/10 px-1.5 py-0.5 text-[10px] font-semibold text-payskool-orange">
+                        {p.badge}
+                      </span>
+                    )}
                     {p.id === current.planId && (
                       <span className="ml-2 rounded bg-payskool-emerald/10 px-1.5 py-0.5 text-[10px] font-semibold text-payskool-emerald">
                         Actuel
                       </span>
                     )}
                   </span>
-                  <span className="block text-[11px] text-muted-foreground">{p.tagline}</span>
+                  <span className="block text-[11px] text-muted-foreground">{p.description}</span>
                 </span>
                 <span className="shrink-0 text-right">
                   <span className="block font-mono text-sm font-bold text-foreground">
-                    {formatCFA(planPrice(p.id, cycle))}
+                    {p.priceMonthly === null ? "Sur devis" : p.priceMonthly === 0 ? "Gratuit" : formatPlanPrice(planPrice(p.id, cycle)!, cycle)}
                   </span>
-                  <span className="block text-[10px] text-muted-foreground">{CYCLE_LABELS[cycle].split(" (")[0]}</span>
+                  <span className="block text-[10px] text-muted-foreground">
+                    {p.priceMonthly === null ? "devis personnalisé" : p.priceMonthly === 0 ? "à vie" : cycle === "MONTHLY" ? "par mois" : "par an"}
+                  </span>
                 </span>
               </button>
             );
@@ -133,7 +156,7 @@ export function ChangePlanDialog({ current, preselect, onConfirm, onDone, onClos
 
         <p className="mt-3 rounded-lg border border-border bg-muted/20 px-3 py-2.5 text-[11px] leading-relaxed text-muted-foreground">
           Prochaine échéance le <span className="font-semibold text-foreground">{new Date(current.renewsAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long" })}</span> ·
-          Prorata appliqué sur {target.name} · Facture mensuelle ou annuelle selon le cycle choisi.
+          Prorata appliqué sur {target.name} · Facture mensuelle ou annuelle selon le cycle choisi · Aucune commission sur vos encaissements.
         </p>
 
         <div className="mt-4 flex items-center gap-2">

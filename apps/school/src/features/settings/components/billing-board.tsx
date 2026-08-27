@@ -32,11 +32,13 @@ import {
 } from "@/features/settings/api/platform-billing.mock";
 import { formatCFA, formatShortDate } from "@/lib/format";
 
-import { InvoiceStatusBadge, SubscriptionStatusBadge } from "./billing-badges";
+import {
+  formatPlanPrice,
+  InvoiceStatusBadge,
+  SubscriptionStatusBadge,
+} from "./billing-badges";
 import { ChangePlanDialog } from "./change-plan-dialog";
 import { PaymentMethodDialog } from "./payment-method-dialog";
-
-const CYCLE_SUFFIX: Record<BillingCycle, string> = { MONTHLY: "/mois", ANNUAL: "/an" };
 
 export function BillingBoard({ schoolId }: { schoolId: string }) {
   const [subscription, setSubscription] = useState<FakeSubscription | null>(null);
@@ -105,7 +107,7 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
             </div>
             <div className="flex gap-6 text-center">
               <Band k="Prochain prélèvement" v={formatShortDate(subscription.renewsAt)} icon={<CalendarRange className="size-3.5 text-white/40" />} />
-              <Band k="Montant facturé" v={formatCFA(subscription.price)} icon={<CircleDollarSign className="size-3.5 text-white/40" />} />
+              <Band k="Montant facturé" v={formatPlanPrice(subscription.price, subscription.cycle)} icon={<CircleDollarSign className="size-3.5 text-white/40" />} />
               <Band k="Moyen de paiement" v={subscription.paymentMethod.detail} icon={<Landmark className="size-3.5 text-white/40" />} />
             </div>
           </div>
@@ -115,7 +117,10 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
             <ReceiptText className="size-3.5 text-payskool-emerald" /> Facture envoyée chaque début de mois, prélèvement automatique.
           </span>
           <span className="flex items-center gap-1.5">
-            <Sparkles className="size-3.5 text-payskool-orange" /> Prochaine échéance : {renewalLabel}.
+            <Sparkles className="size-3.5 text-payskool-orange" />
+            {subscription.status === "TRIAL"
+              ? `Période d’essai gratuite de 30 jours, jusqu'au ${renewalLabel}.`
+              : `Prochaine échéance : ${renewalLabel}.`}
           </span>
         </div>
       </section>
@@ -125,7 +130,7 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
           <h2 className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <CircleDollarSign className="size-4 text-payskool-navy" /> Votre abonnement
           </h2>
-          <p className="mt-1 text-[11px] text-muted-foreground">{currentPlan?.tagline}</p>
+          <p className="mt-1 text-[11px] text-muted-foreground">{currentPlan?.description}</p>
 
           <ul className="mt-3 space-y-1.5">
             {currentPlan?.features.map((f) => (
@@ -136,24 +141,35 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
           </ul>
 
           <div className="mt-4 rounded-lg border border-border bg-muted/20 p-3">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">Élèves actifs (licence)</span>
-              <span className="font-mono font-bold text-foreground">
-                {students} / {subscription.seats === null ? "illimité" : subscription.seats}
-              </span>
-            </div>
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-border">
-              <div
-                className="h-full rounded-full bg-payskool-emerald"
-                style={{
-                  width: subscription.seats === null ? "18%" : `${Math.min(100, (students / subscription.seats) * 100)}%`,
-                }}
-              />
-            </div>
+            {subscription.seats === null ? (
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-muted-foreground">Élèves actifs</span>
+                <span className="font-mono font-bold text-foreground">
+                  {students} · licence illimitée
+                </span>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Élèves actifs (licence)</span>
+                  <span className="font-mono font-bold text-foreground">
+                    {students} / {subscription.seats}
+                  </span>
+                </div>
+                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-border">
+                  <div
+                    className="h-full rounded-full bg-payskool-emerald"
+                    style={{ width: `${Math.min(100, (students / subscription.seats) * 100)}%` }}
+                  />
+                </div>
+              </>
+            )}
             <p className="mt-2 text-[11px] text-muted-foreground">
-              {subscription.seats === null || students <= subscription.seats
-                ? "Vous êtes dans votre quota, aucune sur-facturation."
-                : `Dépassement de quota : ${students - subscription.seats!} élève(s) au-delà des places incluses.`}
+              {subscription.seats === null
+                ? "Plan Pro : aucun plafond d’élèves, aucune sur-facturation."
+                : students <= subscription.seats
+                  ? "Vous êtes dans votre quota, aucune sur-facturation."
+                  : `Dépassement de quota : ${students - subscription.seats} élève(s) au-delà des places incluses.`}
             </p>
           </div>
 
@@ -190,7 +206,7 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
             <h2 className="text-sm font-semibold text-foreground">À savoir</h2>
             <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
               Les frais Payskool sont prélevés chaque début de mois sur le moyen choisi. Changer de plan applique un prorata
-              sur la facture en cours ; les plans annuels bénéficient de −15 %.
+              sur la facture en cours ; les plans annuels bénéficient de −20 %. Aucune commission sur vos encaissements.
             </p>
           </section>
         </aside>
@@ -200,7 +216,7 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
         <div className="flex flex-col gap-3 border-b border-border px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-sm font-semibold text-foreground">Choisir un plan</h2>
-            <p className="text-[11px] text-muted-foreground">Remise de 15 % sur la facturation annuelle.</p>
+            <p className="text-[11px] text-muted-foreground">−20 % sur la facturation annuelle · zéro commission sur vos encaissements.</p>
           </div>
           <div className="flex items-center gap-1 self-start rounded-lg border border-border p-1 lg:self-auto">
             {(["MONTHLY", "ANNUAL"] as BillingCycle[]).map((c) => (
@@ -227,10 +243,15 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
               <article
                 key={p.id}
                 className={cn(
-                  "flex flex-col rounded-xl border p-4",
+                  "relative flex flex-col rounded-xl border p-4",
                   isCurrent ? "border-payskool-emerald bg-payskool-emerald/5 ring-1 ring-payskool-emerald" : "border-border bg-muted/20",
                 )}
               >
+                {p.highlighted && (
+                  <span className="absolute -top-2.5 right-3 rounded-full bg-payskool-emerald px-2.5 py-0.5 text-[10px] font-bold text-white">
+                    {p.badge}
+                  </span>
+                )}
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-foreground">{p.name}</h3>
                   {isCurrent && (
@@ -239,18 +260,22 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
                     </span>
                   )}
                 </div>
-                <p className="mt-1 text-[11px] text-muted-foreground">{p.tagline}</p>
-                <p className="mt-3 font-mono text-2xl font-bold text-foreground">
-                  {formatCFA(price)}
-                  <span className="text-xs font-medium text-muted-foreground">{CYCLE_SUFFIX[cycleView]}</span>
-                </p>
-                {cycleView === "ANNUAL" && (
-                  <p className="text-[11px] text-payskool-emerald">soit {formatCFA(Math.round(price / 12))}/mois</p>
-                )}
+                <p className="mt-1 text-[11px] text-muted-foreground">{p.description}</p>
+                <div className="mt-3">
+                  <p className="font-mono text-2xl font-bold text-foreground">{formatPlanPrice(price, cycleView)}</p>
+                  {cycleView === "ANNUAL" && price !== null && price > 0 && (
+                    <p className="text-[11px] text-payskool-emerald">soit {formatCFA(Math.round(price / 12))}/mois</p>
+                  )}
+                </div>
                 <ul className="mt-3 flex-1 space-y-1.5">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-[11px] text-muted-foreground">
                       <Check className="mt-0.5 size-3 shrink-0 text-payskool-emerald" /> {f}
+                    </li>
+                  ))}
+                  {p.excluded?.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-[11px] text-muted-foreground/60 line-through">
+                      <span className="mt-1 size-2.5 shrink-0 rounded-full border border-muted-foreground/40" /> {f}
                     </li>
                   ))}
                 </ul>
@@ -261,7 +286,7 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
                     </Button>
                   ) : (
                     <Button variant="emerald" size="lg" className="w-full" onClick={() => setPlanDialog({ open: true, preselect: p.id })}>
-                      Passer au plan {p.name}
+                      {p.cta}
                     </Button>
                   )}
                 </div>
@@ -275,7 +300,7 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <h2 className="text-sm font-semibold text-foreground">Factures Payskool</h2>
           <span className="text-[11px] text-muted-foreground">
-            {invoices.filter((i) => i.status === "PAID").length} payée(s) · dernière {invoices[0]?.period ?? "—"}
+            {invoices.filter((i) => i.status === "PAID").length} payée(s) · {invoices[0] ? `dernière ${invoices[0].period}` : "aucune facture"}
           </span>
         </div>
         <div className="overflow-x-auto">
@@ -291,24 +316,36 @@ export function BillingBoard({ schoolId }: { schoolId: string }) {
               </tr>
             </thead>
             <tbody>
-              {invoices.map((inv) => (
-                <tr key={inv.id} className="border-b border-border last:border-0 hover:bg-secondary/40">
-                  <td className="whitespace-nowrap px-5 py-3 text-xs font-medium text-foreground">{inv.period}</td>
-                  <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-muted-foreground">{inv.reference}</td>
-                  <td className="whitespace-nowrap px-4 py-3 font-mono font-bold text-foreground">
-                    {inv.amount === 0 ? "Gratuit" : formatCFA(inv.amount)}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3">
-                    <InvoiceStatusBadge status={inv.status} />
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3 font-mono text-[11px] text-muted-foreground">{inv.paymentLabel}</td>
-                  <td className="whitespace-nowrap px-5 py-3 text-right">
-                    <Button variant="ghost" size="sm" className="h-7 gap-1 text-[11px] text-muted-foreground" title="Télécharger le PDF (démo)">
-                      <Download className="size-3.5" /> PDF
-                    </Button>
+              {invoices.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-5 py-8 text-center text-xs text-muted-foreground">
+                    Aucune facture pour le moment : {subscription.price === null && subscription.planId === "GROUPE"
+                      ? "abonnement sur devis."
+                      : subscription.status === "TRIAL"
+                        ? "période d’essai gratuite en cours."
+                        : "facturation non démarrée."}
                   </td>
                 </tr>
-              ))}
+              ) : (
+                invoices.map((inv) => (
+                  <tr key={inv.id} className="border-b border-border last:border-0 hover:bg-secondary/40">
+                    <td className="whitespace-nowrap px-5 py-3 text-xs font-medium text-foreground">{inv.period}</td>
+                    <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-muted-foreground">{inv.reference}</td>
+                    <td className="whitespace-nowrap px-4 py-3 font-mono font-bold text-foreground">
+                      {inv.amount === 0 ? "Gratuit" : formatCFA(inv.amount)}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <InvoiceStatusBadge status={inv.status} />
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 font-mono text-[11px] text-muted-foreground">{inv.paymentLabel}</td>
+                    <td className="whitespace-nowrap px-5 py-3 text-right">
+                      <Button variant="ghost" size="sm" className="h-7 gap-1 text-[11px] text-muted-foreground" title="Télécharger le PDF (démo)">
+                        <Download className="size-3.5" /> PDF
+                      </Button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
