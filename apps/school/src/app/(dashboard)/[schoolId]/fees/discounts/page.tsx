@@ -1,8 +1,9 @@
 import { BadgePercent, FileText } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
+import { ReadOnlyArchiveBanner } from "@/components/layout/read-only-archive-banner";
 import { DiscountsBoard } from "@/features/fees/discounts/components/discounts-board";
-import { requireCurrentAcademicYear } from "@/lib/academic-year-guard";
+import { consultAcademicYear, isReadOnlyAcademicYear } from "@/lib/academic-year-guard";
 
 interface DiscountsPageProps {
   params: Promise<{ schoolId: string }>;
@@ -11,7 +12,8 @@ interface DiscountsPageProps {
 
 export default async function DiscountsPage({ params, searchParams }: DiscountsPageProps) {
   const [{ schoolId }, { year }] = await Promise.all([params, searchParams]);
-  requireCurrentAcademicYear(year, `/${schoolId}/fees/discounts`);
+  const academicYear = consultAcademicYear(year);
+  const readOnly = isReadOnlyAcademicYear(academicYear);
 
   return (
     <div className="flex flex-col gap-5">
@@ -24,7 +26,9 @@ export default async function DiscountsPage({ params, searchParams }: DiscountsP
         subtitle="Bourses au mérite, régionales, partenariats, remises fratrie et règlements comptants accordés aux élèves."
       />
 
-      <DiscountsBoard schoolId={schoolId} />
+      {readOnly && <ReadOnlyArchiveBanner year={academicYear} href={`/${schoolId}/fees/discounts`} />}
+
+      <DiscountsBoard schoolId={schoolId} year={academicYear} readOnly={readOnly} />
     </div>
   );
 }

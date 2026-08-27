@@ -1,8 +1,9 @@
 import { Users, List } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
+import { ReadOnlyArchiveBanner } from "@/components/layout/read-only-archive-banner";
 import { StudentsView } from "@/features/students/components/students-view";
-import { requireCurrentAcademicYear } from "@/lib/academic-year-guard";
+import { consultAcademicYear, isReadOnlyAcademicYear } from "@/lib/academic-year-guard";
 
 interface StudentsPageProps {
   params: Promise<{ schoolId: string }>;
@@ -11,7 +12,8 @@ interface StudentsPageProps {
 
 export default async function StudentsPage({ params, searchParams }: StudentsPageProps) {
   const [{ schoolId }, { year }] = await Promise.all([params, searchParams]);
-  requireCurrentAcademicYear(year, `/${schoolId}/students`);
+  const academicYear = consultAcademicYear(year);
+  const readOnly = isReadOnlyAcademicYear(academicYear);
 
   return (
     <div className="flex flex-col gap-5">
@@ -24,7 +26,9 @@ export default async function StudentsPage({ params, searchParams }: StudentsPag
         subtitle="Registre des élèves et état de leur scolarité (situation financière uniquement)."
       />
 
-      <StudentsView schoolId={schoolId} />
+      {readOnly && <ReadOnlyArchiveBanner year={academicYear} href={`/${schoolId}/students`} />}
+
+      <StudentsView schoolId={schoolId} year={academicYear} readOnly={readOnly} />
     </div>
   );
 }

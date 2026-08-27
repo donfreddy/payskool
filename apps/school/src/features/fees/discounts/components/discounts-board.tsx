@@ -35,14 +35,22 @@ const FLAG_TONES: Record<string, string> = {
   "Autres remises": "bg-secondary text-muted-foreground",
 };
 
-export function DiscountsBoard({ schoolId }: { schoolId: string }) {
+export function DiscountsBoard({
+  schoolId,
+  year,
+  readOnly = false,
+}: {
+  schoolId: string;
+  year: string;
+  readOnly?: boolean;
+}) {
   const [students, setStudents] = useState<FakeStudent[] | null>(null);
   const [query, setQuery] = useState("");
   const [editing, setEditing] = useState<FakeStudent | null>(null);
 
   useEffect(() => {
-    listStudentsForFees(schoolId).then(setStudents);
-  }, [schoolId]);
+    listStudentsForFees(schoolId, year).then(setStudents);
+  }, [schoolId, year]);
 
   const all = useMemo(() => students ?? [], [students]);
 
@@ -116,7 +124,7 @@ export function DiscountsBoard({ schoolId }: { schoolId: string }) {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-[11px] font-medium uppercase tracking-widest text-white/50">
-                Abattements accordés
+                {readOnly ? `Abattements archivés · ${year}` : "Abattements accordés"}
               </p>
               <p className="mt-1 font-mono text-4xl font-bold tracking-tight">{formatCFA(totalDiscounts)}</p>
             </div>
@@ -205,14 +213,18 @@ export function DiscountsBoard({ schoolId }: { schoolId: string }) {
                       </span>
                     </td>
                     <td className="whitespace-nowrap px-5 py-3 text-right">
-                      <span className="inline-flex gap-1.5">
-                        <Button variant="outline" size="sm" className="h-8 text-xs" onClick={() => setEditing(s)}>
-                          Modifier
-                        </Button>
-                        <Button variant="ghost" size="sm" className="h-8 text-xs text-muted-foreground" onClick={() => handleRemove(s.id)}>
-                          <Trash2 className="size-3.5" />
-                        </Button>
-                      </span>
+                      {readOnly ? (
+                        <span className="text-[11px] text-muted-foreground">Archive</span>
+                      ) : (
+                        <span className="inline-flex gap-1.5">
+                          <Button variant="outline" size="sm" className="h-8 text-xs" onClick={() => setEditing(s)}>
+                            Modifier
+                          </Button>
+                          <Button variant="ghost" size="sm" className="h-8 text-xs text-muted-foreground" onClick={() => handleRemove(s.id)}>
+                            <Trash2 className="size-3.5" />
+                          </Button>
+                        </span>
+                      )}
                     </td>
                   </tr>
                 );
@@ -227,45 +239,54 @@ export function DiscountsBoard({ schoolId }: { schoolId: string }) {
         </div>
       </section>
 
-      <section className="rounded-xl border border-border bg-card shadow-sm">
-        <div className="flex flex-col gap-3 border-b border-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="text-sm font-semibold text-foreground">Attribuer une bourse ou une remise</h2>
-          <div className="relative w-full sm:max-w-xs">
-            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Rechercher un élève…"
-              className="h-9 rounded-lg pl-9"
-            />
+      {!readOnly && (
+        <section className="rounded-xl border border-border bg-card shadow-sm">
+          <div className="flex flex-col gap-3 border-b border-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2">
+              <h2 className="text-sm font-semibold text-foreground">Attribuer une bourse ou une remise</h2>
+              {readOnly && (
+                <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
+                  Lecture seule
+                </span>
+              )}
+            </div>
+            <div className="relative w-full sm:max-w-xs">
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Rechercher un élève…"
+                className="h-9 rounded-lg pl-9"
+              />
+            </div>
           </div>
-        </div>
-        <ul className="divide-y divide-border">
-          {withoutDiscount.map((s) => (
-            <li key={s.id} className="flex items-center justify-between gap-3 px-5 py-3 hover:bg-secondary/30">
-              <span className="flex min-w-0 items-center gap-2.5">
-                <StudentAvatar firstName={s.firstName} lastName={s.lastName} gender={s.gender} className="size-8 text-[10px]" />
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-medium text-foreground">
-                    {s.firstName} {s.lastName}
-                  </span>
-                  <span className="block text-xs text-muted-foreground">
-                    {s.classLevel} · {s.matricule}
+          <ul className="divide-y divide-border">
+            {withoutDiscount.map((s) => (
+              <li key={s.id} className="flex items-center justify-between gap-3 px-5 py-3 hover:bg-secondary/30">
+                <span className="flex min-w-0 items-center gap-2.5">
+                  <StudentAvatar firstName={s.firstName} lastName={s.lastName} gender={s.gender} className="size-8 text-[10px]" />
+                  <span className="min-w-0">
+                    <span className="block truncate text-sm font-medium text-foreground">
+                      {s.firstName} {s.lastName}
+                    </span>
+                    <span className="block text-xs text-muted-foreground">
+                      {s.classLevel} · {s.matricule}
+                    </span>
                   </span>
                 </span>
-              </span>
-              <Button variant="outline" size="sm" className="h-8 gap-1.5 text-xs" onClick={() => setEditing(s)}>
-                <UserPlus className="size-3.5" /> Attribuer
-              </Button>
-            </li>
-          ))}
-          {withoutDiscount.length === 0 && (
-            <li className="px-5 py-8 text-center text-sm text-muted-foreground">
-              Tous les élèves bénéficient déjà d’un avantage.
-            </li>
-          )}
-        </ul>
-      </section>
+                <Button variant="outline" size="sm" className="h-8 gap-1.5 text-xs" onClick={() => setEditing(s)}>
+                  <UserPlus className="size-3.5" /> Attribuer
+                </Button>
+              </li>
+            ))}
+            {withoutDiscount.length === 0 && (
+              <li className="px-5 py-8 text-center text-sm text-muted-foreground">
+                Tous les élèves bénéficient déjà d’un avantage.
+              </li>
+            )}
+          </ul>
+        </section>
+      )}
 
       {editing && (
         <DiscountDialog

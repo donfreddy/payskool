@@ -27,15 +27,23 @@ function recoveryTone(rate: number) {
   return "bg-payskool-orange";
 }
 
-export function StructuresBoard({ schoolId }: { schoolId: string }) {
+export function StructuresBoard({
+  schoolId,
+  year,
+  readOnly = false,
+}: {
+  schoolId: string;
+  year: string;
+  readOnly?: boolean;
+}) {
   const [structures, setStructures] = useState<FakeFeeStructure[] | null>(null);
   const [students, setStudents] = useState<FakeStudent[]>([]);
   const [editing, setEditing] = useState<FakeFeeStructure | null>(null);
 
   useEffect(() => {
     listFeeStructures(schoolId).then(setStructures);
-    listStudentsForFees(schoolId).then(setStudents);
-  }, [schoolId]);
+    listStudentsForFees(schoolId, year).then(setStudents);
+  }, [schoolId, year]);
 
   const stats = useMemo(() => {
     if (!structures) return null;
@@ -72,7 +80,7 @@ export function StructuresBoard({ schoolId }: { schoolId: string }) {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-[11px] font-medium uppercase tracking-widest text-white/50">
-                Grilles actives · 2026-2027
+                {readOnly ? `Grilles archivées · ${year}` : `Grilles actives · ${year}`}
               </p>
               <p className="mt-1 font-mono text-4xl font-bold tracking-tight">{stats.length}</p>
             </div>
@@ -91,7 +99,15 @@ export function StructuresBoard({ schoolId }: { schoolId: string }) {
             <Users className="size-3.5" /> Effectif simulé par classe
           </span>
           <span className="flex items-center gap-1.5">
-            <ClipboardEdit className="size-3.5" /> Modifications enregistrées dans la base de démo
+            {readOnly ? (
+              <>
+                <span className="size-3.5 rounded-full bg-amber-400/80" /> Année clôturée — grilles en consultation
+              </>
+            ) : (
+              <>
+                <ClipboardEdit className="size-3.5" /> Modifications enregistrées dans la base de démo
+              </>
+            )}
           </span>
         </div>
       </section>
@@ -150,9 +166,15 @@ export function StructuresBoard({ schoolId }: { schoolId: string }) {
             </div>
 
             <div className="border-t border-border bg-muted/20 px-4 py-2.5">
-              <Button variant="ghost" size="sm" className="h-8 w-full justify-center gap-1.5 text-xs" onClick={() => setEditing(structure)}>
-                <ChartNoAxesCombined className="size-3.5" /> Modifier l’échéancier
-              </Button>
+              {readOnly ? (
+                <span className="flex h-8 w-full items-center justify-center gap-1.5 text-xs text-muted-foreground">
+                  Lecture seule
+                </span>
+              ) : (
+                <Button variant="ghost" size="sm" className="h-8 w-full justify-center gap-1.5 text-xs" onClick={() => setEditing(structure)}>
+                  <ChartNoAxesCombined className="size-3.5" /> Modifier l’échéancier
+                </Button>
+              )}
             </div>
           </article>
         ))}

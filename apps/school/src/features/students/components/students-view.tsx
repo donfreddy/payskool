@@ -30,7 +30,15 @@ const STATUS_OPTIONS: { value: string; label: string }[] = [
   { value: "UNPAID", label: "Impayés" },
 ];
 
-export function StudentsView({ schoolId }: { schoolId: string }) {
+export function StudentsView({
+  schoolId,
+  year,
+  readOnly = false,
+}: {
+  schoolId: string;
+  year: string;
+  readOnly?: boolean;
+}) {
   const [students, setStudents] = useState<FakeStudent[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
@@ -40,11 +48,11 @@ export function StudentsView({ schoolId }: { schoolId: string }) {
   const [newOpen, setNewOpen] = useState(false);
 
   useEffect(() => {
-    listStudents(schoolId).then((list) => {
+    listStudents(schoolId, year).then((list) => {
       setStudents(list);
       setLoading(false);
     });
-  }, [schoolId]);
+  }, [schoolId, year]);
 
   const classes = useMemo(() => Array.from(new Set(students.map((s) => s.classLevel))).sort(), [students]);
 
@@ -109,14 +117,18 @@ export function StudentsView({ schoolId }: { schoolId: string }) {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button asChild variant="outline">
-              <Link href={`/${schoolId}/students/import`}>
-                <Upload className="size-4" /> Importer (CSV/Excel)
-              </Link>
-            </Button>
-            <Button onClick={() => setNewOpen(true)}>
-              <UserPlus className="size-4" /> Nouvel élève
-            </Button>
+            {!readOnly && (
+              <>
+                <Button asChild variant="outline">
+                  <Link href={`/${schoolId}/students/import`}>
+                    <Upload className="size-4" /> Importer (CSV/Excel)
+                  </Link>
+                </Button>
+                <Button onClick={() => setNewOpen(true)}>
+                  <UserPlus className="size-4" /> Nouvel élève
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -137,9 +149,12 @@ export function StudentsView({ schoolId }: { schoolId: string }) {
         student={detailStudent}
         schoolId={schoolId}
         open={detailId !== null}
+        readOnly={readOnly}
         onOpenChange={(o) => !o && setDetailId(null)}
       />
-      <NewStudentDialog open={newOpen} onOpenChange={setNewOpen} onSubmit={handleCreate} />
+      {!readOnly && (
+        <NewStudentDialog open={newOpen} onOpenChange={setNewOpen} onSubmit={handleCreate} />
+      )}
     </div>
   );
 }

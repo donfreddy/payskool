@@ -20,11 +20,13 @@ export function StudentDetailSheet({
   student,
   schoolId,
   open,
+  readOnly,
   onOpenChange,
 }: {
   student: FakeStudent | null;
   schoolId: string;
   open: boolean;
+  readOnly?: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
   const s = student;
@@ -87,16 +89,24 @@ export function StudentDetailSheet({
                 </dl>
               </section>
 
-              <div className="flex flex-col gap-2">
-                <Button asChild={true}>
-                  <Link href={`/${schoolId}/cashier`} className="gap-2">
-                    <Wallet className="size-4" /> Encaisser au guichet
-                  </Link>
-                </Button>
-                <Button variant="outline">
-                  <BellRing className="size-4" /> Envoyer un rappel WhatsApp
-                </Button>
-              </div>
+              {!readOnly && (
+                <div className="flex flex-col gap-2">
+                  <Button asChild={true}>
+                    <Link href={`/${schoolId}/cashier`} className="gap-2">
+                      <Wallet className="size-4" /> Encaisser au guichet
+                    </Link>
+                  </Button>
+                  <Button variant="outline">
+                    <BellRing className="size-4" /> Envoyer un rappel WhatsApp
+                  </Button>
+                </div>
+              )}
+
+              {readOnly && (
+                <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs font-medium text-amber-800">
+                  Élève archivé — échéancier clôturé, consultation uniquement.
+                </p>
+              )}
 
               <p className="text-center text-[11px] text-muted-foreground">
                 Historique des reçus disponible depuis l’onglet « Reçus ».

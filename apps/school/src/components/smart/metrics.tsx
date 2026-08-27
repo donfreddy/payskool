@@ -1,5 +1,7 @@
 import { Progress } from "@payskool/ui/components/ui/progress";
-import { TrendingUp, Wallet, Clock3, GraduationCap } from "lucide-react";
+import { Clock3, GraduationCap, ReceiptText, TrendingUp, Wallet } from "lucide-react";
+
+import { formatCFA } from "@/lib/format";
 
 function Shell({
   title,
@@ -21,32 +23,56 @@ function Shell({
   );
 }
 
-export function MetricsGrid() {
+export interface YearMetrics {
+  year: string;
+  readOnly: boolean;
+  collected: number;
+  totalDue: number;
+  recovery: number; // 0 → 100
+  receiptsCount: number;
+  studentCount: number;
+  uptoDate: number;
+}
+
+export function MetricsGrid({
+  year,
+  readOnly,
+  collected,
+  totalDue,
+  recovery,
+  receiptsCount,
+  studentCount,
+  uptoDate,
+}: YearMetrics) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <Shell title="Recouvrement Total" icon={Wallet}>
-        <p className="text-2xl font-bold tracking-tight text-success">45.200.000 FCFA</p>
+        <p className="text-2xl font-bold tracking-tight text-success">{formatCFA(collected)}</p>
         <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
           <TrendingUp className="size-3.5 text-success" />
-          <span className="font-medium text-success">+14%</span> vs 2025
+          <span className="font-medium text-success">{uptoDate}/{studentCount}</span> élèves à jour sur {year}
         </p>
       </Shell>
 
       <Shell title="Taux de Recouvrement" icon={TrendingUp}>
-        <p className="text-2xl font-bold tracking-tight text-foreground">78%</p>
-        <Progress value={78} className="mt-3 h-1.5 bg-secondary [&>div]:bg-success" />
+        <p className="text-2xl font-bold tracking-tight text-foreground">{recovery}%</p>
+        <Progress value={recovery} className="mt-3 h-1.5 bg-secondary [&>div]:bg-success" />
+        <p className="mt-1 text-xs text-muted-foreground">{formatCFA(totalDue)} attendus au total</p>
       </Shell>
 
-      <Shell title="Reste à Encaisser" icon={Clock3}>
-        <p className="text-2xl font-bold tracking-tight text-foreground">12.800.000 FCFA</p>
-        <p className="mt-1 text-xs text-muted-foreground">Tranches 2 & 3 en attente</p>
-      </Shell>
-
-      <Shell title="Élèves à Jour" icon={GraduationCap}>
-        <p className="text-2xl font-bold tracking-tight text-foreground">
-          412 <span className="text-base font-medium text-muted-foreground">/ 520</span>
+      <Shell title="Reçus émis" icon={ReceiptText}>
+        <p className="text-2xl font-bold tracking-tight text-foreground">{receiptsCount}</p>
+        <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+          <Clock3 className="size-3.5" />
+          {readOnly ? "Registre archivé — lecture seule" : `Registre ${year}`}
         </p>
-        <p className="mt-1 text-xs text-muted-foreground">80% de la totalité</p>
+      </Shell>
+
+      <Shell title="Élèves inscrits" icon={GraduationCap}>
+        <p className="text-2xl font-bold tracking-tight text-foreground">{studentCount}</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {readOnly ? "Année clôturée — consultation" : "Effectif déclaré"}
+        </p>
       </Shell>
     </div>
   );

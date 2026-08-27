@@ -152,7 +152,7 @@ const tooltipStyle = {
   boxShadow: "0 8px 24px -12px oklch(0.2 0.04 265 / 0.35)",
 } as const;
 
-export function ChartsRow() {
+export function ChartsRow({ year }: { year: string }) {
   const [period, setPeriod] = useState("1a");
   const [mixPeriod, setMixPeriod] = useState("month");
   const chartData = periodData[period]!;
@@ -163,7 +163,7 @@ export function ChartsRow() {
       <ChartCard
         className="xl:col-span-7"
         title="Encaissements mensuels"
-        subtitle="Année scolaire 2026-2027 · en milliers de FCFA"
+        subtitle={`Année scolaire ${year} · en milliers de FCFA`}
         right={
           <Tabs value={period} onValueChange={setPeriod}>
             <TabsList>

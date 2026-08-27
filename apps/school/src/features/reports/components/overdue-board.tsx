@@ -38,7 +38,15 @@ function lateTone(days: number) {
   return "bg-red-100 text-red-700";
 }
 
-export function OverdueBoard({ schoolId, year }: { schoolId: string; year: string }) {
+export function OverdueBoard({
+  schoolId,
+  year,
+  readOnly = false,
+}: {
+  schoolId: string;
+  year: string;
+  readOnly?: boolean;
+}) {
   const [students, setStudents] = useState<FakeStudent[] | null>(null);
   const [query, setQuery] = useState("");
   const [classFilter, setClassFilter] = useState<string>("all");
@@ -241,16 +249,22 @@ export function OverdueBoard({ schoolId, year }: { schoolId: string; year: strin
                       <span className="block font-mono text-[11px] text-muted-foreground">{s.parentPhone}</span>
                     </td>
                     <td className="whitespace-nowrap px-5 py-3 text-right">
-                      <Button
-                        variant={isSent ? "outline" : "emerald"}
-                        size="sm"
-                        className={cn("h-8 gap-1.5 text-xs", isSent && "cursor-default")}
-                        disabled={isSent}
-                        onClick={() => relance(o)}
-                      >
-                        <Send className="size-3.5" />
-                        {isSent ? "Relance envoyée" : "Relancer"}
-                      </Button>
+                      {readOnly ? (
+                        <span className="rounded-md bg-muted/60 px-2.5 py-1.5 text-[11px] font-medium text-muted-foreground">
+                          Archive — non relançable
+                        </span>
+                      ) : (
+                        <Button
+                          variant={isSent ? "outline" : "emerald"}
+                          size="sm"
+                          className={cn("h-8 gap-1.5 text-xs", isSent && "cursor-default")}
+                          disabled={isSent}
+                          onClick={() => relance(o)}
+                        >
+                          <Send className="size-3.5" />
+                          {isSent ? "Relance envoyée" : "Relancer"}
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 );

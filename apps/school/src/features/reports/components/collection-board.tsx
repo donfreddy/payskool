@@ -31,7 +31,15 @@ function recoveryTone(rate: number) {
   return "bg-payskool-orange";
 }
 
-export function CollectionBoard({ schoolId, year }: { schoolId: string; year: string }) {
+export function CollectionBoard({
+  schoolId,
+  year,
+  readOnly = false,
+}: {
+  schoolId: string;
+  year: string;
+  readOnly?: boolean;
+}) {
   const [structures, setStructures] = useState<FakeFeeStructure[] | null>(null);
   const [students, setStudents] = useState<FakeStudent[]>([]);
   const [receipts, setReceipts] = useState<FakeReceipt[]>([]);
@@ -68,7 +76,7 @@ export function CollectionBoard({ schoolId, year }: { schoolId: string; year: st
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-[11px] font-medium uppercase tracking-widest text-white/50">
-                Encaissé à date · 2026-2027
+                Encaissé à date · {year}{readOnly ? " (archives)" : ""}
               </p>
               <p className="mt-1 font-mono text-4xl font-bold tracking-tight">
                 {formatCompactCFA(global.collected)}

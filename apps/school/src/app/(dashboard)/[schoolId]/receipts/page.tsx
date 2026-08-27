@@ -1,8 +1,9 @@
 import { Calculator, ReceiptText } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
+import { ReadOnlyArchiveBanner } from "@/components/layout/read-only-archive-banner";
 import { ReceiptsBrowser } from "@/features/receipts/components/receipts-browser";
-import { consultAcademicYear } from "@/lib/academic-year-guard";
+import { consultAcademicYear, isReadOnlyAcademicYear } from "@/lib/academic-year-guard";
 
 interface ReceiptsPageProps {
   params: Promise<{ schoolId: string }>;
@@ -12,6 +13,7 @@ interface ReceiptsPageProps {
 export default async function ReceiptsPage({ params, searchParams }: ReceiptsPageProps) {
   const [{ schoolId }, { q, year }] = await Promise.all([params, searchParams]);
   const academicYear = consultAcademicYear(year);
+  const readOnly = isReadOnlyAcademicYear(academicYear);
 
   return (
     <div className="flex flex-col gap-5">
@@ -23,6 +25,8 @@ export default async function ReceiptsPage({ params, searchParams }: ReceiptsPag
         title="Reçus & réimpressions"
         subtitle={`Retrouvez n'importe quel reçu de ${academicYear} par numéro, élève ou matricule, vérifiez sa ventilation et réimprimez-le.`}
       />
+
+      {readOnly && <ReadOnlyArchiveBanner year={academicYear} href={`/${schoolId}/receipts`} />}
 
       <ReceiptsBrowser schoolId={schoolId} year={academicYear} initialQuery={q} />
     </div>

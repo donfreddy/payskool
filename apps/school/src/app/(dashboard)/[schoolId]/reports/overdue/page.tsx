@@ -1,8 +1,9 @@
 import { AlertTriangle, FileText, TrendingUp } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
+import { ReadOnlyArchiveBanner } from "@/components/layout/read-only-archive-banner";
 import { OverdueBoard } from "@/features/reports/components/overdue-board";
-import { consultAcademicYear } from "@/lib/academic-year-guard";
+import { consultAcademicYear, isReadOnlyAcademicYear } from "@/lib/academic-year-guard";
 
 interface OverduePageProps {
   params: Promise<{ schoolId: string }>;
@@ -12,6 +13,7 @@ interface OverduePageProps {
 export default async function OverduePage({ params, searchParams }: OverduePageProps) {
   const [{ schoolId }, { year }] = await Promise.all([params, searchParams]);
   const academicYear = consultAcademicYear(year);
+  const readOnly = isReadOnlyAcademicYear(academicYear);
 
   return (
     <div className="flex flex-col gap-5">
@@ -25,7 +27,9 @@ export default async function OverduePage({ params, searchParams }: OverduePageP
         subtitle={`Élèves de ${academicYear} en défaut de paiement, latence des échéances et relances des parents, mode d'emploi de la campagne.`}
       />
 
-      <OverdueBoard schoolId={schoolId} year={academicYear} />
+      {readOnly && <ReadOnlyArchiveBanner year={academicYear} href={`/${schoolId}/reports/overdue`} />}
+
+      <OverdueBoard schoolId={schoolId} year={academicYear} readOnly={readOnly} />
     </div>
   );
 }

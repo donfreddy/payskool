@@ -1,8 +1,9 @@
 import { FileText, TrendingUp } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
+import { ReadOnlyArchiveBanner } from "@/components/layout/read-only-archive-banner";
 import { CollectionBoard } from "@/features/reports/components/collection-board";
-import { consultAcademicYear } from "@/lib/academic-year-guard";
+import { consultAcademicYear, isReadOnlyAcademicYear } from "@/lib/academic-year-guard";
 
 interface CollectionPageProps {
   params: Promise<{ schoolId: string }>;
@@ -12,6 +13,7 @@ interface CollectionPageProps {
 export default async function CollectionPage({ params, searchParams }: CollectionPageProps) {
   const [{ schoolId }, { year }] = await Promise.all([params, searchParams]);
   const academicYear = consultAcademicYear(year);
+  const readOnly = isReadOnlyAcademicYear(academicYear);
 
   return (
     <div className="flex flex-col gap-5">
@@ -25,7 +27,9 @@ export default async function CollectionPage({ params, searchParams }: Collectio
         subtitle={`Encaissements de ${academicYear} à date, modes de paiement et performance de chaque classe par rapport aux grilles attendues.`}
       />
 
-      <CollectionBoard schoolId={schoolId} year={academicYear} />
+      {readOnly && <ReadOnlyArchiveBanner year={academicYear} href={`/${schoolId}/reports/collection`} />}
+
+      <CollectionBoard schoolId={schoolId} year={academicYear} readOnly={readOnly} />
     </div>
   );
 }
