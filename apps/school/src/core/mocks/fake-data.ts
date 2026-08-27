@@ -588,6 +588,7 @@ export interface FakeReceipt {
   studentName: string;
   classLevel: string;
   matricule: string;
+  academicYear: string;
   amount: number;
   method: TxMethod;
   chequeNumber?: string;
@@ -633,6 +634,7 @@ function buildReceiptsSeed(): FakeReceipt[] {
         studentName: `${s.firstName} ${s.lastName}`,
         classLevel: s.classLevel,
         matricule: s.matricule,
+        academicYear: s.academicYear,
         amount: inst.paid,
         method,
         ...(method === "CHEQUE"
@@ -656,6 +658,7 @@ function buildReceiptsSeed(): FakeReceipt[] {
       studentName: t.studentName,
       classLevel: t.classLevel,
       matricule: student?.matricule ?? "—",
+      academicYear: student?.academicYear ?? "2026-2027",
       amount: t.amount,
       method: t.method,
       allocations,
@@ -775,7 +778,6 @@ export const FAKE_FEE_STRUCTURES: FakeFeeStructure[] = [
 /** Statut d'une période d'échéance par rapport à la date de référence de la démo. */
 export function installmentPeriod(dueDate: string, now: Date = MOCK_NOW): "open" | "past" | "upcoming" {
   const due = new Date(`${dueDate}T00:00:00`);
-  const monthEnd = new Date(now);
   if (due < now) return "past";
   if (due.getTime() - now.getTime() <= 45 * 24 * 3600 * 1000) return "open";
   return "upcoming";

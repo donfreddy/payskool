@@ -1,10 +1,12 @@
 "use client";
 
 import { Button } from "@payskool/ui/components/ui/button";
-import { Menu, CalendarDays } from "lucide-react";
+import { Menu } from "lucide-react";
+import { Suspense } from "react";
 
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 
+import { AcademicYearDropdown } from "./academic-year-dropdown";
 import { FullscreenToggle } from "./full-screen-toggle";
 import { NotificationDropdown } from "./notification-dropdown";
 import { SearchCommand } from "./search-command";
@@ -33,10 +35,9 @@ export function HeaderBar({ onMenuClick, schoolId }: HeaderBarProps) {
       <div className="flex items-center gap-2">
         <SearchCommand />
 
-        <button className="flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
-          <CalendarDays className="size-4 text-muted-foreground" />
-          Année Scolaire : 2026-2027
-        </button>
+        <Suspense fallback={null}>
+          <AcademicYearDropdown />
+        </Suspense>
 
         <div className="h-6 w-0.5 bg-muted m-1.5" />
 

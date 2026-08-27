@@ -38,7 +38,7 @@ function lateTone(days: number) {
   return "bg-red-100 text-red-700";
 }
 
-export function OverdueBoard({ schoolId }: { schoolId: string }) {
+export function OverdueBoard({ schoolId, year }: { schoolId: string; year: string }) {
   const [students, setStudents] = useState<FakeStudent[] | null>(null);
   const [query, setQuery] = useState("");
   const [classFilter, setClassFilter] = useState<string>("all");
@@ -46,8 +46,8 @@ export function OverdueBoard({ schoolId }: { schoolId: string }) {
   const [sent, setSent] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    listStudentsForFees(schoolId).then(setStudents);
-  }, [schoolId]);
+    listStudentsForFees(schoolId, year).then(setStudents);
+  }, [schoolId, year]);
 
   const overdue: OverdueStudent[] = useMemo(
     () => (students ? overdueStudents(students) : []),

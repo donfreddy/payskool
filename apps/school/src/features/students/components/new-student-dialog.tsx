@@ -13,6 +13,7 @@ import {
 import { UserPlus } from "lucide-react";
 import { useState } from "react";
 
+import { CURRENT_ACADEMIC_YEAR } from "@/core/mocks/academic-years-db";
 import type { FakeStudent } from "@/core/mocks/fake-data";
 
 const CLASSES = ["CM2", "6ème A", "6ème B", "5ème A", "4ème C", "3ème B", "2nde A", "Terminale C"];
@@ -54,14 +55,14 @@ export function NewStudentDialog({
       lastName: lastName.trim(),
       gender,
       classLevel,
-      academicYear: "2026-2027",
+      academicYear: CURRENT_ACADEMIC_YEAR,
       status: "ENROLLED",
       previousBalance: 0,
       parentName: `${parentPhone ? "Parent de " : ""}${firstName.trim()} ${lastName.trim()}`,
       parentPhone: parentPhone || "+237 690 00 00 00",
       feePlan: {
         id: `fp_new_${Date.now()}`,
-        label: `Scolarité ${classLevel} — 2026-2027`,
+        label: `Scolarité ${classLevel} — ${CURRENT_ACADEMIC_YEAR}`,
         installments: DEFAULT_INSTALLMENTS.map((d, i) => ({
           id: `in_new_${Date.now()}_${i}`,
           ...d,
@@ -87,7 +88,7 @@ export function NewStudentDialog({
           </span>
           <div>
             <h2 className="text-base font-bold text-foreground">Inscrire un élève</h2>
-            <p className="text-xs text-muted-foreground">L’inscription crée aussi son échéancier 2026-2027.</p>
+            <p className="text-xs text-muted-foreground">L’inscription crée aussi son échéancier {CURRENT_ACADEMIC_YEAR}.</p>
           </div>
         </div>
 

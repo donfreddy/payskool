@@ -23,9 +23,11 @@ const normalize = (s: string) => s.trim().replace(/^#/, "").toLowerCase();
 
 export function ReceiptsBrowser({
   schoolId,
+  year,
   initialQuery,
 }: {
   schoolId: string;
+  year: string;
   initialQuery?: string | undefined;
 }) {
   const [receipts, setReceipts] = useState<FakeReceipt[] | null>(null);
@@ -36,11 +38,11 @@ export function ReceiptsBrowser({
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    listReceipts(schoolId).then((r) => {
+    listReceipts(schoolId, year).then((r) => {
       setReceipts(r);
       setSelected((prev) => prev ?? r[0]?.id ?? null);
     });
-  }, [schoolId]);
+  }, [schoolId, year]);
 
   useEffect(() => {
     const stop = () => setPrinted(false);

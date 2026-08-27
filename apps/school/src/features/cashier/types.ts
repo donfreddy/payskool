@@ -22,6 +22,7 @@ export interface ReceiptRecord {
   studentName: string;
   classLevel: string;
   matricule: string;
+  academicYear: string;
   amount: number;
   method: RegisterMethod;
   chequeNumber?: string;

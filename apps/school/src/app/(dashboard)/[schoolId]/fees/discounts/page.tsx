@@ -2,13 +2,16 @@ import { BadgePercent, FileText } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { DiscountsBoard } from "@/features/fees/discounts/components/discounts-board";
+import { requireCurrentAcademicYear } from "@/lib/academic-year-guard";
 
 interface DiscountsPageProps {
   params: Promise<{ schoolId: string }>;
+  searchParams: Promise<{ year?: string }>;
 }
 
-export default async function DiscountsPage({ params }: DiscountsPageProps) {
-  const { schoolId } = await params;
+export default async function DiscountsPage({ params, searchParams }: DiscountsPageProps) {
+  const [{ schoolId }, { year }] = await Promise.all([params, searchParams]);
+  requireCurrentAcademicYear(year, `/${schoolId}/fees/discounts`);
 
   return (
     <div className="flex flex-col gap-5">

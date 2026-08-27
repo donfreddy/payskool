@@ -85,6 +85,7 @@ export function CashierStation({ schoolId }: { schoolId: string }) {
       studentName: `${selected.firstName} ${selected.lastName}`,
       classLevel: selected.classLevel,
       matricule: selected.matricule,
+      academicYear: selected.academicYear,
       amount,
       method,
       ...(method === "CHEQUE"

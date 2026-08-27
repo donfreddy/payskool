@@ -2,13 +2,16 @@ import { CalendarRange, FileText } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { StructuresBoard } from "@/features/fees/structures/components/structures-board";
+import { requireCurrentAcademicYear } from "@/lib/academic-year-guard";
 
 interface FeeStructuresPageProps {
   params: Promise<{ schoolId: string }>;
+  searchParams: Promise<{ year?: string }>;
 }
 
-export default async function FeeStructuresPage({ params }: FeeStructuresPageProps) {
-  const { schoolId } = await params;
+export default async function FeeStructuresPage({ params, searchParams }: FeeStructuresPageProps) {
+  const [{ schoolId }, { year }] = await Promise.all([params, searchParams]);
+  requireCurrentAcademicYear(year, `/${schoolId}/fees/structures`);
 
   return (
     <div className="flex flex-col gap-5">

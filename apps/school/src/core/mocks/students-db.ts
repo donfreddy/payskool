@@ -1,3 +1,5 @@
+import { getArchiveYear } from "@/core/mocks/academic-archive-db";
+import { CURRENT_ACADEMIC_YEAR, type AcademicYear } from "@/core/mocks/academic-years-db";
 import {
   FAKE_CAISSE_TODAY,
   FAKE_FEE_STRUCTURES,
@@ -41,8 +43,12 @@ function seed() {
   seeded = true;
 }
 
-export function fetchStudents(): Promise<FakeStudent[]> {
+export function fetchStudents(year: AcademicYear = CURRENT_ACADEMIC_YEAR): Promise<FakeStudent[]> {
   seed();
+  const archive = getArchiveYear(year);
+  if (year !== CURRENT_ACADEMIC_YEAR) {
+    return new Promise((resolve) => setTimeout(() => resolve(archive?.students.map((s) => structuredClone(s)) ?? []), 380));
+  }
   return new Promise((resolve) => setTimeout(() => resolve(students.slice()), 380));
 }
 
@@ -66,9 +72,13 @@ export function getTransactionsSync(): FakeTx[] {
   return txns;
 }
 
-export function fetchReceipts(): Promise<FakeReceipt[]> {
+export function fetchReceipts(year: AcademicYear = CURRENT_ACADEMIC_YEAR): Promise<FakeReceipt[]> {
   seed();
-  return new Promise((resolve) => setTimeout(() => resolve(receipts.slice()), 300));
+  const archive = getArchiveYear(year);
+  if (year !== CURRENT_ACADEMIC_YEAR) {
+    return new Promise((resolve) => setTimeout(() => resolve(archive?.receipts.map((r) => structuredClone(r)) ?? []), 300));
+  }
+  return new Promise((resolve) => setTimeout(() => resolve(receipts.filter((r) => r.academicYear === year).slice()), 300));
 }
 
 export function getReceiptsSync(): FakeReceipt[] {
@@ -76,19 +86,20 @@ export function getReceiptsSync(): FakeReceipt[] {
   return receipts;
 }
 
-export function fetchTransactionsHistory(): Promise<FakeTx[]> {
+export function fetchTransactionsHistory(year: AcademicYear = CURRENT_ACADEMIC_YEAR): Promise<FakeTx[]> {
   seed();
-  const journal = receipts.map((r) => ({
-    id: r.id,
-    studentId: r.studentId,
-    studentName: r.studentName,
-    classLevel: r.classLevel,
-    amount: r.amount,
-    method: r.method,
-    receipt: r.number,
-    date: r.createdAt,
-  }));
-  return new Promise((resolve) => setTimeout(() => resolve(journal), 320));
+  return fetchReceipts(year).then((rs) =>
+    rs.map((r) => ({
+      id: r.id,
+      studentId: r.studentId,
+      studentName: r.studentName,
+      classLevel: r.classLevel,
+      amount: r.amount,
+      method: r.method,
+      receipt: r.number,
+      date: r.createdAt,
+    })),
+  );
 }
 
 export function addStudent(student: FakeStudent): void {

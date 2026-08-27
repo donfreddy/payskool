@@ -1,3 +1,4 @@
+import type { AcademicYear } from "@/core/mocks/academic-years-db";
 import type { FakeFeeStructure, FakeStudent } from "@/core/mocks/fake-data";
 import {
   fetchFeeStructures,
@@ -10,14 +11,15 @@ import {
  * Couche d'accès simulée du domaine Grilles tarifaires & avantages.
  * À remplacer par les appels réels vers `apps/api`
  * (GET/PATCH /fee-structures, PATCH /students/:id) sans toucher aux écrans.
+ * `year` filtre l’année académique (année passée = lecture seule).
  */
 
 export function listFeeStructures(_schoolId: string): Promise<FakeFeeStructure[]> {
   return fetchFeeStructures();
 }
 
-export function listStudentsForFees(_schoolId: string): Promise<FakeStudent[]> {
-  return fetchStudents();
+export function listStudentsForFees(_schoolId: string, year?: AcademicYear): Promise<FakeStudent[]> {
+  return fetchStudents(year);
 }
 
 export function saveFeeStructure(

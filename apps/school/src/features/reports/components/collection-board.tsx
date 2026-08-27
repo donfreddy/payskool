@@ -31,16 +31,16 @@ function recoveryTone(rate: number) {
   return "bg-payskool-orange";
 }
 
-export function CollectionBoard({ schoolId }: { schoolId: string }) {
+export function CollectionBoard({ schoolId, year }: { schoolId: string; year: string }) {
   const [structures, setStructures] = useState<FakeFeeStructure[] | null>(null);
   const [students, setStudents] = useState<FakeStudent[]>([]);
   const [receipts, setReceipts] = useState<FakeReceipt[]>([]);
 
   useEffect(() => {
     listFeeStructures(schoolId).then(setStructures);
-    listStudentsForFees(schoolId).then(setStudents);
-    listReceipts(schoolId).then(setReceipts);
-  }, [schoolId]);
+    listStudentsForFees(schoolId, year).then(setStudents);
+    listReceipts(schoolId, year).then(setReceipts);
+  }, [schoolId, year]);
 
   const global = useMemo(() => (students.length ? globalCollection(students) : null), [students]);
   const shares = useMemo(() => methodShares(receipts), [receipts]);

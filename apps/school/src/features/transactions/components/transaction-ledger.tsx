@@ -32,7 +32,7 @@ const PERIOD_OPTIONS: { value: Period; label: string }[] = [
 const PERIOD_REFERENCE = MOCK_NOW;
 const PAGE_SIZE = 14;
 
-export function TransactionLedger({ schoolId }: { schoolId: string }) {
+export function TransactionLedger({ schoolId, year }: { schoolId: string; year: string }) {
   const [txns, setTxns] = useState<FakeTx[] | null>(null);
   const [students, setStudents] = useState<FakeStudent[]>([]);
   const [query, setQuery] = useState("");
@@ -41,9 +41,9 @@ export function TransactionLedger({ schoolId }: { schoolId: string }) {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    listTransactions(schoolId).then((t) => setTxns(t));
-    listStudents(schoolId).then((s) => setStudents(s));
-  }, [schoolId]);
+    listTransactions(schoolId, year).then((t) => setTxns(t));
+    listStudents(schoolId, year).then((s) => setStudents(s));
+  }, [schoolId, year]);
 
   const filtered = useMemo(() => {
     if (!txns) return [];
