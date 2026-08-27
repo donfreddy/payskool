@@ -16,16 +16,16 @@ export function formatCompactCFA(amount: number): string {
   return cfa.format(Math.round(amount / 1000)) + " k";
 }
 
-/** "2026-11-15" -> "15 nov." (libellés courts). */
+/** "2026-11-15" ou "2026-11-15T09:00:00Z" -> "15 nov." (libellés courts). */
 export function formatShortDate(iso: string): string {
-  const d = new Date(`${iso}T00:00:00`);
+  const d = new Date(iso.includes("T") ? iso : `${iso}T00:00:00`);
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
 }
 
-/** "2026-11-15" -> "lun. 15 nov. 2026" */
+/** "2026-11-15" ou "2026-11-15T09:00:00Z" -> "lun. 15 nov. 2026" */
 export function formatFullDate(iso: string): string {
-  const d = new Date(`${iso}T00:00:00`);
+  const d = new Date(iso.includes("T") ? iso : `${iso}T00:00:00`);
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "long", year: "numeric" });
 }
