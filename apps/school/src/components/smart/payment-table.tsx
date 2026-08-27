@@ -1,4 +1,3 @@
-import { Search, Receipt } from "lucide-react";
 import { Input } from "@payskool/ui/components/ui/input";
 import {
   Select,
@@ -8,6 +7,7 @@ import {
   SelectValue,
 } from "@payskool/ui/components/ui/select";
 import { cn } from "@payskool/ui/utils";
+import { Search, Receipt } from "lucide-react";
 
 type Method = "orange" | "mtn" | "cash" | "wave";
 

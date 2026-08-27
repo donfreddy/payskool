@@ -1,6 +1,15 @@
 "use client";
 
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@payskool/ui/components/ui/select";
+import { Tabs, TabsList, TabsTrigger } from "@payskool/ui/components/ui/tabs";
+import { useEffect, useState } from "react";
+import {
   Area,
   AreaChart,
   Bar,
@@ -14,19 +23,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { TrendingUp } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@payskool/ui/components/ui/tabs";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@payskool/ui/components/ui/select";
 
 function ChartFrame({ height, children }: { height: number; children: React.ReactElement }) {
   const [mounted, setMounted] = useState(false);
+  // Garde d'hydratation : recharts (ResponsiveContainer) est client-only.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
   return (
     <div className="w-full" style={{ height }}>
@@ -40,16 +41,6 @@ function ChartFrame({ height, children }: { height: number; children: React.Reac
     </div>
   );
 }
-
-const monthly = [
-  { mois: "Sep", encaisse: 8200, objectif: 9000 },
-  { mois: "Oct", encaisse: 7400, objectif: 8000 },
-  { mois: "Nov", encaisse: 6100, objectif: 6500 },
-  { mois: "Déc", encaisse: 4800, objectif: 6000 },
-  { mois: "Jan", encaisse: 9300, objectif: 8500 },
-  { mois: "Fév", encaisse: 5600, objectif: 7000 },
-  { mois: "Mar", encaisse: 3800, objectif: 6500 },
-];
 
 const tranches = [
   { name: "Tranche 1", value: 22400, color: "var(--color-success)" },
@@ -68,12 +59,7 @@ const levels = [
   { niveau: "Tle", taux: 85 },
 ];
 
-const paymentMix = [
-  { mode: "Orange Money", value: 42, color: "var(--color-brand-orange)" },
-  { mode: "MTN MoMo", value: 28, color: "var(--color-warning)" },
-  { mode: "Wave", value: 18, color: "var(--color-brand-cyan)" },
-  { mode: "Espèces", value: 12, color: "var(--color-muted-foreground)" },
-];
+type PaymentMix = { mode: string; value: number; color: string };
 
 const periodData: Record<string, { mois: string; encaisse: number; objectif: number }[]> = {
   "1m": [
@@ -106,7 +92,7 @@ const periodData: Record<string, { mois: string; encaisse: number; objectif: num
   ],
 };
 
-const paymentMixPeriod: Record<string, typeof paymentMix> = {
+const paymentMixPeriod: Record<string, PaymentMix[]> = {
   week: [
     { mode: "Orange Money", value: 48, color: "var(--color-brand-orange)" },
     { mode: "MTN MoMo", value: 31, color: "var(--color-warning)" },

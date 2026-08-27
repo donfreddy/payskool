@@ -1,10 +1,7 @@
 "use client";
 
-import * as React from "react";
-import { useParams, useRouter } from "next/navigation";
-import { ChevronsUpDown, PlusCircle, Building2 } from "lucide-react";
-import { cn } from "@payskool/ui/utils";
 
+import { Button } from "@payskool/ui/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,8 +9,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@payskool/ui/components/ui/dropdown-menu";
-import { Button } from "@payskool/ui/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@payskool/ui/components/ui/tooltip";
+import { cn } from "@payskool/ui/utils";
+import { ChevronsUpDown, PlusCircle, Building2 } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import * as React from "react";
 
 export interface School {
   id: string;
@@ -44,7 +44,7 @@ export function SchoolSwitcher({ schools, collapsed = false }: SchoolSwitcherPro
                 </button>
               </DropdownMenuTrigger>
             </TooltipTrigger>
-            <TooltipContent side="right">Changer d'école</TooltipContent>
+            <TooltipContent side="right">Changer d’école</TooltipContent>
           </Tooltip>
           <DropdownMenuContent className="w-56" align="start" side="right" sideOffset={4}>
             {schools.map((school) => (

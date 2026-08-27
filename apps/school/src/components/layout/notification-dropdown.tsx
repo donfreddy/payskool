@@ -1,11 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { Bell } from "lucide-react";
-import { CreditCard, AlertTriangle, UserPlus, Receipt, Download } from "lucide-react";
 
-import { FAKE_NOTIFICATIONS } from "@/core/mocks/fake-data";
-import { cn } from "@payskool/ui/utils";
 import { Badge } from "@payskool/ui/components/ui/badge";
 import { Button, buttonVariants } from "@payskool/ui/components/ui/button";
 import { Card, CardFooter } from "@payskool/ui/components/ui/card";
@@ -14,6 +9,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@payskool/ui/components/ui/popover";
+import { cn } from "@payskool/ui/utils";
+import { CreditCard, AlertTriangle, UserPlus, Receipt, Download } from "lucide-react";
+import { Bell } from "lucide-react";
+import Link from "next/link";
+
+import { FAKE_NOTIFICATIONS } from "@/core/mocks/fake-data";
 
 const iconMap = {
   CreditCard,

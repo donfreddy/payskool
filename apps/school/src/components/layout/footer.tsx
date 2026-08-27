@@ -1,5 +1,5 @@
-import { cn } from "@payskool/ui/utils";
 import { buttonVariants } from "@payskool/ui/components/ui/button";
+import { cn } from "@payskool/ui/utils";
 
 export function Footer() {
   const currentYear = new Date().getFullYear()

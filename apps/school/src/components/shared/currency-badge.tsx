@@ -1,9 +1,8 @@
-import { Badge } from "@payskool/ui/components/ui/badge";
-import { cn } from "@payskool/ui/utils";
+import { Badge, type BadgeProps } from "@payskool/ui/components/ui/badge";
 
 interface CurrencyBadgeProps {
   amount: number;
-  variant?: "default" | "secondary" | "destructive" | "outline" | "success";
+  variant?: BadgeProps["variant"];
   className?: string;
 }
 
@@ -12,19 +11,12 @@ export function CurrencyBadge({ amount, variant = "secondary", className }: Curr
     style: "currency",
     currency: "XAF",
     minimumFractionDigits: 0,
-  }).format(amount).replace("XAF", "FCFA");
-
-  // We can add a custom "success" variant if needed for positive amounts
-  const isSuccess = variant === "success";
+  })
+    .format(amount)
+    .replace("XAF", "FCFA");
 
   return (
-    <Badge 
-      variant={isSuccess ? "outline" : variant as any} 
-      className={cn(
-        isSuccess && "bg-payskool-emerald/10 text-payskool-emerald border-payskool-emerald/20",
-        className
-      )}
-    >
+    <Badge variant={variant} className={className}>
       {formattedAmount}
     </Badge>
   );

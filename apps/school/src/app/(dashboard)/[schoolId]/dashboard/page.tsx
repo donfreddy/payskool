@@ -1,10 +1,11 @@
-import { FAKE_LIVE_FEED, FAKE_USER } from "@/core/mocks/fake-data";
-import { Home, Download, Plus } from "lucide-react";
-import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@payskool/ui/components/ui/button";
+import { Home, Download, Plus } from "lucide-react";
+
+import { PageHeader } from "@/components/layout/page-header";
+import { ChartsRow } from "@/components/smart/charts";
 import { MetricsGrid } from "@/components/smart/metrics";
 import { PaymentsTable } from "@/components/smart/payment-table";
-import { ChartsRow } from "@/components/smart/charts";
+import { FAKE_LIVE_FEED, FAKE_USER } from "@/core/mocks/fake-data";
 
 export default function DashboardPage() {
   return (

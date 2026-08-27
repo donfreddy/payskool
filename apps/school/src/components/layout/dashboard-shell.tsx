@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { PayskoolSidebar } from "./sidebar";
+
 import { HeaderBar } from "./header-bar";
-import { Footer } from "./footer";
+import { PayskoolSidebar } from "./sidebar";
 
 interface DashboardShellProps {
   schoolId: string;

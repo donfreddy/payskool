@@ -1,16 +1,17 @@
 "use client";
 
-import * as React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Shield, PanelLeft, X, ChevronDown } from "lucide-react";
-import { cn } from "@payskool/ui/utils";
-import { getNavSections, type Role, type NavItem } from "@/features/auth/rbac/nav-items";
-import { SchoolSwitcher } from "@/features/school-switcher/components/school-switcher";
-import { FAKE_SCHOOLS, FAKE_USER } from "@/core/mocks/fake-data";
-import { Avatar, AvatarFallback } from "@payskool/ui/components/ui/avatar";
 import { Button } from "@payskool/ui/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@payskool/ui/components/ui/tooltip";
+import { cn } from "@payskool/ui/utils";
+import { ChevronDown, PanelLeft, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import * as React from "react";
+
+import { FAKE_SCHOOLS, FAKE_USER } from "@/core/mocks/fake-data";
+import { getNavSections, type Role, type NavItem } from "@/features/auth/rbac/nav-items";
+import { SchoolSwitcher } from "@/features/school-switcher/components/school-switcher";
+
 
 interface SidebarProps {
   schoolId: string;

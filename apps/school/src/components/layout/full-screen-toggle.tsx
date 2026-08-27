@@ -1,8 +1,8 @@
 "use client"
 
+import { Button } from "@payskool/ui/components/ui/button"
 import { useEffect, useState } from "react"
 
-import { Button } from "@payskool/ui/components/ui/button"
 import { DynamicIcon } from "@/components/shared/dynamic-icon"
 
 // Extend the global `Document` and `HTMLElement` interfaces to handle fullscreen API variations across browsers

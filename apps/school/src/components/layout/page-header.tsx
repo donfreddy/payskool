@@ -1,5 +1,3 @@
-import * as React from "react";
-import Link from "next/link";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,6 +6,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@payskool/ui/components/ui/breadcrumb";
+import Link from "next/link";
+import * as React from "react";
 
 export interface BreadcrumbLinkData {
   label: string;

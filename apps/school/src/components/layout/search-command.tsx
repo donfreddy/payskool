@@ -1,8 +1,5 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { Search, GraduationCap, ReceiptText, Banknote, School, User } from "lucide-react";
 import { Button } from "@payskool/ui/components/ui/button";
 import {
   Command,
@@ -14,6 +11,9 @@ import {
   CommandItem,
   CommandSeparator,
 } from "@payskool/ui/components/ui/command";
+import { Search, GraduationCap, ReceiptText, Banknote, School, User } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect, useCallback } from "react";
 
 export function SearchCommand() {
   const router = useRouter();

@@ -1,5 +1,5 @@
-import { TrendingUp, Wallet, Clock3, GraduationCap } from "lucide-react";
 import { Progress } from "@payskool/ui/components/ui/progress";
+import { TrendingUp, Wallet, Clock3, GraduationCap } from "lucide-react";
 
 function Shell({
   title,

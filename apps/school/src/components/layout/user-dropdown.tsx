@@ -1,6 +1,3 @@
-import Link from "next/link"
-import { LogOut, User, UserCog } from "lucide-react"
-import { FAKE_USER } from "@/core/mocks/fake-data";
 import { getInitials } from "@payskool/shared";
 import { Avatar, AvatarFallback, AvatarImage } from "@payskool/ui/components/ui/avatar"
 import { Button } from "@payskool/ui/components/ui/button"
@@ -13,6 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@payskool/ui/components/ui/dropdown-menu"
+import { LogOut, User, UserCog } from "lucide-react"
+import Link from "next/link"
+
+import { FAKE_USER } from "@/core/mocks/fake-data";
 
 export function UserDropdown() {
   return (

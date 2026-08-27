@@ -1,12 +1,14 @@
 "use client";
 
-import { Menu, CalendarDays } from "lucide-react";
 import { Button } from "@payskool/ui/components/ui/button";
+import { Menu, CalendarDays } from "lucide-react";
+
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+
 import { FullscreenToggle } from "./full-screen-toggle";
-import { UserDropdown } from "./user-dropdown";
 import { NotificationDropdown } from "./notification-dropdown";
 import { SearchCommand } from "./search-command";
+import { UserDropdown } from "./user-dropdown";
 
 interface HeaderBarProps {
   onMenuClick?: () => void;
