@@ -82,7 +82,7 @@ export function SchoolBoard({ schoolId }: { schoolId: string }) {
             <CalendarRange className="size-3.5 text-payskool-orange" /> Année académique {school.academicYear}
           </span>
           <span className="flex items-center gap-1.5">
-            <Check className="size-3.5 text-payskool-emerald" /> Paiement en ligne activé (Orange Money, MTN MoMo, Wave)
+            <Check className="size-3.5 text-payskool-emerald" /> Paiement en ligne activé (fournisseur d’encaissement)
           </span>
         </div>
       </section>

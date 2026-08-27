@@ -18,7 +18,7 @@ export default async function PaymentProvidersPage({ params }: PaymentProvidersP
           { label: "Intégrations Paiement", icon: CreditCard },
         ]}
         title="Intégrations Paiement"
-        subtitle="Connectez les moyens de paiement des parents (MTN MoMo, Orange Money, Wave, cartes) et suivez les règlements vers votre banque."
+        subtitle="Configurez le fournisseur d’encaissement supporté par la plateforme (Wave, Flutterwave, Paystack, PayUnit, CamPay, Marviance…). Un seul fournisseur actif à la fois."
       />
 
       <PaymentProvidersBoard schoolId={schoolId} />

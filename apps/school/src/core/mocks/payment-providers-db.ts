@@ -1,321 +1,319 @@
 import { MOCK_NOW } from "@/core/mocks/fake-data";
 
-/** Moyens de paiement en ligne connectables (Mobile money + carte). */
-export type PaymentProviderKind = "MTN_MOMO" | "ORANGE_MONEY" | "WAVE" | "CARD";
+/**
+ * Fournisseurs d'encaissement supportés par la plateforme (agrégateurs).
+ * Les établissements ne s'intègrent pas directement aux APIs MTN/Orange :
+ * ils passent par un de ces fournisseurs, un seul à la fois.
+ */
+export type PaymentProviderId =
+  | "wave"
+  | "flutterwave"
+  | "paystack"
+  | "payunit"
+  | "campay"
+  | "marviance";
 
-export type ConnectionStatus = "ACTIVE" | "PAUSED";
+export type VerificationMode = "SMS_CODE" | "TEST_TRANSACTION";
+
+export type PaymentEnvironment = "test" | "live";
 
 export type PayoutStatus = "PAID" | "SCHEDULED";
 
+export interface PaymentProviderField {
+  key: string;
+  label: string;
+  kind: "text" | "password" | "tel";
+  placeholder?: string;
+  hint?: string;
+}
+
 export interface PaymentProviderCatalogEntry {
-  kind: PaymentProviderKind;
+  id: PaymentProviderId;
   name: string;
-  shortName: string;
   tagline: string;
-  category: "Mobile money" | "Cartes bancaires";
-  demoPhone: string;
-  demoHolder: string;
+  markets: string;
+  channels: string;
   feePercent: number;
-  maxPerTx: number;
+  feeLabel: string;
+  settlement: string;
+  /** Champs de configuration — le flow diffère d'un fournisseur à l'autre. */
+  fields: PaymentProviderField[];
+  verification: VerificationMode;
+  testAmount?: number; // mode TEST_TRANSACTION
+  demoPhone?: string;   // mode SMS_CODE
+  demoValues: Record<string, string>;
 }
 
 export interface FakePaymentProviderConnection {
   id: string;
-  kind: PaymentProviderKind;
-  name: string;
-  shortName: string;
-  phone: string;
-  holder: string;
+  providerId: PaymentProviderId;
+  providerName: string;
+  channel: string;
+  environment: PaymentEnvironment;
+  config: Record<string, string>;
   feePercent: number;
-  status: ConnectionStatus;
-  testMode: boolean;
   connectedAt: string; // ISO
   lastSyncAt: string;  // ISO
+}
+
+export interface ConnectProviderInput {
+  providerId: PaymentProviderId;
+  config: Record<string, string>;
+  environment: PaymentEnvironment;
+}
+
+export const PAYMENT_PROVIDER_CATALOG: PaymentProviderCatalogEntry[] = [
+  {
+    id: "wave",
+    name: "Wave",
+    tagline: "Mobile money panafricain : paiement instantané par lien ou QR, sans USSD.",
+    markets: "Cameroun · Sénégal · Côte d’Ivoire · Burkina Faso",
+    channels: "Mobile money",
+    feePercent: 1,
+    feeLabel: "1 % / transaction",
+    settlement: "Virement hebdomadaire (lundi)",
+    fields: [
+      { key: "phone", label: "Numéro Wave Business", kind: "tel", placeholder: "+237 6 …", hint: "Compte marchand sur lequel transitent les encaissements." },
+      { key: "callback", label: "URL de callback (webhook)", kind: "text", placeholder: "https://api.ecole.cm/wave/callback" },
+    ],
+    verification: "SMS_CODE",
+    demoPhone: "+237 656 12 34 01",
+    demoValues: {
+      phone: "+237 656 12 34 01",
+      callback: "https://api.cs-sainte-marie.cm/wave/callback",
+    },
+  },
+  {
+    id: "flutterwave",
+    name: "Flutterwave",
+    tagline: "Passerelle panafricaine : cartes bancaires, mobile money et liens de paiement.",
+    markets: "Cameroun · Nigéria · Sénégal · Ghana · Kenya · …",
+    channels: "Cartes Visa/MC + mobile money",
+    feePercent: 1.4,
+    feeLabel: "1,4 % / transaction",
+    settlement: "Virement (J+2)",
+    fields: [
+      { key: "email", label: "E-mail du compte marchand", kind: "text", placeholder: "comptabilite@ecole.cm" },
+      { key: "publicKey", label: "Clé publique (FLWPUBK-…)", kind: "text", placeholder: "FLWPUBK-XXXXXXXXXXXXXXXX", hint: "Clé de test ou live selon l’environnement." },
+      { key: "secretKey", label: "Clé secrète (FLWSECK-…)", kind: "password", hint: "Visible uniquement à l’enregistrement." },
+    ],
+    verification: "TEST_TRANSACTION",
+    testAmount: 1,
+    demoValues: {
+      email: "comptabilite@cs-sainte-marie.cm",
+      publicKey: "FLWPUBK-TEST-abc123def456",
+      secretKey: "FLWSECK-TEST-x1y2z3",
+    },
+  },
+  {
+    id: "paystack",
+    name: "Paystack",
+    tagline: "Cartes Visa/Mastercard/Verve et mobile money, maintenant au Cameroun.",
+    markets: "Cameroun · Nigéria · Ghana · Afrique du Sud",
+    channels: "Cartes Visa/MC/Verve + mobile money",
+    feePercent: 1.5,
+    feeLabel: "1,5 % / transaction",
+    settlement: "Virement (J+1)",
+    fields: [
+      { key: "publicKey", label: "Clé publique (pk_…)", kind: "text", placeholder: "pk_test_…" },
+      { key: "secretKey", label: "Clé secrète (sk_…)", kind: "password", placeholder: "sk_test_…" },
+      { key: "callback", label: "Webhook (callback + verify-hash)", kind: "text", placeholder: "https://api.ecole.cm/paystack/webhook" },
+    ],
+    verification: "TEST_TRANSACTION",
+    testAmount: 1,
+    demoValues: {
+      publicKey: "pk_test_demo_8d2f1a",
+      secretKey: "sk_test_demo_7c4e9b",
+      callback: "https://api.cs-sainte-marie.cm/paystack/webhook",
+    },
+  },
+  {
+    id: "payunit",
+    name: "PayUnit",
+    tagline: "Aggrégateur camerounais : mobile money par USSD et lien de paiement.",
+    markets: "Cameroun",
+    channels: "Mobile money (MTN, Orange, Moov)",
+    feePercent: 1,
+    feeLabel: "1 % / transaction",
+    settlement: "Virement hebdomadaire (lundi)",
+    fields: [
+      { key: "apiId", label: "Identifiant API marchand", kind: "text", placeholder: "PU-xxxx" },
+      { key: "apiKey", label: "Clé API", kind: "password" },
+      { key: "callback", label: "URL de callback", kind: "text", placeholder: "https://api.ecole.cm/payunit/callback" },
+    ],
+    verification: "SMS_CODE",
+    demoPhone: "+237 681 55 20 44",
+    demoValues: {
+      apiId: "PU-demo-001",
+      apiKey: "pkey-demo-001",
+      callback: "https://api.cs-sainte-marie.cm/payunit/callback",
+    },
+  },
+  {
+    id: "campay",
+    name: "CamPay",
+    tagline: "Mobile money camerounais pensé pour le paiement de scolarité et de factures.",
+    markets: "Cameroun",
+    channels: "Mobile money (MTN, Orange) + Yup",
+    feePercent: 1.2,
+    feeLabel: "1,2 % / transaction",
+    settlement: "Virement hebdomadaire (lundi)",
+    fields: [
+      { key: "phone", label: "Téléphone marchand", kind: "tel", placeholder: "+237 6 …", hint: "Compte agent qui reçoit les fonds avant transfert." },
+      { key: "clientId", label: "Client ID", kind: "text", placeholder: "client_id" },
+      { key: "secret", label: "Secret (authentification)", kind: "password" },
+    ],
+    verification: "SMS_CODE",
+    demoPhone: "+237 690 77 44 21",
+    demoValues: {
+      phone: "+237 690 77 44 21",
+      clientId: "cam-cs-saintemarie",
+      secret: "cam-secret-demo",
+    },
+  },
+  {
+    id: "marviance",
+    name: "Marviance",
+    tagline: "Plateforme camerounaise de paiement scolaire : USSD, mobile money et carte.",
+    markets: "Cameroun",
+    channels: "Mobile money + USSD + carte",
+    feePercent: 1,
+    feeLabel: "1 % / transaction",
+    settlement: "Virement hebdomadaire (jeudi)",
+    fields: [
+      { key: "code", label: "Code marchand", kind: "text", placeholder: "MV-…" },
+      { key: "secretKey", label: "Clé secrète (MKEY…)", kind: "password" },
+      { key: "phone", label: "Téléphone de support (encaissements)", kind: "tel", placeholder: "+237 6 …" },
+    ],
+    verification: "SMS_CODE",
+    demoPhone: "+237 699 55 33 22",
+    demoValues: {
+      code: "MV-cs-saintemarie-01",
+      secretKey: "MKEY-TEST-1234abcd",
+      phone: "+237 699 55 33 22",
+    },
+  },
+];
+
+export function providerById(id: PaymentProviderId): PaymentProviderCatalogEntry | undefined {
+  return PAYMENT_PROVIDER_CATALOG.find((c) => c.id === id);
 }
 
 export interface FakePaymentPayout {
   id: string;
   reference: string;
-  providerId: string;
+  providerId: PaymentProviderId;
   providerName: string;
   amount: number; // net versé (en FCFA)
-  fees: number;   // retenues opérateur cumulées (en FCFA)
+  fees: number;   // retenues fournisseur cumulées (en FCFA)
   scheduledFor: string; // ISO
   status: PayoutStatus;
   bank: string;
 }
 
-export interface ConnectProviderInput {
-  kind: PaymentProviderKind;
-  phone: string;
-  holder: string;
-  testMode: boolean;
-}
-
-export const PAYMENT_PROVIDER_CATALOG: PaymentProviderCatalogEntry[] = [
-  {
-    kind: "MTN_MOMO",
-    name: "MTN Mobile Money",
-    shortName: "MTN MoMo",
-    tagline: "Relevé MTN officiel, paiement par USSD ou API marchand.",
-    category: "Mobile money",
-    demoPhone: "+237 671 12 34 01",
-    demoHolder: "Cellule scolarité CS Sainte-Marie",
-    feePercent: 1,
-    maxPerTx: 500000,
-  },
-  {
-    kind: "ORANGE_MONEY",
-    name: "Orange Money",
-    shortName: "Orange Money",
-    tagline: "Le wallet Orange utilisé par la majorité des parents à Douala.",
-    category: "Mobile money",
-    demoPhone: "+237 690 12 34 01",
-    demoHolder: "Cellule scolarité CS Sainte-Marie",
-    feePercent: 1.2,
-    maxPerTx: 1000000,
-  },
-  {
-    kind: "WAVE",
-    name: "Wave",
-    shortName: "Wave",
-    tagline: "Wallet mobile à frais réduits, instantané et sans code USSD.",
-    category: "Mobile money",
-    demoPhone: "+237 656 12 34 01",
-    demoHolder: "Cellule scolarité CS Sainte-Marie",
-    feePercent: 1,
-    maxPerTx: 2000000,
-  },
-  {
-    kind: "CARD",
-    name: "PaySkool Gateway",
-    shortName: "Cartes",
-    tagline: "Carte bancaire Visa / Mastercard via la passerelle PaySkool.",
-    category: "Cartes bancaires",
-    demoPhone: "+237 233 42 18 60",
-    demoHolder: "Compte PaySkool Gateway CS Sainte-Marie",
-    feePercent: 1.8,
-    maxPerTx: 3000000,
-  },
-];
-
-const KIND_FEE: Record<PaymentProviderKind, number> = {
-  MTN_MOMO: 1,
-  ORANGE_MONEY: 1.2,
-  WAVE: 1,
-  CARD: 1.8,
-};
-
-/** Commission opérateur (en %) appliquée à un moyen de paiement. */
-export function providerFeePercent(kind: PaymentProviderKind): number {
-  return KIND_FEE[kind];
-}
-
-const connectionSeed = (schoolId: string): FakePaymentProviderConnection[] => {
-  const base = {
-    id: "",
-    connectedAt: "2024-09-05T08:30:00Z",
-    lastSyncAt: MOCK_NOW.toISOString(),
-    testMode: true,
-  };
+const connectionSeed = (schoolId: string): FakePaymentProviderConnection | null => {
+  const now = MOCK_NOW.toISOString();
   if (schoolId === "lycee-saint-paul") {
-    return [
-      {
-        ...base,
-        id: "pp_orange",
-        kind: "ORANGE_MONEY",
-        name: "Orange Money",
-        shortName: "Orange Money",
-        phone: "+237 690 45 78 12",
-        holder: "Comptabilité Lycée Saint-Paul",
-        feePercent: 1.2,
-        status: "ACTIVE",
+    return {
+      id: "cv_paystack",
+      providerId: "paystack",
+      providerName: "Paystack",
+      channel: "Cartes Visa/MC/Verve + mobile money",
+      environment: "test",
+      config: {
+        publicKey: "pk_test_demo_8d2f1a",
+        secretKey: "sk_test_demo_7c4e9b",
+        callback: "https://api.lycee-saint-paul.cm/paystack/webhook",
       },
-      {
-        ...base,
-        id: "pp_card",
-        kind: "CARD",
-        name: "PaySkool Gateway",
-        shortName: "Cartes",
-        phone: "+237 222 20 14 35",
-        holder: "Compte PaySkool Gateway Lycée Saint-Paul",
-        feePercent: 1.8,
-        status: "ACTIVE",
-      },
-    ];
+      feePercent: 1.5,
+      connectedAt: "2025-09-02T09:00:00Z",
+      lastSyncAt: now,
+    };
   }
   if (schoolId === "maternelle-bisounours") {
-    return [
-      {
-        ...base,
-        id: "pp_wave",
-        kind: "WAVE",
-        name: "Wave",
-        shortName: "Wave",
-        phone: "+237 656 20 54 32",
-        holder: "Direction Maternelle les Bisounours",
-        feePercent: 1,
-        status: "ACTIVE",
-      },
-    ];
+    return null; // aucun fournisseur configuré : le catalogue est proposé
   }
   // cs-sainte-marie (école par défaut de la démo)
-  return [
-    {
-      ...base,
-      id: "pp_mtn",
-      kind: "MTN_MOMO",
-      name: "MTN Mobile Money",
-      shortName: "MTN MoMo",
-      phone: "+237 671 12 34 01",
-      holder: "Cellule scolarité CS Sainte-Marie",
-      feePercent: 1,
-      status: "ACTIVE",
+  return {
+    id: "cv_wave",
+    providerId: "wave",
+    providerName: "Wave",
+    channel: "Mobile money",
+    environment: "test",
+    config: {
+      phone: "+237 656 12 34 01",
+      callback: "https://api.cs-sainte-marie.cm/wave/callback",
     },
-    {
-      ...base,
-      id: "pp_orange",
-      kind: "ORANGE_MONEY",
-      name: "Orange Money",
-      shortName: "Orange Money",
-      phone: "+237 690 12 34 01",
-      holder: "Cellule scolarité CS Sainte-Marie",
-      feePercent: 1.2,
-      status: "ACTIVE",
-    },
-  ];
+    feePercent: 1,
+    connectedAt: "2025-09-05T08:30:00Z",
+    lastSyncAt: now,
+  };
 };
 
-const payoutSeed = (schoolId: string): FakePaymentPayout[] => {
-  if (schoolId !== "cs-sainte-marie") {
+const payoutSeed = (schoolId: string, active: FakePaymentProviderConnection | null): FakePaymentPayout[] => {
+  if (!active) return [];
+  const providerId = active.providerId;
+  const providerName = active.providerName;
+  const base = { providerId, providerName, bank: "BICEC •••• 0142" };
+  if (schoolId === "lycee-saint-paul") {
     return [
-      {
-        id: "pp_out_probe",
-        reference: "VIR-PP-1001",
-        providerId: "pp_orange",
-        providerName: "Orange Money",
-        amount: 512000,
-        fees: 6600,
-        scheduledFor: "2026-11-24T09:00:00Z",
-        status: "SCHEDULED",
-        bank: "BICEC •••• 0142",
-      },
+      { ...base, id: "pp_out_01", reference: "VIR-PP-2011", amount: 965000, fees: 10890, scheduledFor: "2026-11-24T09:00:00Z", status: "SCHEDULED" },
+      { ...base, id: "pp_out_02", reference: "VIR-PP-2006", amount: 812000, fees: 8744, scheduledFor: "2026-11-17T09:00:00Z", status: "PAID" },
     ];
   }
   return [
-    {
-      id: "pp_out_01",
-      reference: "VIR-PP-1042",
-      providerId: "pp_mtn",
-      providerName: "MTN MoMo",
-      amount: 1284500,
-      fees: 13850,
-      scheduledFor: "2026-11-24T09:00:00Z",
-      status: "SCHEDULED",
-      bank: "BICEC •••• 0142",
-    },
-    {
-      id: "pp_out_02",
-      reference: "VIR-PP-1043",
-      providerId: "pp_orange",
-      providerName: "Orange Money",
-      amount: 1210000,
-      fees: 15840,
-      scheduledFor: "2026-11-24T09:00:00Z",
-      status: "SCHEDULED",
-      bank: "BICEC •••• 0142",
-    },
-    {
-      id: "pp_out_03",
-      reference: "VIR-PP-1031",
-      providerId: "pp_orange",
-      providerName: "Orange Money",
-      amount: 1010000,
-      fees: 11040,
-      scheduledFor: "2026-11-17T09:00:00Z",
-      status: "PAID",
-      bank: "BICEC •••• 0142",
-    },
-    {
-      id: "pp_out_04",
-      reference: "VIR-PP-1025",
-      providerId: "pp_mtn",
-      providerName: "MTN MoMo",
-      amount: 985000,
-      fees: 9850,
-      scheduledFor: "2026-11-10T09:00:00Z",
-      status: "PAID",
-      bank: "BICEC •••• 0142",
-    },
+    { ...base, id: "pp_out_01", reference: "VIR-PP-1042", amount: 1284500, fees: 13405, scheduledFor: "2026-11-24T09:00:00Z", status: "SCHEDULED" },
+    { ...base, id: "pp_out_02", reference: "VIR-PP-1031", amount: 1010000, fees: 10480, scheduledFor: "2026-11-17T09:00:00Z", status: "PAID" },
+    { ...base, id: "pp_out_03", reference: "VIR-PP-1025", amount: 985000, fees: 9850, scheduledFor: "2026-11-10T09:00:00Z", status: "PAID" },
   ];
 };
 
-let connectionsBySchool: Record<string, FakePaymentProviderConnection[]> = {};
+let connectionBySchool: Record<string, FakePaymentProviderConnection | null> = {};
 let payoutsBySchool: Record<string, FakePaymentPayout[]> = {};
 
 const clone = <T,>(v: T): T => (typeof structuredClone === "function" ? structuredClone(v) : JSON.parse(JSON.stringify(v)));
 
 const ensureSeeded = (schoolId: string) => {
-  if (!connectionsBySchool[schoolId]) connectionsBySchool[schoolId] = connectionSeed(schoolId);
-  if (!payoutsBySchool[schoolId]) payoutsBySchool[schoolId] = payoutSeed(schoolId);
+  if (!(schoolId in connectionBySchool)) connectionBySchool[schoolId] = connectionSeed(schoolId);
+  if (!payoutsBySchool[schoolId]) payoutsBySchool[schoolId] = payoutSeed(schoolId, connectionBySchool[schoolId] ?? null);
 };
 
-export function fetchConnections(schoolId: string): Promise<FakePaymentProviderConnection[]> {
+export function fetchConnection(schoolId: string): Promise<FakePaymentProviderConnection | null> {
   ensureSeeded(schoolId);
-  return new Promise((resolve) =>
-    setTimeout(() => resolve(clone(connectionsBySchool[schoolId]!)), 200),
-  );
+  return new Promise((resolve) => setTimeout(() => resolve(clone(connectionBySchool[schoolId] ?? null)), 200));
 }
 
 export function fetchPayouts(schoolId: string): Promise<FakePaymentPayout[]> {
   ensureSeeded(schoolId);
-  return new Promise((resolve) =>
-    setTimeout(() => resolve(clone(payoutsBySchool[schoolId]!)), 200),
-  );
+  return new Promise((resolve) => setTimeout(() => resolve(clone(payoutsBySchool[schoolId] ?? [])), 200));
 }
 
+/** Configure (ou remplace) le fournisseur d'encaissement — un seul actif à la fois. */
 export function connectProvider(
   schoolId: string,
   input: ConnectProviderInput,
 ): FakePaymentProviderConnection | null {
+  const entry = providerById(input.providerId);
+  if (!entry) return null;
   ensureSeeded(schoolId);
-  const catalog = PAYMENT_PROVIDER_CATALOG.find((c) => c.kind === input.kind);
-  if (!catalog) return null;
-  const list = connectionsBySchool[schoolId]!;
-  if (list.some((c) => c.kind === input.kind)) return null;
   const created: FakePaymentProviderConnection = {
-    id: `pp_${input.kind.toLowerCase()}_${Date.now().toString(36)}`,
-    kind: input.kind,
-    name: catalog.name,
-    shortName: catalog.shortName,
-    phone: input.phone.trim(),
-    holder: input.holder.trim(),
-    feePercent: catalog.feePercent,
-    status: "ACTIVE",
-    testMode: input.testMode,
+    id: `cv_${input.providerId}`,
+    providerId: input.providerId,
+    providerName: entry.name,
+    channel: entry.channels,
+    environment: input.environment,
+    config: { ...entry.demoValues, ...input.config },
+    feePercent: entry.feePercent,
     connectedAt: new Date().toISOString(),
     lastSyncAt: new Date().toISOString(),
   };
-  list.unshift(created);
+  connectionBySchool[schoolId] = created;
+  payoutsBySchool[schoolId] = payoutSeed(schoolId, created);
   return clone(created);
 }
 
-export function patchConnection(
-  schoolId: string,
-  providerId: string,
-  patch: Partial<FakePaymentProviderConnection>,
-): FakePaymentProviderConnection | null {
-  const list = connectionsBySchool[schoolId] ?? [];
-  const index = list.findIndex((c) => c.id === providerId);
-  if (index < 0) return null;
-  list[index] = { ...list[index]!, ...patch, lastSyncAt: new Date().toISOString() };
-  return clone(list[index]);
-}
-
-export function disconnectProvider(schoolId: string, providerId: string): boolean {
-  const list = connectionsBySchool[schoolId] ?? [];
-  const next = list.filter((c) => c.id !== providerId);
-  if (next.length === list.length) return false;
-  connectionsBySchool[schoolId] = next;
-  return true;
+export function disconnectProvider(schoolId: string): void {
+  ensureSeeded(schoolId);
+  connectionBySchool[schoolId] = null;
+  payoutsBySchool[schoolId] = [];
 }
