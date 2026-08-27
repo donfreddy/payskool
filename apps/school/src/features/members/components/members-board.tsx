@@ -95,7 +95,7 @@ export function MembersBoard({ schoolId }: { schoolId: string }) {
                 Membres & équipe · CS Sainte-Marie
               </p>
               <p className="mt-1 font-mono text-4xl font-bold tracking-tight">{counts.total}</p>
-              <p className="mt-1 text-xs text-white/60">collaborateurs avec un accÃ¨s Ã  l’application</p>
+              <p className="mt-1 text-xs text-white/60">collaborateurs avec un accès à l’application</p>
             </div>
             <div className="flex gap-6 text-center">
               <Band k="Actifs" v={String(counts.active)} />
@@ -106,7 +106,7 @@ export function MembersBoard({ schoolId }: { schoolId: string }) {
         </div>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-1 px-6 py-3 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <ShieldCheck className="size-3.5 text-payskool-emerald" /> Les rÃ´les contrÃ´lent l’accÃ¨s au menu (caisse, finances, import)
+            <ShieldCheck className="size-3.5 text-payskool-emerald" /> Les rôles contrôlent l’accès au menu (caisse, finances, import)
           </span>
           <span className="flex items-center gap-1.5">
             <UserPlus className="size-3.5" /> Un seul propriétaire : l’école dispose d’un administrateur principal

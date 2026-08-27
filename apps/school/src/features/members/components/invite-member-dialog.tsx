@@ -48,7 +48,7 @@ export function InviteMemberDialog({
           </span>
           <div>
             <h2 className="text-base font-bold text-foreground">Inviter un membre</h2>
-            <p className="text-xs text-muted-foreground">Une invitation par e-mail sera envoyÃ©e Ã  l’adresse renseignÃ©e.</p>
+            <p className="text-xs text-muted-foreground">Une invitation par e-mail sera envoyée à l’adresse renseignée.</p>
           </div>
         </div>
 
