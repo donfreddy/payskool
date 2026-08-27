@@ -15,7 +15,7 @@ import Link from "next/link"
 
 import { FAKE_USER } from "@/core/mocks/fake-data";
 
-export function UserDropdown() {
+export function UserDropdown({ schoolId }: { schoolId: string }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -51,17 +51,13 @@ export function UserDropdown() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup className="max-w-48">
           <DropdownMenuItem asChild>
-            <Link
-              href="/lycee-saint-paul/profile"
-            >
+            <Link href={`/${schoolId}/settings/profile`}>
               <User className="me-2 size-4" />
               Profile
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link
-              href={`/lycee-saint-paul/settings`}
-            >
+            <Link href={`/${schoolId}/settings`}>
               <UserCog className="me-2 size-4" />
               Paramètres
             </Link>

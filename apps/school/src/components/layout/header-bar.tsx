@@ -12,9 +12,10 @@ import { UserDropdown } from "./user-dropdown";
 
 interface HeaderBarProps {
   onMenuClick?: () => void;
+  schoolId: string;
 }
 
-export function HeaderBar({ onMenuClick }: HeaderBarProps) {
+export function HeaderBar({ onMenuClick, schoolId }: HeaderBarProps) {
   return (
     <header className="h-14 border-b border-border bg-card flex items-center justify-between px-4 sm:px-6 shrink-0">
       <div className="flex items-center gap-4 flex-1">
@@ -43,7 +44,7 @@ export function HeaderBar({ onMenuClick }: HeaderBarProps) {
         <FullscreenToggle />
         <ThemeToggle />
         <div className="h-6 w-0.5 bg-muted mr-1.5" />
-        <UserDropdown />
+        <UserDropdown schoolId={schoolId} />
       </div>
     </header>
   );
