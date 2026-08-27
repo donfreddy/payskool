@@ -933,3 +933,107 @@ function buildNotificationHistorySeed(): FakeNotification[] {
 }
 
 export const FAKE_NOTIFICATION_HISTORY: FakeNotification[] = buildNotificationHistorySeed();
+
+// ---------------------------------------------------------------------------
+// Membres & équipe — fiche de chaque collaborateur, cohérente avec la caisse
+// (A. Kamga est l'un des caissiers listés sur les reçus).
+// ---------------------------------------------------------------------------
+
+export type MemberRole = "OWNER" | "SCHOOL_ADMIN" | "CASHIER" | "ACCOUNTANT" | "TEACHER";
+export type MemberStatus = "ACTIVE" | "INVITED" | "SUSPENDED";
+
+export interface FakeMember {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  role: MemberRole;
+  status: MemberStatus;
+  /** Date d'entrée dans l'équipe ou d'envoi de l'invitation ("yyyy-mm-dd"). */
+  joinedAt: string;
+  /** Dernière connexion (ISO) — vide si jamais connecté. */
+  lastActiveAt: string;
+}
+
+export const FAKE_MEMBERS: FakeMember[] = [
+  {
+    id: "mem_01",
+    name: "Erick Kouam",
+    email: "erickkouam@example.com",
+    phone: "+237 654 00 12 34",
+    role: "OWNER",
+    status: "ACTIVE",
+    joinedAt: "2024-09-01",
+    lastActiveAt: "2026-11-20T10:15:00Z",
+  },
+  {
+    id: "mem_02",
+    name: "Nadine Mbarga",
+    email: "n.mbarga@cs-sainte-marie.cm",
+    phone: "+237 691 42 87 10",
+    role: "SCHOOL_ADMIN",
+    status: "ACTIVE",
+    joinedAt: "2025-08-15",
+    lastActiveAt: "2026-11-20T08:47:00Z",
+  },
+  {
+    id: "mem_03",
+    name: "André Kamga",
+    email: "a.kamga@cs-sainte-marie.cm",
+    phone: "+237 677 88 22 41",
+    role: "CASHIER",
+    status: "ACTIVE",
+    joinedAt: "2025-09-02",
+    lastActiveAt: "2026-11-20T11:20:00Z",
+  },
+  {
+    id: "mem_04",
+    name: "Rosine Ngo Bassa",
+    email: "r.ngo@cs-sainte-marie.cm",
+    phone: "+237 699 15 60 27",
+    role: "ACCOUNTANT",
+    status: "ACTIVE",
+    joinedAt: "2025-10-10",
+    lastActiveAt: "2026-11-19T16:40:00Z",
+  },
+  {
+    id: "mem_05",
+    name: "Blaise Tchaptchet",
+    email: "b.tchaptchet@cs-sainte-marie.cm",
+    phone: "+237 673 04 19 88",
+    role: "TEACHER",
+    status: "ACTIVE",
+    joinedAt: "2026-09-05",
+    lastActiveAt: "2026-11-18T11:05:00Z",
+  },
+  {
+    id: "mem_06",
+    name: "Claire Ewang",
+    email: "c.ewang@cs-sainte-marie.cm",
+    phone: "+237 690 71 36 52",
+    role: "CASHIER",
+    status: "ACTIVE",
+    joinedAt: "2026-09-02",
+    lastActiveAt: "2026-11-17T14:22:00Z",
+  },
+  {
+    id: "mem_07",
+    name: "Marthe Ekollo",
+    email: "m.ekollo@cs-sainte-marie.cm",
+    phone: "+237 655 28 90 14",
+    role: "SCHOOL_ADMIN",
+    status: "SUSPENDED",
+    joinedAt: "2025-12-01",
+    lastActiveAt: "2026-11-10T09:33:00Z",
+  },
+  {
+    id: "mem_08",
+    name: "Samuel Onana",
+    email: "s.onana@cs-sainte-marie.cm",
+    phone: "+237 698 33 77 05",
+    role: "CASHIER",
+    status: "INVITED",
+    joinedAt: "2026-11-18",
+    lastActiveAt: "",
+  },
+];
