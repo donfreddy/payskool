@@ -11,6 +11,7 @@ import Link from "next/link";
 
 import { PaymentBadge } from "@/components/shared/payment-badge";
 import { StudentAvatar } from "@/components/shared/student-avatar";
+import { previousAcademicYear } from "@/core/mocks/academic-years-db";
 import type { FakeStudent } from "@/core/mocks/fake-data";
 import { TrancheRows } from "@/features/students/components/tranche-rows";
 import { computeStudentBalance } from "@/lib/fees";
@@ -70,7 +71,7 @@ export function StudentDetailSheet({
                 <TrancheRows installments={s.feePlan.installments} />
                 {s.previousBalance < 0 && (
                   <p className="mt-3 rounded-lg bg-payskool-orange/10 px-3 py-2 text-xs font-medium text-payskool-orange">
-                    Arriéré reporté 2025-2026 : {formatCFA(-s.previousBalance)}
+                    Arriéré reporté {previousAcademicYear(s.academicYear)} : {formatCFA(-s.previousBalance)}
                   </p>
                 )}
               </section>

@@ -172,8 +172,9 @@ export interface FakeStudent {
 }
 
 /**
- * 14 élèves représentatifs : bonnes payeuses, retardataires, boursiers,
- * un élève transféré avec arriéré, etc. — pour nourrir liste, guichet et import.
+ * 15 élèves représentatifs : bonnes payeuses, retardataires, boursiers,
+ * un élève transféré avec arriéré, un élève "portail parent" — pour nourrir
+ * liste, guichet, import et paiements en ligne.
  */
 export const FAKE_STUDENTS: FakeStudent[] = [
   {
@@ -487,6 +488,30 @@ export const FAKE_STUDENTS: FakeStudent[] = [
         { id: "i_14a", label: "Tranche 1 — Inscription", amount: 100000, paid: 100000, dueDate: "2026-09-15" },
         { id: "i_14b", label: "Tranche 2 — 1er Trimestre", amount: 125000, paid: 125000, dueDate: "2026-11-15" },
         { id: "i_14c", label: "Tranche 3 — 2ème Trimestre", amount: 125000, paid: 0, dueDate: "2027-02-15" },
+      ],
+    },
+  },
+  {
+    // Élève fictif du portail parent (apps/parent) : ses paiements Mobile Money
+    // arrivent à l'école via les "webhooks" simulés de la page Paiements en ligne.
+    id: "std_15",
+    matricule: "STE-26-0015",
+    firstName: "Marc",
+    lastName: "K. Junior",
+    gender: "M",
+    classLevel: "6ème A",
+    academicYear: "2026-2027",
+    status: "ENROLLED",
+    previousBalance: 0,
+    parentName: "M. Kouassi Ambroise",
+    parentPhone: "+225 07 00 00 00 00",
+    feePlan: {
+      id: "fp_15",
+      label: "Scolarité 6ème A — 2026-2027",
+      installments: [
+        { id: "i_15a", label: "Tranche 1 — Inscription", amount: 50000, paid: 50000, dueDate: "2026-09-15" },
+        { id: "i_15b", label: "Tranche 2 — 1er Trimestre", amount: 40000, paid: 0, dueDate: "2026-11-15" },
+        { id: "i_15c", label: "Tranche 3 — 2ème Trimestre", amount: 35000, paid: 0, dueDate: "2027-03-15" },
       ],
     },
   },

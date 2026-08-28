@@ -1,4 +1,7 @@
 import {
+  CURRENT_ACADEMIC_YEAR,
+} from "@/core/mocks/academic-years-db";
+import {
   FAKE_NOTIFICATION_HISTORY,
   FAKE_RELANCE_RULES,
   MOCK_NOW,
@@ -68,7 +71,7 @@ export function sendRelanceNotification(student: FakeStudent): FakeNotification 
     parent: student.parentName,
     élève: `${student.firstName} ${student.lastName}`,
     montant: `${remaining.toLocaleString("fr-FR")} FCFA`,
-    échéance: due ? due.dueDate : "2026-2027",
+    échéance: due?.dueDate ? due.dueDate : (CURRENT_ACADEMIC_YEAR),
   });
 
   const entry: FakeNotification = {

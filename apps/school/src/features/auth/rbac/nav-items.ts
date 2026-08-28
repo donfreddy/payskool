@@ -21,6 +21,7 @@ import {
   CreditCard,
   CircleDollarSign,
   LifeBuoy,
+  Inbox,
   type LucideIcon,
 } from "lucide-react";
 
@@ -82,6 +83,12 @@ const buildNavSections = (schoolId: string): NavSection[] => [
             icon: Upload,
             allowedRoles: ["OWNER", "SCHOOL_ADMIN"],
           },
+          {
+            title: "Réinscription 2027-2028",
+            href: `/${schoolId}/students/renewal`,
+            icon: CalendarRange,
+            allowedRoles: ["OWNER", "SCHOOL_ADMIN"],
+          },
         ],
       },
     ],
@@ -99,6 +106,12 @@ const buildNavSections = (schoolId: string): NavSection[] => [
         title: "Reçus",
         href: `/${schoolId}/receipts`,
         icon: ReceiptText,
+        allowedRoles: ["OWNER", "SCHOOL_ADMIN", "CASHIER"],
+      },
+      {
+        title: "Paiements en ligne",
+        href: `/${schoolId}/payments`,
+        icon: Inbox,
         allowedRoles: ["OWNER", "SCHOOL_ADMIN", "CASHIER"],
       },
       {

@@ -133,7 +133,7 @@ export function StudentsView({
         </div>
       </section>
 
-      <SummaryStrip students={students} />
+      <SummaryStrip students={students} year={year} />
 
       {loading ? (
         <div className="space-y-3">

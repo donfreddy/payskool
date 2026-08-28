@@ -1,5 +1,6 @@
 import { Button } from "@payskool/ui/components/ui/button";
 import { Home, Download, Plus } from "lucide-react";
+import Link from "next/link";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { ReadOnlyArchiveBanner } from "@/components/layout/read-only-archive-banner";
@@ -41,11 +42,15 @@ export default async function DashboardPage({ params, searchParams }: DashboardP
         actions={
           readOnly ? undefined : (
             <>
-              <Button variant="outline">
-                <Download /> Exporter
+              <Button asChild variant="outline">
+                <Link href={`/${schoolId}/transactions`}>
+                  <Download /> Exporter
+                </Link>
               </Button>
-              <Button variant="emerald">
-                <Plus /> Nouveau règlement
+              <Button asChild variant="emerald">
+                <Link href={`/${schoolId}/cashier`}>
+                  <Plus /> Nouveau règlement
+                </Link>
               </Button>
             </>
           )

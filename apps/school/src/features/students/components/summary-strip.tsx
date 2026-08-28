@@ -19,7 +19,7 @@ export function computeSummary(students: FakeStudent[]) {
   return counts;
 }
 
-export function SummaryStrip({ students }: { students: FakeStudent[] }) {
+export function SummaryStrip({ students, year }: { students: FakeStudent[]; year: string }) {
   const counts = computeSummary(students);
   const rows = [
     { key: "PAID" as const, label: "Payés", value: counts.PAID, icon: CheckCircle2 },
@@ -36,7 +36,7 @@ export function SummaryStrip({ students }: { students: FakeStudent[] }) {
           {students.length}
           <span className="ml-1.5 text-sm font-medium text-muted-foreground">élèves</span>
         </p>
-        <p className="mt-0.5 text-[11px] text-muted-foreground">Année 2026-2027</p>
+        <p className="mt-0.5 text-[11px] text-muted-foreground">Année {year}</p>
       </div>
       {rows.map(({ key, label, value, icon: Icon }) => (
         <div key={key} className="rounded-xl border border-border bg-card p-4">

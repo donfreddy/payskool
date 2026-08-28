@@ -1,3 +1,4 @@
+import { CURRENT_ACADEMIC_YEAR } from "@/core/mocks/academic-years-db";
 import type { FakeStudent } from "@/core/mocks/fake-data";
 import { addStudent } from "@/core/mocks/students-db";
 import { extractCell } from "@/features/students/import/lib/parse";
@@ -20,7 +21,7 @@ function buildStudent(
   const genderRaw = extractCell(mapping, file.rows, "gender", rowIndex);
   const phone = extractCell(mapping, file.rows, "parent_phone", rowIndex);
   const balanceRaw = extractCell(mapping, file.rows, "previous_balance", rowIndex);
-  const year = extractCell(mapping, file.rows, "academic_year", rowIndex) || "2026-2027";
+  const year = extractCell(mapping, file.rows, "academic_year", rowIndex) || CURRENT_ACADEMIC_YEAR;
 
   const balanceDigits = balanceRaw.replace(/[^\d]/g, "");
   const previousBalance = balanceDigits ? -parseInt(balanceDigits, 10) : 0;

@@ -1,5 +1,9 @@
 import { getArchiveYear } from "@/core/mocks/academic-archive-db";
-import { CURRENT_ACADEMIC_YEAR, type AcademicYear } from "@/core/mocks/academic-years-db";
+import {
+  ACADEMIC_YEARS,
+  CURRENT_ACADEMIC_YEAR,
+  type AcademicYear,
+} from "@/core/mocks/academic-years-db";
 import {
   FAKE_CAISSE_TODAY,
   FAKE_FEE_STRUCTURES,
@@ -84,6 +88,21 @@ export function fetchReceipts(year: AcademicYear = CURRENT_ACADEMIC_YEAR): Promi
 export function getReceiptsSync(): FakeReceipt[] {
   seed();
   return receipts;
+}
+
+/** Cherche un reçu par son numéro (insensible à la casse, avec/sans "#"),
+ *  dans le registre courant puis dans les archives des années passées. */
+export function findReceiptByNumber(number: string): FakeReceipt | null {
+  seed();
+  const needle = number.replace(/^#/, "").toLowerCase();
+  const match = (r: FakeReceipt) => r.number.replace("#", "").toLowerCase() === needle;
+  const current = receipts.find(match);
+  if (current) return current;
+  for (const key of ACADEMIC_YEARS) {
+    const hit = getArchiveYear(key)?.receipts.find(match);
+    if (hit) return hit;
+  }
+  return null;
 }
 
 export function fetchTransactionsHistory(year: AcademicYear = CURRENT_ACADEMIC_YEAR): Promise<FakeTx[]> {

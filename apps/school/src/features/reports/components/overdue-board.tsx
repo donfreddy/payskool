@@ -15,7 +15,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { PaymentBadge } from "@/components/shared/payment-badge";
 import { StudentAvatar } from "@/components/shared/student-avatar";
-import type { FakeStudent } from "@/core/mocks/fake-data";
+import { MOCK_NOW, type FakeStudent } from "@/core/mocks/fake-data";
 import { listStudentsForFees } from "@/features/fees/api/fees.mock";
 import { sendRelance } from "@/features/notifications/api/notifications.mock";
 import {
@@ -111,7 +111,7 @@ export function OverdueBoard({
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-[11px] font-medium uppercase tracking-widest text-white/50">
-                Encours en défaut · {formatShortDate("2026-11-20")}
+                Encours en défaut · {formatShortDate(MOCK_NOW.toISOString())}
               </p>
               <p className="mt-1 font-mono text-4xl font-bold tracking-tight">{formatCFA(totalAtRisk)}</p>
               <p className="mt-1 text-xs text-white/60">

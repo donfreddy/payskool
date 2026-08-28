@@ -13,6 +13,7 @@ import { cn } from "@payskool/ui/utils";
 import { ChevronLeft, ChevronRight, MailOpen, Search, Send, XCircle } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
+import { CURRENT_ACADEMIC_YEAR } from "@/core/mocks/academic-years-db";
 import type { FakeNotification, NotificationStatus, RelanceChannel } from "@/core/mocks/fake-data";
 import { listNotificationHistory } from "@/features/notifications/api/notifications.mock";
 import { ChannelBadge } from "@/features/notifications/components/channel-badge";
@@ -75,7 +76,7 @@ export function HistoryBoard({ schoolId }: { schoolId: string }) {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-[11px] font-medium uppercase tracking-widest text-white/50">
-                Historique des envois · 2026-2027
+                Historique des envois · {CURRENT_ACADEMIC_YEAR}
               </p>
               <p className="mt-1 font-mono text-4xl font-bold tracking-tight">{entries.length}</p>
               <p className="mt-1 text-xs text-white/60">messages envoyés aux parents</p>

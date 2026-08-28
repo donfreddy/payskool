@@ -3,6 +3,7 @@ import { cn } from "@payskool/ui/utils";
 import { ArrowRight, MousePointerClick } from "lucide-react";
 
 import { StudentAvatar } from "@/components/shared/student-avatar";
+import { previousAcademicYear } from "@/core/mocks/academic-years-db";
 import type { FakeStudent } from "@/core/mocks/fake-data";
 import { RegisterForm, type RegisterFormProps } from "@/features/cashier/components/register-form";
 import { TrancheStrip } from "@/features/cashier/components/tranche-strip";
@@ -105,7 +106,7 @@ export function Workbench({
       <div className="grid gap-6 p-5 lg:grid-cols-2">
         <div>
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-foreground">Échéancier 2026-2027</h3>
+            <h3 className="text-sm font-semibold text-foreground">Échéancier {student.academicYear}</h3>
             <span className="text-[11px] text-muted-foreground">{student.feePlan.installments.length} tranches</span>
           </div>
           <div className="space-y-2">
@@ -115,7 +116,7 @@ export function Workbench({
           </div>
           {student.previousBalance < 0 && (
             <p className="mt-3 rounded-lg bg-payskool-orange/10 px-3 py-2 text-xs font-medium text-payskool-orange">
-              Arriéré reporté de 2025-2026 : {formatCFA(-student.previousBalance)} — intégré au solde dû.
+              Arriéré reporté de {previousAcademicYear(student.academicYear)} : {formatCFA(-student.previousBalance)} — intégré au solde dû.
             </p>
           )}
         </div>
