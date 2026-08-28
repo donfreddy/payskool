@@ -17,9 +17,11 @@ export function Faq() {
   return (
     <section id="faq" className="py-24 sm:py-32">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <h2 className="display-heading text-center text-3xl text-encre sm:text-4xl">
-          {t("title")}
-        </h2>
+        <div className="text-center">
+          <h2 className="display-heading text-3xl text-encre sm:text-4xl">
+            {t("title")}
+          </h2>
+        </div>
 
         <div className="mt-14 divide-y divide-fil/60">
           {faqs.map((faq, i) => (

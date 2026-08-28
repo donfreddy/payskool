@@ -60,7 +60,7 @@ export function Pricing() {
           <h2 className="display-heading mt-4 text-3xl text-encre sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-ardoise">
+          <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-ardoise">
             {t("subtitle")}
           </p>
         </div>

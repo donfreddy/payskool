@@ -9,14 +9,14 @@ export function Comparison() {
   return (
     <section className="bg-craie py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center mb-16">
+        <div className="text-center mb-16">
           <span className="inline-flex items-center rounded-full border border-emeraude/20 bg-emeraude/[0.06] px-3 py-1 text-xs font-medium text-emeraude mb-4">
             {t("eyebrow")}
           </span>
           <h2 className="display-heading text-3xl text-encre sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="mt-4 text-lg text-ardoise">
+          <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-ardoise">
             {t("subtitle")}
           </p>
         </div>

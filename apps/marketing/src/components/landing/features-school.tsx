@@ -17,7 +17,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function FeaturesSchool() {
   const t = useTranslations("featuresSchool");
@@ -54,6 +54,87 @@ export function FeaturesSchool() {
   ];
 
   const [activeTab, setActiveTab] = useState(tabs[0]!.id);
+  const activeIndex = Math.max(0, tabs.findIndex((tab) => tab.id === activeTab));
+
+  const pinRef = useRef<HTMLDivElement>(null);
+  const idsRef = useRef<string[]>(tabs.map((tab) => tab.id));
+  const isScrollingToRef = useRef(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const scrollTimeoutRef = useRef<any>(null);
+
+  useEffect(() => {
+    const pin = pinRef.current;
+    if (!pin) return;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    let raf = 0;
+    
+    const update = () => {
+      if (!mq.matches) return;
+      if (isScrollingToRef.current) return;
+      
+      const rect = pin.getBoundingClientRect();
+      const span = rect.height - window.innerHeight;
+      if (span <= 0) return;
+      const ids = idsRef.current;
+      const p = Math.min(1, Math.max(0, -rect.top / span));
+      const next = ids[Math.min(ids.length - 1, Math.floor(p * ids.length))];
+      if (next) setActiveTab((prev) => (prev === next ? prev : next));
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+
+    const onScrollEnd = () => {
+      isScrollingToRef.current = false;
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scrollend", onScrollEnd, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    update();
+    
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scrollend", onScrollEnd);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+  }, []);
+
+  const handleTabSelect = (id: string) => {
+    setActiveTab(id);
+    const mq = window.matchMedia("(min-width: 1024px)");
+    if (!mq.matches) return;
+    
+    const pin = pinRef.current;
+    if (!pin) return;
+    
+    const targetIndex = tabs.findIndex((t) => t.id === id);
+    if (targetIndex === -1) return;
+    
+    isScrollingToRef.current = true;
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrollingToRef.current = false;
+    }, 800);
+    
+    const rect = pin.getBoundingClientRect();
+    const span = rect.height - window.innerHeight;
+    const containerTop = rect.top + window.scrollY;
+    
+    const p = (targetIndex + 0.5) / tabs.length;
+    const targetScrollY = containerTop + p * span;
+    
+    window.scrollTo({
+      top: targetScrollY,
+      behavior: "smooth",
+    });
+  };
 
   const routes: Record<string, string> = {
     collection: "/cs-sainte-marie/cashier",
@@ -63,114 +144,233 @@ export function FeaturesSchool() {
   };
 
   return (
-    <section id="features-school" className="relative overflow-hidden bg-craie py-24 sm:py-32">
+    <section id="features-school" className="relative bg-craie py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-16 max-w-3xl text-center sm:mb-24">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-emeraude">
+        <div className="text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emeraude">
             {t("eyebrow")}
           </p>
-          <h2 className="display-heading mt-6 text-3xl leading-tight text-encre sm:text-5xl">
+          <h2 className="display-heading mt-4 text-3xl text-encre sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-ardoise">
+          <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-ardoise">
             {t("subtitle")}
           </p>
         </div>
 
-        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Left Column: Interactive Feature List */}
-          <div className="relative flex flex-col gap-6 lg:col-span-5">
-            <div className="absolute bottom-4 left-[1px] top-4 hidden w-px bg-ardoise/10 sm:block" />
-
-            {tabs.map((tab) => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`relative flex flex-col py-2 pl-6 text-left transition-all duration-300 sm:pl-8 ${
-                    isActive
-                      ? "opacity-100"
-                      : "opacity-40 hover:opacity-70"
-                  }`}
-                >
-                  {isActive && (
-                    <span
-                      className="absolute bottom-0 left-0 top-0 w-[3px] rounded-full bg-emeraude"
-                      style={{
-                        boxShadow: "0 0 12px 0px rgba(5, 150, 105, 0.4)",
-                      }}
-                    />
-                  )}
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-emeraude">
-                    {tab.label}
-                  </p>
-                  <h3 className="mb-3 text-xl font-bold text-encre sm:text-2xl">
-                    {tab.title}
-                  </h3>
-                  <p className="leading-relaxed text-ardoise">
-                    {tab.description}
-                  </p>
-
-                  <div
-                    className={`grid gap-2 overflow-hidden transition-all duration-500 ease-in-out ${
-                      isActive ? "mt-6 max-h-64 opacity-100" : "mt-0 max-h-0 opacity-0"
-                    }`}
-                  >
-                    {tab.highlights.map((item) => (
-                      <div
-                        key={item}
-                        className="flex items-start gap-3 text-sm font-medium text-encre"
-                      >
-                        <span className="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-emeraude" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Right Column: Real app mini-mockups */}
-          <div className="lg:col-span-7 lg:sticky lg:top-32">
-            <div className="relative flex aspect-square flex-col overflow-hidden rounded-3xl border border-fil bg-white shadow-2xl shadow-encre/[0.06] sm:aspect-[4/3]">
-              {/* Browser chrome */}
-              <div className="flex items-center justify-between border-b border-fil bg-craie px-5 py-2.5">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-ardoise/20" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-ardoise/20" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-ardoise/20" />
-                </div>
-                <div className="flex items-center gap-1 rounded-md bg-white px-2.5 py-1 font-mono text-[10px] text-ardoise ring-1 ring-inset ring-fil">
-                  <ShieldCheck className="h-3 w-3 text-emeraude" />
-                  app.payskool.africa{routes[activeTab]}
-                </div>
-              </div>
-
-              {/* Visualizations dynamically render based on activeTab */}
-              <div className="relative flex-1 overflow-hidden">
-                <div className={`absolute inset-4 transition-opacity duration-500 sm:inset-6 ${activeTab === "collection" ? "opacity-100" : "pointer-events-none opacity-0"}`}>
-                  <CashierMock />
-                </div>
-                <div className={`absolute inset-4 transition-opacity duration-500 sm:inset-6 ${activeTab === "tresorerie" ? "opacity-100" : "pointer-events-none opacity-0"}`}>
-                  <PaymentsMock />
-                </div>
-                <div className={`absolute inset-4 transition-opacity duration-500 sm:inset-6 ${activeTab === "credit" ? "opacity-100" : "pointer-events-none opacity-0"}`}>
-                  <CollectionMock />
-                </div>
-                <div className={`absolute inset-4 transition-opacity duration-500 sm:inset-6 ${activeTab === "groupe" ? "opacity-100" : "pointer-events-none opacity-0"}`}>
-                  <GroupMock />
-                </div>
+        <div ref={pinRef} className="relative mt-16 lg:h-[500vh]">
+          {/* Desktop: pinned, scroll-jacked */}
+          <div className="hidden lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
+            <div className="mx-auto flex w-full max-w-7xl items-center gap-16 px-2 sm:px-8">
+              <FeatureTabsList
+                tabs={tabs}
+                activeTab={activeTab}
+                onSelect={handleTabSelect}
+                pinned
+              />
+              <div className="relative min-w-0 flex-1">
+                <MockFrame
+                  activeTab={activeTab}
+                  routes={routes}
+                  className="aspect-square sm:aspect-[4/3] lg:aspect-auto lg:h-[min(56vh,560px)]"
+                />
               </div>
             </div>
+            {/* Moved further down to avoid any fixed navbars */}
+            <span className="absolute right-8 top-24 inline-flex items-baseline gap-1 font-mono text-sm text-ardoise/60">
+              <span className="text-emeraude">{String(activeIndex + 1).padStart(2, "0")}</span>
+              <span className="text-ardoise/40">/ {String(tabs.length).padStart(2, "0")}</span>
+            </span>
+          </div>
 
-            {/* Soft decorative glow behind the browser frame */}
-            <div className="absolute -inset-4 -z-10 rounded-[3rem] bg-emeraude/20 opacity-30 blur-3xl" />
+          {/* Mobile & tablet: static stacked */}
+          <div className="lg:hidden">
+            <div className="grid items-start gap-12">
+              <FeatureTabsList tabs={tabs} activeTab={activeTab} onSelect={handleTabSelect} />
+              <div className="relative">
+                <MockFrame activeTab={activeTab} routes={routes} className="aspect-square sm:aspect-[4/3]" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+type SchoolTab = {
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  highlights: string[];
+};
+
+function FeatureTabsList({
+  tabs,
+  activeTab,
+  onSelect,
+  pinned = false,
+}: {
+  tabs: SchoolTab[];
+  activeTab: string;
+  onSelect: (id: string) => void;
+  pinned?: boolean;
+}) {
+  if (pinned) {
+    return (
+      <div className="relative flex w-[360px] shrink-0 flex-col">
+        <div className="absolute bottom-2 left-[1px] top-2 w-px bg-ardoise/10" />
+        {tabs.map((tab, i) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => onSelect(tab.id)}
+              className={`relative flex flex-col py-4 pl-6 text-left transition-all duration-300 ${
+                isActive ? "opacity-100" : "opacity-45 hover:opacity-75"
+              }`}
+            >
+              {isActive && (
+                <span
+                  className="absolute bottom-0 left-0 top-0 w-[3px] rounded-full bg-emeraude"
+                  style={{ boxShadow: "0 0 12px 0px rgba(5, 150, 105, 0.4)" }}
+                />
+              )}
+              <div className="flex items-baseline gap-3">
+                <span
+                  className={`font-mono text-[10px] font-bold ${
+                    isActive ? "text-emeraude" : "text-ardoise/40"
+                  }`}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-emeraude">
+                  {tab.label}
+                </p>
+              </div>
+              <h3
+                className={`mt-1.5 pl-8 text-lg font-bold leading-snug text-encre ${
+                  isActive ? "" : "truncate"
+                }`}
+              >
+                {tab.title}
+              </h3>
+              <div
+                className={`grid gap-1.5 pl-8 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  isActive ? "mt-3 max-h-80 opacity-100" : "max-h-0 overflow-hidden opacity-0"
+                }`}
+              >
+                <p className="text-[13px] leading-snug text-ardoise">{tab.description}</p>
+                <div className="grid gap-1.5 pt-1">
+                  {tab.highlights.map((item) => (
+                    <div
+                      key={item}
+                      className="flex items-center gap-2 text-[12.5px] font-medium text-encre"
+                    >
+                      <span className="h-1 w-1 shrink-0 rounded-full bg-emeraude" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative flex flex-col gap-6">
+      <div className="absolute bottom-4 left-[1px] top-4 hidden w-px bg-ardoise/10 sm:block" />
+      {tabs.map((tab) => {
+        const isActive = activeTab === tab.id;
+        return (
+          <button
+            key={tab.id}
+            onClick={() => onSelect(tab.id)}
+            className={`relative flex flex-col py-2 pl-6 text-left transition-all duration-300 sm:pl-8 ${
+              isActive ? "opacity-100" : "opacity-40 hover:opacity-70"
+            }`}
+          >
+            {isActive && (
+              <span
+                className="absolute bottom-0 left-0 top-0 w-[3px] rounded-full bg-emeraude"
+                style={{ boxShadow: "0 0 12px 0px rgba(5, 150, 105, 0.4)" }}
+              />
+            )}
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-emeraude">
+              {tab.label}
+            </p>
+            <h3 className="mb-3 text-xl font-bold text-encre sm:text-2xl">{tab.title}</h3>
+            <p className="leading-relaxed text-ardoise">{tab.description}</p>
+            <div
+              className={`grid gap-2 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                isActive ? "mt-6 max-h-64 opacity-100" : "mt-0 max-h-0 opacity-0"
+              }`}
+            >
+              {tab.highlights.map((item) => (
+                <div key={item} className="flex items-start gap-3 text-sm font-medium text-encre">
+                  <span className="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-emeraude" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function MockFrame({
+  activeTab,
+  routes,
+  className,
+}: {
+  activeTab: string;
+  routes: Record<string, string>;
+  className: string;
+}) {
+  return (
+    <>
+      <div
+        className={`relative flex flex-col overflow-hidden rounded-3xl border border-fil bg-white shadow-2xl shadow-encre/[0.06] ${className}`}
+      >
+        {/* Browser chrome */}
+        <div className="flex items-center justify-between border-b border-fil bg-craie px-5 py-2.5">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-ardoise/20" />
+            <span className="h-2.5 w-2.5 rounded-full bg-ardoise/20" />
+            <span className="h-2.5 w-2.5 rounded-full bg-ardoise/20" />
+          </div>
+          <div className="flex items-center gap-1 rounded-md bg-white px-2.5 py-1 font-mono text-[10px] text-ardoise ring-1 ring-inset ring-fil">
+            <ShieldCheck className="h-3 w-3 text-emeraude" />
+            app.payskool.africa{routes[activeTab]}
+          </div>
+        </div>
+
+        {/* Visualizations dynamically render based on activeTab */}
+        <div className="relative flex-1 overflow-hidden">
+          <div className={`absolute inset-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:inset-6 ${activeTab === "collection" ? "opacity-100 translate-y-0 scale-100" : "pointer-events-none opacity-0 translate-y-8 scale-[0.97]"}`}>
+            <CashierMock />
+          </div>
+          <div className={`absolute inset-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:inset-6 ${activeTab === "tresorerie" ? "opacity-100 translate-y-0 scale-100" : "pointer-events-none opacity-0 translate-y-8 scale-[0.97]"}`}>
+            <PaymentsMock />
+          </div>
+          <div className={`absolute inset-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:inset-6 ${activeTab === "credit" ? "opacity-100 translate-y-0 scale-100" : "pointer-events-none opacity-0 translate-y-8 scale-[0.97]"}`}>
+            <CollectionMock />
+          </div>
+          <div className={`absolute inset-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:inset-6 ${activeTab === "groupe" ? "opacity-100 translate-y-0 scale-100" : "pointer-events-none opacity-0 translate-y-8 scale-[0.97]"}`}>
+            <GroupMock />
+          </div>
+        </div>
+      </div>
+
+      {/* Soft decorative glow behind the browser frame */}
+      <div className="absolute -inset-4 -z-10 rounded-[3rem] bg-emeraude/20 opacity-30 blur-3xl" />
+    </>
   );
 }
 

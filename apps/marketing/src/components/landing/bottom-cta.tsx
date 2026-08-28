@@ -39,7 +39,7 @@ export function BottomCta() {
             <h2 className="display-heading text-3xl text-white sm:text-4xl">
               {t("title")}
             </h2>
-            <p className="mt-4 text-lg text-white/50">
+            <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-white/50">
               {t("subtitle")}
             </p>
 

@@ -37,9 +37,11 @@ export function Testimonials() {
   return (
     <section className="py-24 sm:py-32 bg-craie">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="display-heading text-center text-3xl text-encre sm:text-4xl">
-          {t("title")}
-        </h2>
+        <div className="text-center">
+          <h2 className="display-heading text-3xl text-encre sm:text-4xl">
+            {t("title")}
+          </h2>
+        </div>
 
         <div className="mx-auto mt-16 max-w-4xl">
           {/* Hero testimonial */}
