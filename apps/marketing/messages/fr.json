@@ -16,25 +16,16 @@
     "cta": "Demander un accès pilote"
   },
   "hero": {
-    "badge": "Disponible au Sénégal, Côte d'Ivoire, Cameroun",
-    "headline": "Sécurisez votre caisse.",
-    "headlineStat": "",
-    "headlineRest": "Financez votre croissance.",
-    "subheadline": "La seule plateforme financière qui garantit zéro fuite de cash et certifie votre historique de revenus pour débloquer vos futurs crédits bancaires.",
-    "primaryCta": "Demander un accès pilote",
-    "secondaryCta": "Voir la démo",
+    "headline": "Frais de scolarité par Mobile Money,",
+    "headlineRest": "zéro fuite de caisse pour votre établissement.",
+    "subheadline": "Supprimez les files d'attente, automatisez le recouvrement des tranches.",
+    "subheadlineRest": "Suivez la trésorerie de vos établissements en temps réel, tout à portée depuis votre téléphone.",
+    "primaryCta": "Réserver une démo gratuite",
+    "secondaryCta": "Devenir École Pilote",
     "trustLabel": "Adopté par",
     "trustCount": "50+",
     "trustSuffix": "complexes scolaires",
-    "dashboardAlt": "Tableau de bord Payskool — suivi de trésorerie scolaire",
-    "cardTitle": "Suivi de trésorerie",
-    "cardSchool": "CS Sainte-Marie",
-    "cardLive": "EN DIRECT",
-    "cardRevenueLabel": "Encaissements, 30 derniers jours",
-    "cardRevenue": "FCFA / mois",
-    "cardRecovery": "Recouvrement",
-    "cardTx": "Tx ce mois",
-    "phoneReceipt": "Paiement de <strong>75 000 FCFA</strong> reçu pour <strong>KONÉ Aminata</strong>.<br/>Reçu <span>REC-2026-0842</span>"
+    "dashboardAlt": "Tableau de bord Payskool — suivi de trésorerie scolaire"
   },
   "partners": {
     "label": "Paiements traités via"

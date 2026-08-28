@@ -24,8 +24,10 @@ export function Hero() {
             <span className="text-emeraude">{t("headlineRest")}</span>
           </h1>
 
-          <p className="animate-fade-up-3 mx-auto max-w-lg text-[17px] leading-relaxed text-ardoise">
+          <p className="animate-fade-up-3 mx-auto max-w-xl text-[17px] leading-relaxed text-ardoise">
             {t("subheadline")}
+            <br />
+            {t("subheadlineRest")}
           </p>
 
           <div className="animate-fade-up-4 flex flex-wrap justify-center gap-3">
@@ -33,32 +35,19 @@ export function Hero() {
               {t("primaryCta")}
               <ArrowRight className="h-4 w-4" />
             </Button>
-             <Button size="lg" variant="outline" className="py-6">
-               <Play className="h-4 w-4 text-emeraude" />
-                {t("secondaryCta")}
+            <Button size="lg" variant="outline" className="py-6">
+              <Play className="h-4 w-4 text-emeraude" />
+              {t("secondaryCta")}
             </Button>
           </div>
 
           {/* Social proof */}
-          <div className="animate-fade-up-4 mt-2 flex items-center justify-center gap-5 border-t border-fil pt-6">
-            <div className="flex -space-x-2">
-              {["PT", "AD", "JK", "SN"].map((initials, i) => (
-                <div
-                  key={i}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-encre/6 text-[10px] font-bold text-ardoise"
-                >
-                  {initials}
-                </div>
-              ))}
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-encre text-[9px] font-semibold text-white">
-                +50
-              </div>
-            </div>
-            <p className="text-sm text-ardoise">
-              {t("trustLabel")} <strong className="text-encre">50+</strong>{" "}
-              {t("trustSuffix")}
-            </p>
-          </div>
+          <p className="animate-fade-up-4 mt-2 text-sm text-ardoise">
+            {t("trustLabel")}{" "}
+            <strong className="text-encre">
+              {t("trustCount")} {t("trustSuffix")}
+            </strong>
+          </p>
         </div>
 
         {/* Dashboard Screenshot — full width below text */}

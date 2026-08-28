@@ -16,25 +16,16 @@
     "cta": "Request pilot access"
   },
   "hero": {
-    "badge": "Available in Senegal, Ivory Coast, Cameroon",
-    "headline": "Secure your treasury.",
-    "headlineStat": "",
-    "headlineRest": "Finance your growth.",
-    "subheadline": "The only financial platform that guarantees zero cash leakage and certifies your revenue history to unlock future bank credits.",
-    "primaryCta": "Request pilot access",
-    "secondaryCta": "Watch demo",
+    "headline": "Tuition fees by Mobile Money,",
+    "headlineRest": "zero cash leakage for your institution.",
+    "subheadline": "Remove cashier queues, automate installment collection.",
+    "subheadlineRest": "Track your institutions' treasury in real time, right from your phone.",
+    "primaryCta": "Book a free demo",
+    "secondaryCta": "Become a Pilot School",
     "trustLabel": "Trusted by",
     "trustCount": "50+",
     "trustSuffix": "school groups",
-    "dashboardAlt": "Payskool dashboard — school treasury tracking",
-    "cardTitle": "Treasury overview",
-    "cardSchool": "CS Sainte-Marie",
-    "cardLive": "LIVE",
-    "cardRevenueLabel": "Collections, last 30 days",
-    "cardRevenue": "FCFA / month",
-    "cardRecovery": "Recovery rate",
-    "cardTx": "Tx this month",
-    "phoneReceipt": "Payment of <strong>75,000 FCFA</strong> received for <strong>KONÉ Aminata</strong>.<br/>Receipt <span>REC-2026-0842</span>"
+    "dashboardAlt": "Payskool dashboard — school treasury tracking"
   },
   "partners": {
     "label": "Payments processed via"
