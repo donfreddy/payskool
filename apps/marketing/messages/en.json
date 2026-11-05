@@ -1,445 +1,389 @@
 {
   "meta": {
-    "title": "PAYSKOOL | Automated Tuition Fee Collection via Mobile Money",
-    "description": "Recover up to 98% of your tuition fees. Wave, Orange Money, MTN payments tracked and reconciled automatically. WhatsApp receipts. Free trial.",
-    "ogTitle": "PAYSKOOL | Every franc of tuition. Tracked, confirmed, reconciled.",
-    "ogDescription": "The tuition fee collection platform via Mobile Money. Trusted by 50+ school groups across Sub-Saharan Africa.",
-    "keywords": "school fees payment, mobile money school, tuition collection, PAYSKOOL, Wave, Orange Money, MTN MoMo"
+    "title": "Payskool | School fees collected, tracked, verifiable",
+    "description": "School fee collection software for private schools in Cameroon: cash desk and MTN MoMo or Orange Money payments, receipts verifiable by QR code, live instalment tracking. Pilot programme open.",
+    "ogTitle": "Payskool | Every franc paid gets a receipt. Every receipt can be checked.",
+    "ogDescription": "The school fee ledger for private schools in Cameroon. Pilot programme open.",
+    "keywords": "school fees, fee collection, private school Cameroon, verifiable receipt, MTN MoMo, Orange Money, school cash desk"
   },
   "nav": {
-    "features": "Features",
-    "parents": "For Parents",
-    "pricing": "Pricing",
+    "product": "Product",
+    "parents": "Parents",
+    "pilot": "Pilot programme",
     "faq": "FAQ",
-    "about": "About Us",
-    "login": "Sign in",
-    "cta": "Request pilot access"
+    "cta": "Become a pilot school",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "home": "Payskool, home",
+    "label": "Main navigation",
+    "mobileLabel": "Menu"
+  },
+  "whatsapp": {
+    "intro": "Hello Payskool, I would like to join the pilot programme with my school.",
+    "question": "Hello Payskool, I have a question:",
+    "school": "School:",
+    "city": "City:",
+    "students": "Number of students:"
   },
   "hero": {
-    "headline": "Tuition fees by Mobile Money,",
-    "headlineRest": "zero cash leakage for your institution.",
-    "subheadline": "Remove cashier queues, automate installment collection.",
-    "subheadlineRest": "Track your institutions' treasury in real time, right from your phone.",
-    "primaryCta": "Book a free demo",
-    "secondaryCta": "Become a Pilot School",
-    "trustLabel": "Trusted by",
-    "trustCount": "50+",
-    "trustSuffix": "school groups",
-    "dashboardAlt": "Payskool dashboard — school treasury tracking"
+    "status": "Pilot programme open to private schools in Cameroon",
+    "title": "Every franc paid gets a receipt. Every receipt can be checked.",
+    "lead": "Payskool records every school fee payment, at the cash desk or by MTN MoMo and Orange Money, issues a receipt with a QR code and shows you who is up to date, day by day.",
+    "primaryCta": "Become a pilot school",
+    "secondaryCta": "See the product",
+    "note": "Free during the pilot. Requests go through WhatsApp."
   },
-  "partners": {
-    "label": "Payments processed via"
+  "receipt": {
+    "school": "CS Sainte-Marie",
+    "schoolSub": "Douala, Akwa",
+    "label": "Payment receipt",
+    "number": "REC-8957",
+    "date": "Date",
+    "dateValue": "15 Sept 2026",
+    "time": "Time",
+    "timeValue": "10:42",
+    "cashier": "Cashier",
+    "cashierValue": "A. Kamga",
+    "student": "Student",
+    "studentValue": "ETOGA Yann",
+    "matricule": "Student ID",
+    "matriculeValue": "STE-26-0015",
+    "class": "Class",
+    "classValue": "6e A",
+    "installment": "Instalment",
+    "installmentValue": "Instalment 1",
+    "method": "Method",
+    "methodValue": "Cash",
+    "total": "Total received",
+    "totalValue": "50 000 FCFA",
+    "qr": "Scan to check this receipt",
+    "stamp": "Valid receipt"
   },
-  "metrics": {
-    "eyebrow": "Concrete results",
-    "item1Number": "98%",
-    "item1Label": "on-time installment recovery rate",
-    "item2Number": "0",
-    "item2Unit": " min",
-    "item2Label": "of manual data entry. Payments are confirmed in real time.",
-    "item3Number": "100%",
-    "item3Label": "anti-fraud traceability on cash collections",
-    "item4Number": "3",
-    "item4Unit": " taps",
-    "item4Label": "for a parent, from receiving the reminder to completing payment"
+  "verify": {
+    "prompt": "Check this receipt, the way a parent or an auditor would.",
+    "inputLabel": "Receipt number",
+    "button": "Check",
+    "validTitle": "Valid receipt",
+    "validText": "In the CS Sainte-Marie ledger: ETOGA Y., 6e A, Instalment 1, 50 000 FCFA in cash, taken by A. Kamga on 15 Sept 2026 at 10:42. Compare with the paper: a different name or amount means the receipt was altered.",
+    "invalidTitle": "Receipt not found",
+    "invalidText": "There is no receipt {number} in the CS Sainte-Marie ledger: an invented receipt does not exist there.",
+    "tryOther": "Try another number too.",
+    "demo": "Demo: the school and the receipt are fictional.",
+    "empty": "Enter the number printed on the receipt, for example REC-8957."
   },
-  "testimonials": {
-    "eyebrow": "They trust us",
-    "title": "Real results, not promises",
-    "subtitle": "School owners and directors who transformed their financial management with Payskool.",
-    "t1Quote": "We went from 72% to 98% recovery in the first quarter. My cashiers no longer handle cash, and I know exactly what comes in every day.",
-    "t1Name": "M. Jules",
-    "t1Role": "Principal",
-    "t1School": "Complexe Scolaire La Lumière",
-    "t1City": "Douala, Cameroun",
-    "t1Stat": "98%",
-    "t1StatLabel": "recovery rate",
-    "t2Quote": "I used to spend my weekends tallying paper payments. Now everything is automated. Parents get their receipts on WhatsApp, and I haven't had a single complaint.",
-    "t2Name": "Mrs. Aminata Diallo",
-    "t2Role": "School Owner",
-    "t2School": "Groupe Scolaire Arc-en-Ciel",
-    "t2City": "Dakar, Senegal",
-    "t2Stat": "Zero complaints",
-    "t2StatLabel": "since launch",
-    "t3Quote": "I have 4 schools and 1,200 students. Without Payskool, it was unmanageable. Now I oversee everything from my phone, even when I'm traveling.",
-    "t3Name": "Mr. Jean-Pierre Kounoudji",
-    "t3Role": "Founder",
-    "t3School": "Les Petits Génies",
-    "t3City": "Cotonou, Benin",
-    "t3Stat": "4 schools",
-    "t3StatLabel": "managed in real time"
-  },
-  "featuresSchool": {
-    "eyebrow": "The PAYSKOOL Solution",
-    "title": "Take back total control of your finances",
-    "subtitle": "A system designed to protect your cash and validate your school with banks.",
-    "tab1Label": "100% Secure Collection",
-    "tab1Title": "Protect your cashiers and your money",
-    "tab1Description": "Every franc received via Mobile Money or at the counter is tracked, timestamped, and tamper-proof. Your cashiers are protected from suspicion, and your money reaches its destination.",
-    "tab1Highlights": [
-      "Receipts with QR code verification",
-      "Unalterable timestamping and tracking",
-      "Zero contact with cash online",
-      "Automatic anomaly alerts"
+  "problem": {
+    "title": "A carbon receipt book proves nothing.",
+    "items": [
+      {
+        "title": "The fake receipt",
+        "text": "A receipt can be copied, a stamp can be made. The day a parent shows a receipt the cash desk has no record of, nobody can settle it."
+      },
+      {
+        "title": "The cash gap",
+        "text": "Between the cash desk and the evening deposit, a gap shows up at the end of the term, too late to know where it started."
+      },
+      {
+        "title": "“I already paid”",
+        "text": "Without a shared history, every dispute means digging through the registers while a parent waits."
+      }
     ],
-    "tab2Label": "Live Treasury",
-    "tab2Title": "Zero cash leakage. Decide with clarity.",
-    "tab2Description": "Instantly see who has paid and who owes you money directly from your smartphone. No more illegible ledgers and weekend tallying hours.",
-    "tab2Highlights": [
-      "Real-time tracking on smartphone",
-      "Clear payment statuses (up-to-date, overdue)",
-      "Automatic bank reconciliation",
-      "Targeted WhatsApp reminders"
-    ],
-    "tab3Label": "Your Credit Passport",
-    "tab3Title": "Unlock bank financing",
-    "tab3Description": "Payskool generates a certified and unalterable revenue history. Easily prove your solvency to financial institutions to secure cash advances.",
-    "tab3Highlights": [
-      "100% reliable certified financial history",
-      "Reports compliant with banking standards",
-      "Cash flow forecasting",
-      "Facilitates loans and cash advances"
-    ],
-    "tab4Label": "Group Management",
-    "tab4Title": "The big picture for School Owners",
-    "tab4Description": "Manage multiple schools from a single access. Each school keeps its rules, but your vision remains centralized and consolidated.",
-    "tab4Highlights": [
-      "Multi-school supervision",
-      "Global performance in one click",
-      "Data isolation per school",
-      "Strict user access control"
-    ],
-    "mockCashier": {
-      "find": "Find a student",
-      "search": "Name, matricule or class…",
-      "studentName": "KOUASSI Yao",
-      "studentMeta": "STE-26-0015 · Grade 6A",
-      "balanceLabel": "Amount to collect",
-      "balanceValue": "125,000 FCFA",
-      "scheduleTitle": "Payment plan 2026-2027",
-      "coverage": "Plan coverage",
-      "t1Label": "Installment 1",
-      "t1Status": "Paid",
-      "t2Label": "Installment 2",
-      "t2Status": "Overdue",
-      "nextDue": "Next due · Nov 15",
-      "t3Label": "Installment 3",
-      "t3Status": "Upcoming",
-      "amountLabel": "Amount received",
-      "amountValue": "50,000 FCFA",
-      "collectCta": "Collect",
-      "receiptSchool": "CS Sainte-Marie",
-      "receiptSub": "Douala - Akwa · +237 233 42 18 09",
-      "receiptEyebrow": "Payment receipt",
-      "receiptNumber": "#REC-8957",
-      "rDate": "Date",
-      "rDateVal": "Nov 20, 2026",
-      "rTime": "Time",
-      "rTimeVal": "10:42",
-      "rCashier": "Cashier",
-      "rCashierVal": "A. Kamga",
-      "rStudent": "Student",
-      "rStudentVal": "KOUASSI Yao",
-      "rMatricule": "Matricule",
-      "rMatriculeVal": "STE-26-0015",
-      "rClass": "Class",
-      "rClassVal": "Grade 6A",
-      "rMode": "Method : CASH",
-      "rTotal": "TOTAL RECEIVED",
-      "rTotalVal": "50,000 FCFA",
-      "qrText": "Scan to verify authenticity",
-      "verifyUrl": "app.payskool.africa/verify"
-    },
-    "mockPayments": {
-      "eyebrow": "Online payments · MoMo & Wave",
-      "heroCount": "3",
-      "heroSub": "auto-settled · 140,000 FCFA",
-      "bandCollected": "Settled",
-      "bandRefunded": "Refunded",
-      "bandReceipts": "Receipts issued",
-      "note1": "Confirmed by PSP (webhook) →",
-      "note2": "auto-settled with receipts issued",
-      "note3": "no school action needed. Matched by phone number.",
-      "filterAll": "All",
-      "thTx": "PSP transaction",
-      "thStudent": "Student / parent",
-      "thAmount": "Amount",
-      "thReceipt": "Receipt issued",
-      "thStatus": "Status",
-      "statusSettled": "Settled",
-      "statusRefunded": "Refunded",
-      "tx1Ref": "W-8841-2026",
-      "tx1Method": "Wave",
-      "tx1Amount": "40,000 FCFA",
-      "tx1Receipt": "#REC-8944",
-      "tx2Ref": "OM-22190-2026",
-      "tx2Method": "Orange Money",
-      "tx2Amount": "25,000 FCFA",
-      "tx2Receipt": "#REC-8939",
-      "tx3Ref": "MTN-55210-2026",
-      "tx3Method": "MTN MoMo",
-      "tx3Amount": "75,000 FCFA",
-      "tx3Receipt": "#REC-8938",
-      "student1": "KOUASSI Yao",
-      "student1Meta": "STE-26-0015 · Grade 6A",
-      "student2": "Junior Kengni",
-      "student2Meta": "STE-26-0002 · Grade 5A",
-      "student3": "Aicha Eding",
-      "student3Meta": "STE-26-0012 · Grade 10A"
-    },
-    "mockReport": {
-      "eyebrow": "Collection · 2026-2027",
-      "heroLabel": "Collected to date",
-      "heroValue": "42,500,000 FCFA",
-      "bandRateLabel": "Overall rate",
-      "bandRateValue": "98%",
-      "bandRemainingLabel": "Remaining to collect",
-      "bandRemainingValue": "850,000 FCFA",
-      "bandUptodateLabel": "Up-to-date students",
-      "bandUptodateValue": "1,240",
-      "tableTitle": "Collection by class",
-      "thClass": "Class",
-      "thTotal": "Total due",
-      "thCollected": "Collected",
-      "thRate": "Rate",
-      "thLate": "Late payers",
-      "row1Class": "Grade 6A",
-      "row1Total": "350,000",
-      "row1Collected": "343,000",
-      "row1Rate": "98%",
-      "row1Late": "2",
-      "row2Class": "Grade 12C",
-      "row2Total": "425,000",
-      "row2Collected": "314,500",
-      "row2Rate": "74%",
-      "row2Late": "6",
-      "row3Class": "Grade 5",
-      "row3Total": "280,000",
-      "row3Collected": "280,000",
-      "row3Rate": "100%",
-      "row3Late": "0",
-      "signature": "Report generated and signed by Payskool · ledger 2026-2027"
-    },
-    "mockGroup": {
-      "switcherLabel": "Switch school",
-      "school1": "CS Sainte-Marie",
-      "school2": "Lycée Saint-Paul",
-      "school3": "Maternelle les Bisounours",
-      "school1City": "Douala - Akwa",
-      "school2City": "Yaounde",
-      "school3City": "Douala - Bonanjo",
-      "title": "Consolidated view (3 schools)",
-      "filter": "Filter: All",
-      "recouv": "Recovery",
-      "c1Amount": "42.5M FCFA",
-      "c1Rate": "98%",
-      "c2Amount": "28.0M FCFA",
-      "c2Rate": "92%",
-      "c3Amount": "15.2M FCFA",
-      "c3Rate": "85%",
-      "totalLabel": "TOTAL CONSOLIDATED",
-      "totalAmount": "85.7M FCFA",
-      "totalRate": "94.5%",
-      "global": "GLOBAL"
-    }
+    "turn": "Payskool replaces the receipt book with a ledger where every correction stays visible, and gives every parent a receipt that can be checked."
   },
-  "featuresParents": {
-    "eyebrow": "For Parents",
-    "title": "Paying school fees has never been easier",
-    "subtitle": "An experience designed for all parents. No downloads. No passwords. Just the essentials.",
-    "phoneGreeting": "Hello, Mrs. KOUASSI",
-    "phoneChildren": "2 children registered",
-    "studentName": "KOUASSI Yao",
-    "schoolName": "CS Sainte-Marie",
-    "academicYear": "2026-2027",
-    "heroLabel": "Total remaining to pay",
-    "heroAmount": "125,000",
-    "heroCta": "Pay via Mobile Money",
-    "scheduleTitle": "Payment schedule",
-    "inst1Title": "Installment 1 - Enrollment & Start",
-    "inst1Status": "PAID",
-    "inst1Meta": "Paid on Sep 15, 2026",
-    "inst1Amount": "50,000 FCFA",
-    "inst2Title": "Installment 2 - Second payment",
-    "inst2Status": "OVERDUE",
-    "inst2Meta": "Past due: Nov 15",
-    "inst2Amount": "40,000 FCFA",
-    "inst3Title": "Installment 3 - Third payment",
-    "inst3Status": "UPCOMING",
-    "inst3Meta": "Due: Mar 15, 2027",
-    "inst3Amount": "35,000 FCFA",
-    "instPay": "Pay with Wave",
-    "navHome": "Home",
-    "navStudents": "Students",
-    "navReceipts": "Receipts",
-    "navSupport": "Support",
-    "card1Title": "Password-free login",
-    "card1Description": "A one-time code sent by SMS or WhatsApp is all it takes. In 5 seconds, the parent accesses their space. No password to remember.",
-    "card2Title": "Multi-child view",
-    "card2Description": "All your children on a single screen. Balances, deadlines and payment history for each one, no switching between accounts.",
-    "card3Title": "Direct Mobile Money payment",
-    "card3Description": "Pay an installment in seconds via Wave, Orange Money or MTN. From your phone, without going to the school counter.",
-    "card4Title": "Automatic receipts",
-    "card4Description": "Every payment generates a receipt sent instantly on WhatsApp. Full history and QR code verification included."
+  "school": {
+    "title": "At school: the cash desk, Mobile Money and fee collection in one place.",
+    "blocks": [
+      {
+        "title": "The cash desk takes a payment in seconds",
+        "text": "The cashier finds the student, sees the instalments due and enters the amount. The receipt comes out with its number, the time, the cashier's name and the QR code. Every payment stays tied to whoever took it."
+      },
+      {
+        "title": "Online payments record themselves",
+        "text": "When a parent pays from their space by MTN MoMo or Orange Money, the payment arrives with its reference: it is matched to the right student and the receipt is issued, with nothing to type at the cash desk."
+      },
+      {
+        "title": "See who is up to date, class by class",
+        "text": "Collection rate, outstanding balance and late payers per class: today's picture, without waiting for the end of the term. Reminders go to the parents concerned, and only to them."
+      }
+    ],
+    "group": "Several schools? Each keeps its own fees and cash desks, and you follow them all from one account."
   },
-  "beforeAfter": {
-    "beforeEyebrow": "The Real Problem",
-    "beforeTitle": "What is truly holding back your school's development",
-    "beforeSubtitle": "The major daily hurdles you face.",
-    "afterEyebrow": "The Solution",
-    "afterTitle": "Take back full control",
-    "afterSubtitle": "Secure your revenues and prove your solvency.",
-    "afterCta": "Discover the platform",
-    "comparisons": [
-      { "before": "Millions of francs vanish every year between the school counter and the bank account.", "after": "100% secure collection. Every franc is tracked, timestamped and tamper-proof." },
-      { "before": "Manual management and fake bank slips make it impossible to tell a real payment from fraud.", "after": "Live treasury. Instantly see who has paid and who owes you money on your smartphone." },
-      { "before": "Without a certified treasury history, banks refuse to finance your projects (buses, classrooms, equipment).", "after": "Certified and unalterable revenue history. Easily prove your solvency to financial institutions." }
+  "money": {
+    "title": "The money goes to the school's account. Never to us.",
+    "text": "Payskool is software, not a financial intermediary. Mobile Money payments land in your school's merchant account, opened with a payment aggregator such as CamPay or PayUnit. We record the payment and issue the receipt.",
+    "flowLabel": "The parent pays the school directly; Payskool records the payment without ever receiving it.",
+    "parent": "Parent",
+    "parentSub": "MTN MoMo or Orange Money",
+    "school": "School's merchant account",
+    "schoolSub": "CamPay, PayUnit…",
+    "payskool": "Payskool",
+    "payskoolSub": "records the payment and issues the receipt",
+    "facts": [
+      {
+        "title": "No commission",
+        "text": "Payskool takes nothing from your collections. Only the operator's and the aggregator's own fees apply."
+      },
+      {
+        "title": "Nothing to pay out",
+        "text": "Funds never go through us: there is never any money to recover from Payskool."
+      },
+      {
+        "title": "Each school apart",
+        "text": "Your students' and cash desks' data is isolated from other schools."
+      }
     ]
   },
-  "howItWorks": {
-    "eyebrow": "Quick start",
-    "title": "Up and running in under 2 hours",
-    "subtitle": "Three simple steps. We support you from your first click to your first collection.",
-    "step1Title": "Activate your Mobile Money accounts",
-    "step1Description": "In 2 minutes, connect your Wave, Orange Money or MTN accounts to the platform. The money goes directly to your account, never anywhere else.",
-    "step1Detail": "Compatible with Wave, Orange Money, MTN MoMo, CinetPay and Paystack. Step-by-step guided setup.",
-    "step2Title": "Import your student file",
-    "step2Description": "Upload your existing Excel file. The system automatically recognizes the columns and creates payment schedules by class in one click.",
-    "step2Detail": "Your Excel or CSV files. Up to 10,000 students in a single import. Your preferences are saved.",
-    "step3Title": "Let the platform collect",
-    "step3Description": "Parents automatically receive their reminders and pay online. Student records update without any manual work.",
-    "step3Detail": "Automatic WhatsApp reminders. One-tap payment. Real-time reconciliation.",
-    "totalTimePrefix": "Total time to get started: under",
-    "totalTimeValue": "2 hours"
+  "parents": {
+    "title": "For parents: pay without travelling, and keep the proof.",
+    "points": [
+      {
+        "title": "Nothing to install",
+        "text": "The parent space opens in the phone's browser. Sign-in with a code sent by SMS or WhatsApp, no password."
+      },
+      {
+        "title": "Every child in one place",
+        "text": "Each child's balance, instalments and due dates on a single screen."
+      },
+      {
+        "title": "Pay an instalment remotely",
+        "text": "By MTN MoMo or Orange Money, from home, without queueing at the cash desk."
+      },
+      {
+        "title": "The receipt arrives at once",
+        "text": "On WhatsApp and in the history, with its QR code. No paper to keep."
+      }
+    ]
   },
-  "comparison": {
-    "eyebrow": "The Advantage",
-    "title": "Traditional Method vs The Payskool Platform",
-    "subtitle": "Why working only with your bank is not enough to secure your school's operations.",
-    "col1Title": "Bank / Traditional",
-    "col2Title": "Payskool Platform",
-    "row1Label": "Visibility",
-    "row1Col1": "Total opacity: You don't know who paid for 48 hours.",
-    "row1Col2": "Real Time: Instant reconciliation of every payment.",
-    "row2Label": "Security",
-    "row2Col1": "High risk: Cash handling prone to discrepancies.",
-    "row2Col2": "Absolute security: Zero handling, tamper-proof QR receipts.",
-    "row3Label": "Financing",
-    "row3Col1": "An obstacle course without certified financials.",
-    "row3Col2": "Your revenue streams are proven, structured, and bank-ready."
-  },
-  "pricing": {
-    "eyebrow": "Pricing",
-    "title": "Simple, transparent, no surprises",
-    "subtitle": "A subscription, that's it. Zero commission on your collections. Money goes directly to your account.",
-    "monthly": "Monthly",
-    "annual": "Annual",
-    "annualDiscount": "-20%",
-    "plan1Name": "Starter",
-    "plan1Description": "For small schools",
-    "plan1PriceMonthly": "Free",
-    "plan1PriceAnnual": "Free",
-    "plan1PeriodMonthly": "for life",
-    "plan1PeriodAnnual": "for life",
-    "plan1Features": [
-      "Up to 100 students",
-      "Cash payments and basic tracking",
-      "Simple receipts",
-      "Excel import (1 school)",
-      "Email support"
+  "pilot": {
+    "title": "The pilot programme",
+    "intro": "Payskool is being finalised, and we are opening the pilot to a small group of private schools in Cameroon, from nursery to secondary. We start with the cash desk, receipts and instalment tracking; Mobile Money payments by parents are switched on afterwards, school by school. During the pilot Payskool is free; in return, you tell us what works and what is missing.",
+    "offerTitle": "What a pilot school gets",
+    "offer": [
+      "Payskool for free for the whole pilot",
+      "Your student lists and fee schedules imported by our team",
+      "Training for your cashiers",
+      "A direct WhatsApp line with the product team"
     ],
-    "plan1Excluded": [
-      "Mobile Money payments",
-      "Multi-school",
-      "QR code receipts",
-      "WhatsApp reminders",
-      "Advanced reports"
+    "after": "After the pilot: a fixed monthly subscription, announced before the pilot ends, with no commission on your collections.",
+    "stepsTitle": "How it goes",
+    "steps": [
+      {
+        "title": "You message us on WhatsApp",
+        "text": "School name, city, number of students. We call you back for a demo."
+      },
+      {
+        "title": "We set up your school",
+        "text": "Classes, instalments and due dates, student lists imported from your Excel files."
+      },
+      {
+        "title": "First receipts",
+        "text": "Your cashiers take payments on Payskool, and parents get their first verifiable receipts."
+      }
     ],
-    "plan1Cta": "Get started",
-    "plan2Name": "Pro",
-    "plan2Description": "Most popular",
-    "plan2PriceMonthly": "25,000 FCFA",
-    "plan2PriceAnnual": "290,000 FCFA",
-    "plan2PeriodMonthly": "/ month",
-    "plan2PeriodAnnual": "/ year",
-    "plan2Features": [
-      "Unlimited students",
-      "Mobile Money payments (Wave, Orange, MTN)",
-      "Multi-school",
-      "Tamper-proof QR code receipts",
-      "Automatic WhatsApp reminders",
-      "Smart Excel import",
-      "Treasury tracking",
-      "Priority WhatsApp support",
-      "Training included"
-    ],
-    "plan2Cta": "30-day free trial",
-    "plan2Badge": "Most popular",
-    "plan3Name": "Group",
-    "plan3Description": "School networks",
-    "plan3PriceMonthly": "Custom quote",
-    "plan3PriceAnnual": "Custom quote",
-    "plan3Features": [
-      "Everything in Pro",
-      "3+ schools",
-      "Graduated discount",
-      "Free migration",
-      "Priority access",
-      "Dedicated account manager",
-      "Guaranteed uptime",
-      "On-site training"
-    ],
-    "plan3Cta": "Talk to an expert"
+    "cta": "Become a pilot school"
   },
   "faq": {
-    "eyebrow": "Frequently asked questions",
-    "title": "Everything you need to know",
-    "moreQuestions": "Have more questions?",
-    "contactWhatsapp": "Contact us on WhatsApp →",
-    "q1": "Does money go through PAYSKOOL?",
-    "a1": "No. Money goes directly to the school's bank or Mobile Money account. PAYSKOOL is a subscription service: we never collect or hold your funds. You connect your own Mobile Money accounts, and payments arrive directly to you.",
-    "q2": "What if our parents still pay in cash at the counter?",
-    "a2": "Our Cash Desk module lets you collect cash in 5 seconds with immediate receipt generation. Every transaction is timestamped and tracked, eliminating any risk of cash discrepancies. The receipt is instantly sent to the parent via WhatsApp.",
-    "q3": "How long does it take to get started?",
-    "a3": "Under 2 hours. You import your student lists in minutes from your usual Excel file. Connecting your Mobile Money accounts is guided step by step. Our team supports you until your first collection.",
-    "q4": "Do parents need to install an app?",
-    "a4": "No. The parent portal opens directly in the phone's browser, with nothing to download. It works on all Internet-connected phones, even basic ones. Login is done via SMS or WhatsApp code.",
-    "q5": "Which payment methods are supported?",
-    "a5": "Wave, Orange Money, MTN Mobile Money, CinetPay and Paystack. As well as cash and cheque payments through our Cash Desk module. We regularly add new payment methods based on our schools' needs."
+    "title": "Frequently asked questions",
+    "items": [
+      {
+        "q": "Where does Payskool stand today?",
+        "a": "The product is being finalised and the pilot programme is open. We start with the cash desk, receipts and instalment tracking; Mobile Money payments by parents are switched on afterwards, school by school."
+      },
+      {
+        "q": "Does the money go through Payskool?",
+        "a": "No. Mobile Money payments land in the school's merchant account with a payment aggregator (CamPay, PayUnit…). Payskool records the payment and issues the receipt; we never hold the funds."
+      },
+      {
+        "q": "Our parents mostly pay cash. Is Payskool still useful?",
+        "a": "Yes, that is where we start. The cash desk records cash and cheques, issues the verifiable receipt and keeps track of each cashier. Mobile Money payments by parents come next."
+      },
+      {
+        "q": "What makes a receipt verifiable?",
+        "a": "Every receipt carries a unique number and a QR code. Scanning it finds that receipt in the school's ledger, with the student and the amount. An invented receipt is not there; an altered one does not match what the ledger shows."
+      },
+      {
+        "q": "Can a typing mistake be fixed?",
+        "a": "Yes, with a cancellation that stays visible in the history. Nothing is erased: that is what protects your cashiers as much as your cash."
+      },
+      {
+        "q": "Do parents need to install an app?",
+        "a": "No. The parent space opens in the phone's browser, with a code sent by SMS or WhatsApp."
+      },
+      {
+        "q": "How much does Payskool cost?",
+        "a": "Nothing during the pilot. After that, a fixed monthly subscription, announced before the pilot ends, with no commission on your collections."
+      },
+      {
+        "q": "Does Payskool handle grades and report cards?",
+        "a": "No. Payskool only deals with money: fees, instalments, cash desks, receipts and collection. It runs alongside your school management software."
+      }
+    ],
+    "more": "Another question?",
+    "contact": "Message us on WhatsApp"
   },
-  "bottomCta": {
-    "title": "Collect via Mobile Money, starting this school year.",
-    "subtitle": "Book 10 minutes with a Payskool expert: audit your cash desk, estimate your institution's potential and see the demo live.",
-    "placeholderName": "School owner name",
-    "placeholderWhatsapp": "WhatsApp number",
-    "cta": "Book my 10-minute demo",
-    "disclaimer": "No commitment. Your information is never shared.",
-    "thanksPrefix": "Thank you,",
-    "thanksSuffix": "! Your request has been received.",
-    "thanksDetailPrefix": "A PAYSKOOL expert will contact you at",
-    "thanksDetailSuffix": "within the next 24 hours to activate your pilot access."
+  "finalCta": {
+    "title": "Sign your school up for the pilot programme.",
+    "text": "Give at least the school name: WhatsApp opens with your message ready to send.",
+    "school": "School name",
+    "schoolPlaceholder": "School complex…",
+    "city": "City",
+    "cityPlaceholder": "Douala, Yaoundé…",
+    "students": "Number of students",
+    "studentsPlaceholder": "e.g. 450",
+    "submit": "Continue on WhatsApp",
+    "note": "Nothing is sent until you confirm the message in WhatsApp."
   },
   "footer": {
-    "tagline": "Tuition collection",
-    "description": "The financial infrastructure for schools in Africa. Secure your cash flow, automate collection, and unlock access to bank credit for your development.",
+    "tagline": "The school fee ledger for private schools in Cameroon.",
     "columnProduct": "Product",
-    "linkFeatures": "Features",
-    "linkPricing": "Pricing",
-    "linkIntegrations": "Integrations",
-    "linkBlog": "Blog",
-    "columnCompany": "Company",
-    "linkAbout": "About",
-    "linkCareers": "Careers",
-    "linkPress": "Press",
     "columnLegal": "Legal",
-    "linkLegal": "Legal notice",
-    "linkPrivacy": "Privacy policy",
-    "linkTerms": "Terms of service",
-    "linkCookies": "Cookies",
-    "copyright": "PAYSKOOL. All rights reserved.",
-    "whatsapp": "WhatsApp",
-    "email": "Email",
-    "madeWith": "Made with ❤️ from Africa"
+    "product": "Product",
+    "parents": "Parents",
+    "pilot": "Pilot programme",
+    "faq": "FAQ",
+    "contact": "Message us on WhatsApp",
+    "mentions": "Legal notice",
+    "privacy": "Privacy",
+    "terms": "Terms of service",
+    "cookies": "Cookies",
+    "rights": "All rights reserved.",
+    "languageFr": "Français",
+    "languageEn": "English",
+    "columnLanguage": "Language"
+  },
+  "mocks": {
+    "frameLabel": "School app preview",
+    "cashier": {
+      "find": "Find a student",
+      "search": "Name, ID or class…",
+      "studentName": "ETOGA Yann",
+      "studentMeta": "STE-26-0015 · 6e A",
+      "balanceLabel": "Balance due",
+      "balanceValue": "75 000 FCFA",
+      "scheduleTitle": "Schedule 2026-2027",
+      "coverage": "Schedule covered",
+      "t1Label": "Instalment 1",
+      "t1Status": "Paid",
+      "t2Label": "Instalment 2",
+      "t2Status": "Late",
+      "nextDue": "Due date passed: 15 Oct",
+      "t3Label": "Instalment 3",
+      "t3Status": "Upcoming",
+      "amountLabel": "Amount received",
+      "amountValue": "40 000 FCFA",
+      "collectCta": "Take payment",
+      "initials": "EY",
+      "coverageValue": "40%"
+    },
+    "payments": {
+      "eyebrow": "Mobile Money payments",
+      "heroCount": "3",
+      "heroSub": "matched automatically · 140 000 FCFA",
+      "receipts": "Receipts issued",
+      "refunded": "Refunded",
+      "note": "Payments started from the parent space, confirmed by the aggregator, matched to the student by their reference. Receipt issued with no action at the cash desk.",
+      "thTx": "Transaction",
+      "thStudent": "Student",
+      "thAmount": "Amount",
+      "thReceipt": "Receipt",
+      "rows": [
+        {
+          "method": "MTN MoMo",
+          "ref": "MP-55210",
+          "student": "NANA Brice",
+          "meta": "6e B",
+          "amount": "40 000",
+          "receipt": "REC-8961"
+        },
+        {
+          "method": "Orange Money",
+          "ref": "OM-22190",
+          "student": "KENGNI Junior",
+          "meta": "5e A",
+          "amount": "25 000",
+          "receipt": "REC-8959"
+        },
+        {
+          "method": "MTN MoMo",
+          "ref": "MP-55198",
+          "student": "BELLO Aïcha",
+          "meta": "2nde A",
+          "amount": "75 000",
+          "receipt": "REC-8958"
+        }
+      ],
+      "receiptsValue": "3",
+      "refundedValue": "0"
+    },
+    "report": {
+      "eyebrow": "Collection 2026-2027",
+      "heroLabel": "Collected to date",
+      "heroValue": "38 400 000 FCFA",
+      "rateLabel": "Overall rate",
+      "rateValue": "81%",
+      "remainingLabel": "Still to collect",
+      "remainingValue": "9 000 000 FCFA",
+      "uptodateLabel": "Students up to date",
+      "uptodateValue": "912",
+      "tableTitle": "Collection by class",
+      "thClass": "Class",
+      "thDue": "Total due",
+      "thCollected": "Collected",
+      "thRate": "Rate",
+      "thLate": "Late",
+      "rows": [
+        {
+          "cls": "CM2",
+          "due": "2 800 000",
+          "collected": "2 520 000",
+          "rate": 90,
+          "late": "3"
+        },
+        {
+          "cls": "6e A",
+          "due": "3 500 000",
+          "collected": "2 975 000",
+          "rate": 85,
+          "late": "5"
+        },
+        {
+          "cls": "Tle C",
+          "due": "4 250 000",
+          "collected": "2 975 000",
+          "rate": 70,
+          "late": "9"
+        }
+      ]
+    },
+    "phone": {
+      "greeting": "Hello, Mrs Etoga",
+      "children": "2 children",
+      "student": "ETOGA Yann",
+      "school": "CS Sainte-Marie",
+      "year": "2026-2027",
+      "dueLabel": "Left to pay",
+      "dueAmount": "75 000",
+      "payCta": "Pay by Mobile Money",
+      "scheduleTitle": "Instalments",
+      "i1Title": "Instalment 1, enrolment",
+      "i1Status": "Paid",
+      "i1Meta": "Paid on 15 Sept 2026",
+      "i1Amount": "50 000 FCFA",
+      "i2Title": "Instalment 2",
+      "i2Status": "Late",
+      "i2Meta": "Due: 15 Oct",
+      "i2Amount": "40 000 FCFA",
+      "i2Pay": "Pay by MTN MoMo",
+      "i3Title": "Instalment 3",
+      "i3Status": "Upcoming",
+      "i3Meta": "Due: 15 Mar 2027",
+      "i3Amount": "35 000 FCFA",
+      "navHome": "Home",
+      "navChildren": "Children",
+      "navReceipts": "Receipts",
+      "navHelp": "Help",
+      "label": "Parent space on a phone: 75 000 FCFA left to pay for ETOGA Yann, instalment 2 late.",
+      "currency": "FCFA"
+    }
   },
   "about": {
     "heroEyebrow": "ABOUT US",
@@ -528,7 +472,6 @@
     "requirements": "What we're looking for",
     "benefits": "What we offer",
     "applyDesc": "Send us your CV (or LinkedIn profile) and a short note about your motivations.",
-    
     "fullstack": {
       "title": "Senior Full-Stack Engineer (NestJS / React)",
       "location": "Douala or Remote",
@@ -544,7 +487,6 @@
       "ben1": "Competitive salary + Total flexibility (Remote-friendly).",
       "ben2": "Premium equipment (MacBook Pro) and top-tier health insurance."
     },
-    
     "product-designer": {
       "title": "Fintech UX/UI Product Designer",
       "location": "Remote",

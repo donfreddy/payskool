@@ -1,55 +1,51 @@
-"use client";
-
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { whatsappUrl } from "@/lib/whatsapp";
+
+import { frame, sectionTitle } from "./styles";
+
+type Item = { q: string; a: string };
+
 export function Faq() {
   const t = useTranslations("faq");
-
-  const faqs = [
-    { question: t("q1"), answer: t("a1") },
-    { question: t("q2"), answer: t("a2") },
-    { question: t("q3"), answer: t("a3") },
-    { question: t("q4"), answer: t("a4") },
-    { question: t("q5"), answer: t("a5") },
-  ];
+  const wa = useTranslations("whatsapp");
+  const items = t.raw("items") as Item[];
 
   return (
-    <section id="faq" className="py-24 sm:py-32">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="display-heading text-3xl text-encre sm:text-4xl">
+    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-16 bg-white py-20 sm:py-28">
+      <div
+        className={`${frame} grid gap-10 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-16`}
+      >
+        <div>
+          <h2 id="faq-title" className={sectionTitle}>
             {t("title")}
           </h2>
+          <p className="mt-5 text-encre/75">
+            {t("more")}{" "}
+            <a
+              href={whatsappUrl(wa("question"))}
+              className="font-semibold text-emerald-700 underline decoration-emeraude/40 underline-offset-4 hover:decoration-emeraude"
+            >
+              {t("contact")}
+            </a>
+          </p>
         </div>
 
-        <div className="mt-14 divide-y divide-fil/60">
-          {faqs.map((faq, i) => (
-            <details key={i} className="group py-5">
-              <summary className="flex cursor-pointer items-center justify-between gap-4">
-                <span className="text-base font-medium text-encre group-open:text-emeraude transition-colors">
-                  {faq.question}
-                </span>
-                <ChevronDown className="h-4 w-4 shrink-0 text-ardoise/40 transition-all group-open:rotate-180 group-open:text-emeraude" />
+        <div className="divide-y divide-fil border-y border-fil">
+          {items.map((item) => (
+            <details key={item.q} className="group">
+              <summary className="flex cursor-pointer items-start justify-between gap-4 py-5 text-[17px] font-semibold text-encre focus-visible:ring-2 focus-visible:ring-emeraude focus-visible:outline-none">
+                {item.q}
+                <ChevronDown
+                  className="mt-1 h-5 w-5 shrink-0 text-encre/50 transition-transform group-open:rotate-180"
+                  aria-hidden="true"
+                />
               </summary>
-              <div className="mt-4 animate-fade-in pr-8">
-                <p className="text-sm leading-relaxed text-ardoise">
-                  {faq.answer}
-                </p>
-              </div>
+              <p className="-mt-1 pb-5 leading-relaxed text-encre/75">{item.a}</p>
             </details>
           ))}
         </div>
-
-        <p className="mt-12 text-center text-sm text-ardoise">
-          {t("moreQuestions")}{" "}
-          <a
-            href="#"
-            className="font-medium text-emeraude transition-colors hover:text-emeraude/80"
-          >
-            {t("contactWhatsapp")}
-          </a>
-        </p>
       </div>
     </section>
   );

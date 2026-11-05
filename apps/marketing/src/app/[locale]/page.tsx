@@ -1,35 +1,43 @@
-import { BeforeAfter } from "@/components/landing/before-after";
-import { BottomCta } from "@/components/landing/bottom-cta";
-import { Comparison } from "@/components/landing/comparison";
+import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
+
 import { Faq } from "@/components/landing/faq";
-import { FeaturesParents } from "@/components/landing/features-parents";
-import { FeaturesSchool } from "@/components/landing/features-school";
+import { FinalCta } from "@/components/landing/final-cta";
 import { Footer } from "@/components/landing/footer";
 import { Hero } from "@/components/landing/hero";
-import { HowItWorks } from "@/components/landing/how-it-works";
-import { Metrics } from "@/components/landing/metrics";
+import { Money } from "@/components/landing/money";
 import { Nav } from "@/components/landing/nav";
-import { Partners } from "@/components/landing/partners";
-import { Pricing } from "@/components/landing/pricing";
-import { Testimonials } from "@/components/landing/testimonials";
+import { Parents } from "@/components/landing/parents";
+import { Pilot } from "@/components/landing/pilot";
+import { Problem } from "@/components/landing/problem";
+import { School } from "@/components/landing/school";
+import { pageAlternates } from "@/lib/seo";
 
-export default function Home() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates(locale) };
+}
+
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
       <Nav />
       <main>
         <Hero />
-        <Partners />
-        <Metrics />
-        <Testimonials />
-        <FeaturesSchool />
-        <FeaturesParents />
-        <BeforeAfter />
-        <HowItWorks />
-        <Comparison />
-        <Pricing />
+        <Problem />
+        <School />
+        <Money />
+        <Parents />
+        <Pilot />
         <Faq />
-        <BottomCta />
+        <FinalCta />
       </main>
       <Footer />
     </>

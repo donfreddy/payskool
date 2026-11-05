@@ -1,108 +1,108 @@
 "use client";
 
-import { Menu, ShieldCheck, X } from "lucide-react";
+import { Menu, MessageCircle, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { Link } from "@/i18n/navigation";
-import { Button } from "@payskool/ui/components/ui/button";
+import { whatsappUrl } from "@/lib/whatsapp";
 
-const navLinkHrefs = [
-  { href: "/about" },
-  { href: "/#features-school" },
-  { href: "/#features-parents" },
-  { href: "/#pricing" },
-  { href: "/#faq" },
-];
+import { Logo } from "./logo";
+import { frame } from "./styles";
 
-const navLinkKeys = ["about", "features", "parents", "pricing", "faq"] as const;
+/** Anchors point at the home page, so they also work from /about or /careers. */
+const links = [
+  { href: "/#ecole", key: "product" },
+  { href: "/#parents", key: "parents" },
+  { href: "/#pilote", key: "pilot" },
+  { href: "/#faq", key: "faq" },
+] as const;
+
+const cta =
+  "items-center justify-center gap-2 bg-emerald-700 font-semibold text-white transition-colors hover:bg-emerald-800 focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2 focus-visible:outline-none";
 
 export function Nav() {
   const t = useTranslations("nav");
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const wa = useTranslations("whatsapp");
+  const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (!open) return;
+    const close = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      toggle.current?.focus();
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [open]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled
-          ? "bg-white/75 backdrop-blur-xl border-b border-fil shadow-[0_1px_3px_0_rgb(0_0_0/0.04)]"
-          : "bg-transparent"
-        }`}
-    >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 group">
-          <ShieldCheck className="h-6 w-6 text-emeraude transition-transform group-hover:scale-110" />
-          <span className="text-[17px] font-extrabold tracking-tight text-encre">
-            PAYS<span className="text-emeraude">KOOL</span>
-          </span>
+    <header className="sticky top-0 z-50 border-b border-fil bg-craie/90 backdrop-blur-md">
+      <div className={`${frame} flex h-16 items-center justify-between`}>
+        <Link
+          href="/"
+          aria-label={t("home")}
+          className="rounded-md focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:outline-none"
+        >
+          <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
-          {navLinkHrefs.map((link, i) => (
+        <nav aria-label={t("label")} className="hidden items-center gap-1 md:flex">
+          {links.map((link) => (
             <Link
-              key={link.href}
+              key={link.key}
               href={link.href}
-              className="rounded-lg px-3.5 py-2 text-[13px] font-medium text-ardoise transition-colors hover:bg-encre/[0.04] hover:text-encre"
+              className="rounded-lg px-3 py-2 text-[14px] font-medium text-encre/75 transition-colors hover:text-encre"
             >
-              {t(navLinkKeys[i]!)}
+              {t(link.key)}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <Button size="default" variant="outline">
-            {t("login")}
-          </Button>
-          <Button
-            onClick={() => { }}
-            size="default" variant="emerald">
-            {t("cta")}
-          </Button>
-        </div>
+        <a
+          href={whatsappUrl(wa("intro"))}
+          className={`${cta} hidden min-h-10 rounded-lg px-4 text-[14px] md:inline-flex`}
+        >
+          <MessageCircle className="h-4 w-4" aria-hidden="true" />
+          {t("cta")}
+        </a>
 
         <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="rounded-lg p-2 text-encre hover:bg-encre/[0.04] md:hidden"
-          aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          ref={toggle}
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-controls={open ? "mobile-menu" : undefined}
+          aria-label={open ? t("closeMenu") : t("openMenu")}
+          className="grid h-11 w-11 place-items-center rounded-lg text-encre hover:bg-encre/5 md:hidden"
         >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
-      {mobileOpen && (
-        <div className="border-t border-fil bg-white px-4 pb-6 pt-4 md:hidden animate-fade-in">
-          <nav className="flex flex-col gap-1">
-            {navLinkHrefs.map((link, i) => (
+      {open && (
+        <div id="mobile-menu" className="animate-fade-in border-t border-fil bg-white md:hidden">
+          <nav aria-label={t("mobileLabel")} className={`${frame} flex flex-col py-3`}>
+            {links.map((link) => (
               <Link
-                key={link.href}
+                key={link.key}
                 href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="rounded-lg px-3 py-3 text-sm font-medium text-ardoise transition-colors hover:bg-encre/[0.04] hover:text-encre"
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-1 py-3 text-[16px] font-medium text-encre"
               >
-                {t(navLinkKeys[i]!)}
+                {t(link.key)}
               </Link>
             ))}
-          </nav>
-          <div className="mt-4 flex flex-col gap-2">
             <a
-              href="#"
-              className="rounded-lg border border-fil px-4 py-3 text-center text-sm font-medium text-encre"
+              href={whatsappUrl(wa("intro"))}
+              className={`${cta} mt-2 mb-2 inline-flex min-h-12 rounded-xl text-[15px]`}
             >
-              {t("login")}
-            </a>
-            <a
-              href="#cta"
-              onClick={() => setMobileOpen(false)}
-              className="rounded-lg bg-emeraude px-4 py-3 text-center text-sm font-semibold text-white"
-            >
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
               {t("cta")}
             </a>
-          </div>
+          </nav>
         </div>
       )}
     </header>

@@ -8,85 +8,16 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --color-encre: #0C1220;
-  --color-craie: #F7F8FA;
+  --color-encre: #0c1220;
+  --color-craie: #f7f8fa;
   --color-emeraude: #059669;
-  --color-ambre: #D97706;
-  --color-ardoise: #6B7A8D;
-  --color-fil: #E4E8EE;
+  --color-ambre: #d97706;
+  --color-ardoise: #6b7a8d;
+  --color-fil: #e4e8ee;
 }
 
-/* ── Receipt perforation divider ── */
-.section-divider {
-  position: relative;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    var(--color-fil) 15%,
-    var(--color-fil) 85%,
-    transparent 100%
-  );
-  border: none;
-}
-.section-divider::after {
-  content: "";
-  position: absolute;
-  top: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 48px;
-  height: 7px;
-  background: radial-gradient(circle at center, var(--color-fil) 1px, transparent 1px);
-  background-size: 6px 7px;
-  background-repeat: repeat-x;
-}
-
-/* ── Hero floating card animation ── */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-@utility animate-float {
-  animation: float 5s ease-in-out infinite;
-}
-
-@keyframes float-delayed {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-@utility animate-float-delayed {
-  animation: float-delayed 6s ease-in-out 1.5s infinite;
-}
-
-/* ── Staggered fade-in ── */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@utility animate-fade-up {
-  animation: fade-up 0.6s ease-out both;
-}
-@utility animate-fade-up-1 {
-  animation: fade-up 0.6s ease-out 0.1s both;
-}
-@utility animate-fade-up-2 {
-  animation: fade-up 0.6s ease-out 0.25s both;
-}
-@utility animate-fade-up-3 {
-  animation: fade-up 0.6s ease-out 0.4s both;
-}
-@utility animate-fade-up-4 {
-  animation: fade-up 0.6s ease-out 0.55s both;
-}
-
-/* ── Fade-in only ── */
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@utility animate-fade-in {
-  animation: fade-in 0.4s ease-out both;
+html {
+  scroll-behavior: smooth;
 }
 
 /* ── Display heading ── */
@@ -97,51 +28,57 @@
   line-height: 1.08;
 }
 
-/* ── Stat/number treatment ── */
-@utility stat-number {
-  font-family: var(--font-mono), monospace;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-/* ── Monospaced data ── */
+/* ── Monospaced data: receipts and ledgers print in mono, so amounts line up ── */
 @utility mono-data {
   font-family: var(--font-mono), monospace;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
 }
 
-/* ── Glow button ── */
+/* ── Torn bottom edge of a printed receipt ── */
+@utility receipt-tear {
+  --tooth: 10px;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% /
+    var(--tooth) 100%;
+}
+
+/* ── Verification stamp: the one moment of motion, triggered by the visitor ── */
+@keyframes stamp-in {
+  from {
+    opacity: 0;
+    transform: rotate(-8deg) scale(1.6);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-8deg) scale(1);
+  }
+}
+@utility animate-stamp {
+  animation: stamp-in 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@utility animate-fade-in {
+  animation: fade-in 0.2s ease-out both;
+}
+
+/* ── Primary button on the about and careers pages ── */
 .glow-btn {
   box-shadow: 0 4px 24px -8px oklch(0.48 0.17 160 / 0.4);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 .glow-btn:hover {
   box-shadow: 0 6px 32px -6px oklch(0.48 0.17 160 / 0.55);
   transform: translateY(-1px);
-}
-
-/* ── Glass card ── */
-@utility glass-card {
-  background: oklch(1 0 0 / 0.72);
-  backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid var(--color-fil);
-}
-
-/* ── Ledger line — subtle horizontal rule inside data cards ── */
-@utility ledger-line {
-  border-bottom: 1px dashed var(--color-fil);
-}
-
-/* ── Partner ticker ── */
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@utility animate-ticker {
-  animation: ticker 25s linear infinite;
 }
 
 /* ── FAQ details reset ── */
@@ -154,7 +91,9 @@ details summary::-webkit-details-marker {
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
