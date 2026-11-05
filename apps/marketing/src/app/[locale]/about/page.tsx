@@ -3,6 +3,9 @@ import { Footer } from "@/components/landing/footer";
 import { useTranslations } from "next-intl";
 import { ShieldCheck, MapPin, Target, TrendingUp, Handshake, ArrowRight } from "lucide-react";
 
+// Kept out of search engines until rewritten: its figures are not backed by real schools yet.
+export const metadata = { robots: { index: false, follow: false } };
+
 export default function AboutPage() {
   const t = useTranslations("about");
 

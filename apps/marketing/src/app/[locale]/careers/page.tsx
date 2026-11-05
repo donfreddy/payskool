@@ -4,6 +4,9 @@ import { useTranslations } from "next-intl";
 import { ShieldCheck, MapPin, Lightbulb, Briefcase, ArrowRight, HeartPulse, Laptop, TrendingUp, Target } from "lucide-react";
 import Link from "next/link";
 
+// Kept out of search engines until the openings are confirmed.
+export const metadata = { robots: { index: false, follow: false } };
+
 export default function CareersPage() {
   const t = useTranslations("careers");
 

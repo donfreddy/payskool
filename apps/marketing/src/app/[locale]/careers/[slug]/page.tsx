@@ -5,6 +5,9 @@ import { Link } from "@/i18n/navigation";
 import { ArrowLeft, MapPin, Briefcase, Building, CheckCircle2, ArrowRight } from "lucide-react";
 import { notFound } from "next/navigation";
 
+// Kept out of search engines until the openings are confirmed.
+export const metadata = { robots: { index: false, follow: false } };
+
 export default async function JobDetailsPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { slug } = await params;
   const t = await getTranslations({ locale: (await params).locale, namespace: "job" });
