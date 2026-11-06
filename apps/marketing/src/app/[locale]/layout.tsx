@@ -53,7 +53,7 @@ export async function generateMetadata({
 }
 
 /** Only the namespaces client components read are serialised into the page. */
-const CLIENT_NAMESPACES = ["nav", "whatsapp", "verify", "receipt"] as const;
+const CLIENT_NAMESPACES = ["nav", "whatsapp", "reminders"] as const;
 
 export default async function RootLayout({
   children,

@@ -42,21 +42,6 @@ html {
     var(--tooth) 100%;
 }
 
-/* ── Verification stamp: the one moment of motion, triggered by the visitor ── */
-@keyframes stamp-in {
-  from {
-    opacity: 0;
-    transform: rotate(-8deg) scale(1.6);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(-8deg) scale(1);
-  }
-}
-@utility animate-stamp {
-  animation: stamp-in 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
-}
-
 @keyframes fade-in {
   from {
     opacity: 0;

@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 
+import { Desk } from "@/components/landing/desk";
 import { Faq } from "@/components/landing/faq";
 import { FinalCta } from "@/components/landing/final-cta";
 import { Footer } from "@/components/landing/footer";
+import { Gains } from "@/components/landing/gains";
 import { Hero } from "@/components/landing/hero";
-import { Money } from "@/components/landing/money";
+import { How } from "@/components/landing/how";
 import { Nav } from "@/components/landing/nav";
-import { Parents } from "@/components/landing/parents";
 import { Pilot } from "@/components/landing/pilot";
 import { Problem } from "@/components/landing/problem";
-import { School } from "@/components/landing/school";
+import { Reminders } from "@/components/landing/reminders";
 import { pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -32,9 +33,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <main>
         <Hero />
         <Problem />
-        <School />
-        <Money />
-        <Parents />
+        <Reminders />
+        <How />
+        <Gains />
+        <Desk />
         <Pilot />
         <Faq />
         <FinalCta />

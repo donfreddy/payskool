@@ -3,8 +3,7 @@ import { useTranslations } from "next-intl";
 
 import { whatsappUrl } from "@/lib/whatsapp";
 
-import { Receipt } from "./receipt";
-import { ReceiptVerifier } from "./receipt-verifier";
+import { SmsThread } from "./sms-thread";
 import { frame, primaryButton, secondaryButton } from "./styles";
 
 export function Hero() {
@@ -20,7 +19,7 @@ export function Hero() {
       />
 
       <div
-        className={`${frame} grid items-center gap-14 pt-12 pb-20 sm:pt-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16 lg:pt-20 lg:pb-28`}
+        className={`${frame} grid items-center gap-14 pt-12 pb-20 sm:pt-16 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16 lg:pt-20 lg:pb-28`}
       >
         <div>
           <p className="inline-flex items-center gap-2 rounded-full border border-emeraude/25 bg-white px-3 py-1 text-[13px] font-medium text-emerald-800">
@@ -44,7 +43,7 @@ export function Hero() {
               <MessageCircle className="h-4.5 w-4.5" aria-hidden="true" />
               {t("primaryCta")}
             </a>
-            <a href="#ecole" className={secondaryButton}>
+            <a href="#relances" className={secondaryButton}>
               {t("secondaryCta")}
             </a>
           </div>
@@ -52,7 +51,7 @@ export function Hero() {
           <p className="mt-4 text-[14px] text-encre/65">{t("note")}</p>
         </div>
 
-        <ReceiptVerifier receipt={<Receipt />} />
+        <SmsThread />
       </div>
     </section>
   );

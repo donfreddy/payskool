@@ -1,14 +1,14 @@
 {
   "meta": {
-    "title": "Payskool | School fees collected, tracked, verifiable",
-    "description": "School fee collection software for private schools in Cameroon: cash desk and MTN MoMo or Orange Money payments, receipts verifiable by QR code, live instalment tracking. Pilot programme open.",
-    "ogTitle": "Payskool | Every franc paid gets a receipt. Every receipt can be checked.",
-    "ogDescription": "The school fee ledger for private schools in Cameroon. Pilot programme open.",
-    "keywords": "school fees, fee collection, private school Cameroon, verifiable receipt, MTN MoMo, Orange Money, school cash desk"
+    "title": "Payskool | School fees paid on time, without chasing parents",
+    "description": "Fee collection software for private schools in Cameroon: automatic SMS reminders before and after every instalment, cash desk and receipts, live tracking of late payments. Free pilot programme.",
+    "ogTitle": "Payskool | Your school fees, paid on time",
+    "ogDescription": "Automatic SMS reminders, cash desk and instalment tracking for private schools in Cameroon. Pilot programme open.",
+    "keywords": "school fees, fee collection, SMS reminders parents, private school Cameroon, school cash desk, unpaid school fees"
   },
   "nav": {
-    "product": "Product",
-    "parents": "Parents",
+    "reminders": "Reminders",
+    "how": "How it works",
     "pilot": "Pilot programme",
     "faq": "FAQ",
     "cta": "Become a pilot school",
@@ -23,15 +23,183 @@
     "question": "Hello Payskool, I have a question:",
     "school": "School:",
     "city": "City:",
-    "students": "Number of students:"
+    "students": "Number of pupils:"
   },
   "hero": {
-    "status": "Pilot programme open to private schools in Cameroon",
-    "title": "Every franc paid gets a receipt. Every receipt can be checked.",
-    "lead": "Payskool records every school fee payment, at the cash desk or by MTN MoMo and Orange Money, issues a receipt with a QR code and shows you who is up to date, day by day.",
+    "status": "Free pilot programme for private schools in Cameroon",
+    "title": "School fees paid on time, without chasing parents.",
+    "lead": "Payskool reminds every parent by SMS before each instalment, follows up with those who are late, records every payment at the cash desk and shows you at any time who has paid and who still owes.",
     "primaryCta": "Become a pilot school",
-    "secondaryCta": "See the product",
-    "note": "Free during the pilot. Requests go through WhatsApp."
+    "secondaryCta": "Try the reminders",
+    "note": "Free during the pilot, SMS included."
+  },
+  "problem": {
+    "title": "You spend your days asking for instalments.",
+    "items": [
+      {
+        "title": "Reminders by hand",
+        "text": "Calls one by one, notes in the homework diary, meetings with parents. Hours of office time every month, often for the same families."
+      },
+      {
+        "title": "Late payments found too late",
+        "text": "You notice a class has not paid when teachers' salaries are due, when it is too late to follow up."
+      },
+      {
+        "title": "Sending pupils home",
+        "text": "When nothing else worked, children get sent home. Nobody likes it, neither the school nor the parents."
+      },
+      {
+        "title": "“I already paid”",
+        "text": "Without a shared record, every dispute means digging through receipt books while a parent waits."
+      }
+    ],
+    "turn": "Payskool sends the reminders and follow-ups for you, records every franc collected and shows you at any time who still owes what."
+  },
+  "reminders": {
+    "title": "Your reminders go out on their own. In your words.",
+    "intro": "You choose when parents are told and what the message says. Try it: tick some days, edit the text, the preview follows.",
+    "whenLabel": "When should parents be told?",
+    "beforeGroup": "Before the due date",
+    "afterGroup": "After the due date",
+    "chipBefore": "{days}d before",
+    "chipAfter": "{days}d after",
+    "chipBeforeLabel": "{days, plural, one {# day before the due date} other {# days before the due date}}",
+    "chipAfterLabel": "{days, plural, one {# day after the due date} other {# days after the due date}}",
+    "messageLabel": "The message",
+    "tabBefore": "Reminder, before the due date",
+    "tabAfter": "Follow-up, after the due date",
+    "insert": "Insert",
+    "reset": "Restore the text",
+    "previewLabel": "What the parent receives",
+    "previewWhen": "{moment}, {date} at 09:00",
+    "example": "Example: Yann's instalment 2, due {date}",
+    "count": "{length, plural, one {# character} other {# characters}}, {segments, plural, =0 {no SMS} one {# SMS} other {# SMS}} per send.",
+    "ucs": "Special character ({chars}): this message drops to 70 characters per SMS instead of 160.",
+    "total": "With these settings, a parent who is late gets at most {sms, plural, one {# SMS} other {# SMS}} for this instalment, then 1 receipt SMS when they pay.",
+    "none": "No day ticked: parents will not be told.",
+    "rulesTitle": "Safeguards, set in advance",
+    "rules": [
+      "Sent between 8 am and 8 pm, Monday to Saturday, adjustable.",
+      "Never more than two follow-ups a week for the same pupil.",
+      "Follow-ups stop as soon as the instalment is paid.",
+      "Pause available for a pupil: payment arrangement, hardship."
+    ],
+    "templates": {
+      "before": "{school}: Hello {parent}, instalment {instalment} for {pupil} ({amount}) is due by {date}, at the school cash desk. Thank you!",
+      "after": "{school}: Hello {parent}, instalment {instalment} for {pupil} ({amount}) was due on {date}. Please pay at the cash desk."
+    },
+    "tokens": [
+      {
+        "token": "school",
+        "label": "School",
+        "sample": "CS Sainte-Marie"
+      },
+      {
+        "token": "parent",
+        "label": "Parent",
+        "sample": "Mrs Etoga"
+      },
+      {
+        "token": "pupil",
+        "label": "Pupil",
+        "sample": "Yann"
+      },
+      {
+        "token": "instalment",
+        "label": "Instalment",
+        "sample": "2"
+      },
+      {
+        "token": "amount",
+        "label": "Amount",
+        "sample": "40 000 FCFA"
+      },
+      {
+        "token": "date",
+        "label": "Due date",
+        "sample": ""
+      }
+    ],
+    "sender": "STE-MARIE",
+    "beforeNone": "None",
+    "room": "{room, plural, =0 {No room left: a longer name adds an SMS.} one {# character to spare before the next SMS, for longer names.} other {# characters to spare before the next SMS, for longer names.}}",
+    "ucsFix": "Replace: {pairs}",
+    "ucsRemove": "Remove it to pay less.",
+    "empty": "Empty message: these sends will not go out."
+  },
+  "thread": {
+    "label": "Example of SMS received by a parent: an automatic reminder three days before instalment 2, then the confirmation of their payment at the cash desk.",
+    "caption": "Example: a parent's SMS. None was written by hand.",
+    "reminderWhen": "Monday 12 Oct, 09:00",
+    "reminderTag": "Automatic reminder, 3 days before",
+    "receiptWhen": "Wednesday 14 Oct, 10:42",
+    "receiptTag": "Receipt, at payment",
+    "receiptSms": "CS Sainte-Marie: payment of 40 000 FCFA recorded for ETOGA Yann. Ref. REC-8957. Left to pay: 35 000 FCFA."
+  },
+  "how": {
+    "title": "The life of an instalment, from reminder to receipt",
+    "steps": [
+      {
+        "title": "The reminder goes out on its own",
+        "text": "A few days before the due date, every parent concerned gets an SMS with the amount and the date. Nobody has to write it."
+      },
+      {
+        "title": "If the due date passes, a follow-up goes out",
+        "text": "A day, a week, a month after: the follow-up goes out while the instalment is unpaid, and stops as soon as it is paid."
+      },
+      {
+        "title": "The parent pays at the cash desk",
+        "text": "The cashier finds the pupil, sees their instalments, confirms the amount and takes the payment. It is recorded under their name."
+      },
+      {
+        "title": "The receipt arrives by SMS",
+        "text": "The parent gets the confirmation straight away, with what is left to pay. The printed receipt carries a number and a QR code."
+      },
+      {
+        "title": "Your dashboard updates",
+        "text": "Collected, still to collect, late payments by class: the picture changes with every payment, with nothing to copy out."
+      }
+    ],
+    "soon": "Next: payment by MTN MoMo and Orange Money from home, without going to the cash desk."
+  },
+  "gains": {
+    "title": "What you gain",
+    "items": [
+      {
+        "title": "Money comes in sooner",
+        "text": "Parents are told before the due date, not three weeks after. Those who forget are followed up without you having to think about it."
+      },
+      {
+        "title": "Your office breathes again",
+        "text": "No more calls one by one or lists copied by hand. The time saved goes back to pupils and parents."
+      },
+      {
+        "title": "You know where you stand",
+        "text": "Collected, still to collect and late payments by class, on your phone, at any time. You plan salaries without surprises."
+      },
+      {
+        "title": "Fewer disputes at the cash desk",
+        "text": "Every payment has its receipt and its record. A dispute is settled in seconds, in front of the parent."
+      }
+    ]
+  },
+  "desk": {
+    "title": "A cash desk you control, even when you are not behind it.",
+    "text": "Every franc collected is recorded under the name of the cashier who took it. No more recounting receipt books in the evening.",
+    "points": [
+      {
+        "title": "Every payment has a name",
+        "text": "Cashier, time, amount, pupil, instalment: everything is recorded, nothing gets lost."
+      },
+      {
+        "title": "A numbered receipt",
+        "text": "With a QR code, printed and sent by SMS. A forged receipt matches nothing in your register."
+      },
+      {
+        "title": "Mistakes are fixed without crossing out",
+        "text": "A wrong entry is cancelled by a reverse entry, with its reason. The history is never erased."
+      }
+    ]
   },
   "receipt": {
     "school": "CS Sainte-Marie",
@@ -39,144 +207,50 @@
     "label": "Payment receipt",
     "number": "REC-8957",
     "date": "Date",
-    "dateValue": "15 Sept 2026",
+    "dateValue": "14 Oct 2026",
     "time": "Time",
     "timeValue": "10:42",
     "cashier": "Cashier",
     "cashierValue": "A. Kamga",
-    "student": "Student",
+    "student": "Pupil",
     "studentValue": "ETOGA Yann",
-    "matricule": "Student ID",
+    "matricule": "Pupil ID",
     "matriculeValue": "STE-26-0015",
     "class": "Class",
     "classValue": "6e A",
     "installment": "Instalment",
-    "installmentValue": "Instalment 1",
+    "installmentValue": "Instalment 2",
     "method": "Method",
     "methodValue": "Cash",
     "total": "Total received",
-    "totalValue": "50 000 FCFA",
-    "qr": "Scan to check this receipt",
-    "stamp": "Valid receipt"
-  },
-  "verify": {
-    "prompt": "Check this receipt, the way a parent or an auditor would.",
-    "inputLabel": "Receipt number",
-    "button": "Check",
-    "validTitle": "Valid receipt",
-    "validText": "In the CS Sainte-Marie ledger: ETOGA Y., 6e A, Instalment 1, 50 000 FCFA in cash, taken by A. Kamga on 15 Sept 2026 at 10:42. Compare with the paper: a different name or amount means the receipt was altered.",
-    "invalidTitle": "Receipt not found",
-    "invalidText": "There is no receipt {number} in the CS Sainte-Marie ledger: an invented receipt does not exist there.",
-    "tryOther": "Try another number too.",
-    "demo": "Demo: the school and the receipt are fictional.",
-    "empty": "Enter the number printed on the receipt, for example REC-8957."
-  },
-  "problem": {
-    "title": "A carbon receipt book proves nothing.",
-    "items": [
-      {
-        "title": "The fake receipt",
-        "text": "A receipt can be copied, a stamp can be made. The day a parent shows a receipt the cash desk has no record of, nobody can settle it."
-      },
-      {
-        "title": "The cash gap",
-        "text": "Between the cash desk and the evening deposit, a gap shows up at the end of the term, too late to know where it started."
-      },
-      {
-        "title": "“I already paid”",
-        "text": "Without a shared history, every dispute means digging through the registers while a parent waits."
-      }
-    ],
-    "turn": "Payskool replaces the receipt book with a ledger where every correction stays visible, and gives every parent a receipt that can be checked."
-  },
-  "school": {
-    "title": "At school: the cash desk, Mobile Money and fee collection in one place.",
-    "blocks": [
-      {
-        "title": "The cash desk takes a payment in seconds",
-        "text": "The cashier finds the student, sees the instalments due and enters the amount. The receipt comes out with its number, the time, the cashier's name and the QR code. Every payment stays tied to whoever took it."
-      },
-      {
-        "title": "Online payments record themselves",
-        "text": "When a parent pays from their space by MTN MoMo or Orange Money, the payment arrives with its reference: it is matched to the right student and the receipt is issued, with nothing to type at the cash desk."
-      },
-      {
-        "title": "See who is up to date, class by class",
-        "text": "Collection rate, outstanding balance and late payers per class: today's picture, without waiting for the end of the term. Reminders go to the parents concerned, and only to them."
-      }
-    ],
-    "group": "Several schools? Each keeps its own fees and cash desks, and you follow them all from one account."
-  },
-  "money": {
-    "title": "The money goes to the school's account. Never to us.",
-    "text": "Payskool is software, not a financial intermediary. Mobile Money payments land in your school's merchant account, opened with a payment aggregator such as CamPay or PayUnit. We record the payment and issue the receipt.",
-    "flowLabel": "The parent pays the school directly; Payskool records the payment without ever receiving it.",
-    "parent": "Parent",
-    "parentSub": "MTN MoMo or Orange Money",
-    "school": "School's merchant account",
-    "schoolSub": "CamPay, PayUnit…",
-    "payskool": "Payskool",
-    "payskoolSub": "records the payment and issues the receipt",
-    "facts": [
-      {
-        "title": "No commission",
-        "text": "Payskool takes nothing from your collections. Only the operator's and the aggregator's own fees apply."
-      },
-      {
-        "title": "Nothing to pay out",
-        "text": "Funds never go through us: there is never any money to recover from Payskool."
-      },
-      {
-        "title": "Each school apart",
-        "text": "Your students' and cash desks' data is isolated from other schools."
-      }
-    ]
-  },
-  "parents": {
-    "title": "For parents: pay without travelling, and keep the proof.",
-    "points": [
-      {
-        "title": "Nothing to install",
-        "text": "The parent space opens in the phone's browser. Sign-in with a code sent by SMS or WhatsApp, no password."
-      },
-      {
-        "title": "Every child in one place",
-        "text": "Each child's balance, instalments and due dates on a single screen."
-      },
-      {
-        "title": "Pay an instalment remotely",
-        "text": "By MTN MoMo or Orange Money, from home, without queueing at the cash desk."
-      },
-      {
-        "title": "The receipt arrives at once",
-        "text": "On WhatsApp and in the history, with its QR code. No paper to keep."
-      }
-    ]
+    "totalValue": "40 000 FCFA",
+    "qr": "Scan to check this receipt"
   },
   "pilot": {
     "title": "The pilot programme",
-    "intro": "Payskool is being finalised, and we are opening the pilot to a small group of private schools in Cameroon, from nursery to secondary. We start with the cash desk, receipts and instalment tracking; Mobile Money payments by parents are switched on afterwards, school by school. During the pilot Payskool is free; in return, you tell us what works and what is missing.",
+    "intro": "Payskool is being finalised, and we are opening the pilot to a small group of private schools in Cameroon, from nursery to secondary. The first phase covers the cash desk, receipts, the instalment schedule and SMS reminders; payment by MTN MoMo and Orange Money comes next. During the pilot it is free; in return, you tell us what works and what is missing.",
     "offerTitle": "What a pilot school gets",
     "offer": [
-      "Payskool for free for the whole pilot",
-      "Your student lists and fee schedules imported by our team",
+      "Payskool free for the whole pilot",
+      "Reminder, follow-up and receipt SMS included",
+      "Your pupils, instalments and parents' numbers imported from your Excel files, with you",
       "Training for your cashiers",
-      "A direct WhatsApp line with the product team"
+      "A direct WhatsApp line to the team"
     ],
-    "after": "After the pilot: a fixed monthly subscription, announced before the pilot ends, with no commission on your collections.",
+    "after": "After the pilot: a monthly subscription and SMS charged per message, at prices announced before the pilot ends, with no commission on your collections. You then decide whether to continue.",
     "stepsTitle": "How it goes",
     "steps": [
       {
-        "title": "You message us on WhatsApp",
-        "text": "School name, city, number of students. We call you back for a demo."
+        "title": "We meet",
+        "text": "Message us on WhatsApp: we come to your school for a demonstration."
       },
       {
         "title": "We set up your school",
-        "text": "Classes, instalments and due dates, student lists imported from your Excel files."
+        "text": "Classes, instalments, due dates and parents' numbers, imported from your Excel files."
       },
       {
-        "title": "First receipts",
-        "text": "Your cashiers take payments on Payskool, and parents get their first verifiable receipts."
+        "title": "The first reminders go out",
+        "text": "Your parents get their first SMS reminders, and your cashiers take payments on Payskool."
       }
     ],
     "cta": "Become a pilot school"
@@ -186,35 +260,47 @@
     "items": [
       {
         "q": "Where does Payskool stand today?",
-        "a": "The product is being finalised and the pilot programme is open. We start with the cash desk, receipts and instalment tracking; Mobile Money payments by parents are switched on afterwards, school by school."
+        "a": "The product is being finalised and the pilot programme is open. The first phase covers the cash desk, receipts, the instalment schedule and SMS reminders; Mobile Money payment follows, school by school."
       },
       {
-        "q": "Does the money go through Payskool?",
-        "a": "No. Mobile Money payments land in the school's merchant account with a payment aggregator (CamPay, PayUnit…). Payskool records the payment and issues the receipt; we never hold the funds."
+        "q": "Not all our parents have a smartphone. Does it still work?",
+        "a": "Yes. Reminders, follow-ups and receipts go out by SMS: they reach any phone, even the most basic one. Parents have nothing to install."
       },
       {
-        "q": "Our parents mostly pay cash. Is Payskool still useful?",
-        "a": "Yes, that is where we start. The cash desk records cash and cheques, issues the verifiable receipt and keeps track of each cashier. Mobile Money payments by parents come next."
+        "q": "How much do the SMS cost?",
+        "a": "During the pilot, they are included. After that, they are charged per message, at a price announced before the pilot ends. A short message fits in a single SMS, and the settings screen shows you what each message costs before you switch it on."
       },
       {
-        "q": "What makes a receipt verifiable?",
-        "a": "Every receipt carries a unique number and a QR code. Scanning it finds that receipt in the school's ledger, with the student and the amount. An invented receipt is not there; an altered one does not match what the ledger shows."
+        "q": "Can I change the messages and the sending days?",
+        "a": "Yes. You choose the days before and after the due date, the sending hours and the text of each message. The parent's name, the pupil's name, the amount and the date are filled in automatically."
       },
       {
-        "q": "Can a typing mistake be fixed?",
-        "a": "Yes, with a cancellation that stays visible in the history. Nothing is erased: that is what protects your cashiers as much as your cash."
+        "q": "Won't parents feel harassed?",
+        "a": "Messages go out during the day, Monday to Saturday, never more than two follow-ups a week for the same pupil, and they stop as soon as the instalment is paid."
       },
       {
-        "q": "Do parents need to install an app?",
-        "a": "No. The parent space opens in the phone's browser, with a code sent by SMS or WhatsApp."
+        "q": "What about a family going through a hard time?",
+        "a": "You can pause follow-ups for a pupil while a payment arrangement is in place."
+      },
+      {
+        "q": "Do we have to type in all our pupils again?",
+        "a": "No. Your pupil lists and parents' numbers are imported from an Excel file. During the pilot, we do it with you."
+      },
+      {
+        "q": "Will parents be able to pay by Mobile Money?",
+        "a": "Yes, in a second phase: MTN MoMo and Orange Money, from home. The money will go straight to your school's merchant account, opened with a payment aggregator. It will never go through Payskool."
+      },
+      {
+        "q": "Can a wrong entry be corrected?",
+        "a": "Yes, without crossing out: the mistake is cancelled by a reverse entry, with its reason, and both stay visible in the history. That protects your cashiers as much as your cash desk."
       },
       {
         "q": "How much does Payskool cost?",
-        "a": "Nothing during the pilot. After that, a fixed monthly subscription, announced before the pilot ends, with no commission on your collections."
+        "a": "Nothing during the pilot, SMS included. After that, a fixed monthly subscription and SMS charged per message, at prices announced before the pilot ends, with no commission on your collections."
       },
       {
         "q": "Does Payskool handle grades and report cards?",
-        "a": "No. Payskool only deals with money: fees, instalments, cash desks, receipts and collection. It runs alongside your school management software."
+        "a": "No. Payskool only deals with money: fees, instalments, reminders, cash desk and receipts. It works alongside your school management software."
       }
     ],
     "more": "Another question?",
@@ -227,17 +313,15 @@
     "schoolPlaceholder": "School complex…",
     "city": "City",
     "cityPlaceholder": "Douala, Yaoundé…",
-    "students": "Number of students",
+    "students": "Number of pupils",
     "studentsPlaceholder": "e.g. 450",
     "submit": "Continue on WhatsApp",
     "note": "Nothing is sent until you confirm the message in WhatsApp."
   },
   "footer": {
-    "tagline": "The school fee ledger for private schools in Cameroon.",
+    "tagline": "Reminders, cash desk and instalment tracking for private schools in Cameroon.",
     "columnProduct": "Product",
     "columnLegal": "Legal",
-    "product": "Product",
-    "parents": "Parents",
     "pilot": "Pilot programme",
     "faq": "FAQ",
     "contact": "Message us on WhatsApp",
@@ -248,12 +332,14 @@
     "rights": "All rights reserved.",
     "languageFr": "Français",
     "languageEn": "English",
-    "columnLanguage": "Language"
+    "columnLanguage": "Language",
+    "reminders": "Reminders",
+    "how": "How it works"
   },
   "mocks": {
     "frameLabel": "School app preview",
     "cashier": {
-      "find": "Find a student",
+      "find": "Find a pupil",
       "search": "Name, ID or class…",
       "studentName": "ETOGA Yann",
       "studentMeta": "STE-26-0015 · 6e A",
@@ -264,8 +350,8 @@
       "t1Label": "Instalment 1",
       "t1Status": "Paid",
       "t2Label": "Instalment 2",
-      "t2Status": "Late",
-      "nextDue": "Due date passed: 15 Oct",
+      "t2Status": "To pay",
+      "nextDue": "Due: 15 Oct",
       "t3Label": "Instalment 3",
       "t3Status": "Upcoming",
       "amountLabel": "Amount received",
@@ -274,115 +360,37 @@
       "initials": "EY",
       "coverageValue": "40%"
     },
-    "payments": {
-      "eyebrow": "Mobile Money payments",
-      "heroCount": "3",
-      "heroSub": "matched automatically · 140 000 FCFA",
-      "receipts": "Receipts issued",
-      "refunded": "Refunded",
-      "note": "Payments started from the parent space, confirmed by the aggregator, matched to the student by their reference. Receipt issued with no action at the cash desk.",
-      "thTx": "Transaction",
-      "thStudent": "Student",
-      "thAmount": "Amount",
-      "thReceipt": "Receipt",
-      "rows": [
-        {
-          "method": "MTN MoMo",
-          "ref": "MP-55210",
-          "student": "NANA Brice",
-          "meta": "6e B",
-          "amount": "40 000",
-          "receipt": "REC-8961"
-        },
-        {
-          "method": "Orange Money",
-          "ref": "OM-22190",
-          "student": "KENGNI Junior",
-          "meta": "5e A",
-          "amount": "25 000",
-          "receipt": "REC-8959"
-        },
-        {
-          "method": "MTN MoMo",
-          "ref": "MP-55198",
-          "student": "BELLO Aïcha",
-          "meta": "2nde A",
-          "amount": "75 000",
-          "receipt": "REC-8958"
-        }
-      ],
-      "receiptsValue": "3",
-      "refundedValue": "0"
-    },
-    "report": {
-      "eyebrow": "Collection 2026-2027",
-      "heroLabel": "Collected to date",
-      "heroValue": "38 400 000 FCFA",
-      "rateLabel": "Overall rate",
-      "rateValue": "81%",
+    "dashboard": {
+      "label": "Example dashboard on a phone, for a fictitious school: collected, collection rate and late payments by class.",
+      "title": "Collection",
+      "year": "2026-2027",
+      "collectedLabel": "Collected to date",
+      "collected": "38 400 000",
+      "currency": "FCFA",
+      "rateLabel": "Rate",
+      "rate": "81%",
       "remainingLabel": "Still to collect",
-      "remainingValue": "9 000 000 FCFA",
-      "uptodateLabel": "Students up to date",
-      "uptodateValue": "912",
-      "tableTitle": "Collection by class",
-      "thClass": "Class",
-      "thDue": "Total due",
-      "thCollected": "Collected",
-      "thRate": "Rate",
-      "thLate": "Late",
+      "remaining": "9 000 000",
+      "lateTitle": "Late pupils, by class",
       "rows": [
         {
-          "cls": "CM2",
-          "due": "2 800 000",
-          "collected": "2 520 000",
-          "rate": 90,
-          "late": "3"
+          "cls": "Tle C",
+          "late": "9",
+          "rate": 70
         },
         {
           "cls": "6e A",
-          "due": "3 500 000",
-          "collected": "2 975 000",
-          "rate": 85,
-          "late": "5"
+          "late": "5",
+          "rate": 85
         },
         {
-          "cls": "Tle C",
-          "due": "4 250 000",
-          "collected": "2 975 000",
-          "rate": 70,
-          "late": "9"
+          "cls": "CM2",
+          "late": "3",
+          "rate": 90
         }
-      ]
-    },
-    "phone": {
-      "greeting": "Hello, Mrs Etoga",
-      "children": "2 children",
-      "student": "ETOGA Yann",
-      "school": "CS Sainte-Marie",
-      "year": "2026-2027",
-      "dueLabel": "Left to pay",
-      "dueAmount": "75 000",
-      "payCta": "Pay by Mobile Money",
-      "scheduleTitle": "Instalments",
-      "i1Title": "Instalment 1, enrolment",
-      "i1Status": "Paid",
-      "i1Meta": "Paid on 15 Sept 2026",
-      "i1Amount": "50 000 FCFA",
-      "i2Title": "Instalment 2",
-      "i2Status": "Late",
-      "i2Meta": "Due: 15 Oct",
-      "i2Amount": "40 000 FCFA",
-      "i2Pay": "Pay by MTN MoMo",
-      "i3Title": "Instalment 3",
-      "i3Status": "Upcoming",
-      "i3Meta": "Due: 15 Mar 2027",
-      "i3Amount": "35 000 FCFA",
-      "navHome": "Home",
-      "navChildren": "Children",
-      "navReceipts": "Receipts",
-      "navHelp": "Help",
-      "label": "Parent space on a phone: 75 000 FCFA left to pay for ETOGA Yann, instalment 2 late.",
-      "currency": "FCFA"
+      ],
+      "next": "Next reminders: Thursday, 64 parents",
+      "caption": "Example: the dashboard of a fictitious school."
     }
   },
   "about": {
@@ -563,7 +571,7 @@
           {
             "heading": "Demonstration content",
             "paragraphs": [
-              "The school, students, amounts and receipt shown on this website are fictitious. They illustrate how the software works and refer to no real person or school."
+              "The school, pupils, amounts and receipt shown on this website are fictitious. They illustrate how the software works and refer to no real person or school."
             ]
           }
         ]
@@ -575,7 +583,7 @@
           {
             "heading": "What this page covers",
             "paragraphs": [
-              "This policy covers the Payskool presentation website. Data a school processes in the software (students, parents, payments) is governed by the agreement signed with that school."
+              "This policy covers the Payskool presentation website. Data a school processes in the software (pupils, parents, payments) is governed by the agreement signed with that school."
             ]
           },
           {
@@ -587,7 +595,7 @@
           {
             "heading": "Pilot programme request",
             "paragraphs": [
-              "The request form stores nothing. The server puts the school name, city and number of students into a message, then opens WhatsApp with that message pre-filled. Nothing reaches us until you send it from WhatsApp.",
+              "The request form stores nothing. The server puts the school name, city and number of pupils into a message, then opens WhatsApp with that message pre-filled. Nothing reaches us until you send it from WhatsApp.",
               "Once the message is sent, we receive your WhatsApp number and the message content. We use them only to answer your request and organise the pilot. WhatsApp, a Meta service, processes these exchanges under its own terms."
             ],
             "items": [

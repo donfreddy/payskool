@@ -83,3 +83,67 @@ export function QrPattern({ className = "" }: { className?: string }) {
     </svg>
   );
 }
+
+/** A phone outline around a mock screen. The figure's label carries the meaning. */
+export function PhoneFrame({
+  label,
+  className = "",
+  children,
+}: {
+  label: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <figure aria-label={label} className={`mx-auto w-[17.5rem] ${className}`}>
+      <div
+        className="rounded-[2.6rem] bg-encre p-[6px] shadow-2xl shadow-encre/15"
+        aria-hidden="true"
+      >
+        <div className="overflow-hidden rounded-[2.2rem] bg-craie text-encre">
+          <div className="relative h-6">
+            <span className="absolute top-0 left-1/2 h-5 w-24 -translate-x-1/2 rounded-b-2xl bg-encre" />
+          </div>
+          {children}
+        </div>
+      </div>
+    </figure>
+  );
+}
+
+/** Header of the phone's messaging app, for a school's SMS sender name. */
+export function SmsHeader({ sender }: { sender: string }) {
+  return (
+    <div className="flex flex-col items-center gap-1 border-b border-fil pb-2.5">
+      <span className="grid h-9 w-9 place-items-center rounded-full bg-encre/10 text-[12px] font-bold text-encre/80">
+        {sender.slice(0, 2).toUpperCase()}
+      </span>
+      <span className="text-[11px] font-semibold">{sender}</span>
+    </div>
+  );
+}
+
+/** An incoming SMS, with the time line the messaging app shows above it. */
+export function SmsBubble({
+  when,
+  highlight = false,
+  children,
+}: {
+  when: string;
+  /** Marks the bubbles built from the message being edited. */
+  highlight?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <p className="text-center text-[9.5px] font-medium text-encre/55">{when}</p>
+      <p
+        className={`mt-1.5 mr-6 rounded-2xl rounded-bl-md bg-white px-3 py-2 text-[11.5px] leading-snug break-words text-encre ring-inset ${
+          highlight ? "ring-2 ring-emerald-700/45" : "ring-1 ring-fil"
+        }`}
+      >
+        {children}
+      </p>
+    </div>
+  );
+}

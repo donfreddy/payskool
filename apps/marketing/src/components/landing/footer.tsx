@@ -18,8 +18,8 @@ export function Footer() {
     {
       title: t("columnProduct"),
       links: [
-        { href: "/#ecole", label: t("product") },
-        { href: "/#parents", label: t("parents") },
+        { href: "/#relances", label: t("reminders") },
+        { href: "/#fonctionnement", label: t("how") },
         { href: "/#pilote", label: t("pilot") },
         { href: "/#faq", label: t("faq") },
       ],

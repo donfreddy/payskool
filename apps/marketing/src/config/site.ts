@@ -23,7 +23,8 @@ export const site = {
   indexable: envUrl !== "",
 } as const;
 
-if (process.env.NODE_ENV === "production") {
+// Server side only: the warning is for whoever builds and deploys, not for visitors.
+if (process.env.NODE_ENV === "production" && typeof window === "undefined") {
   if (!site.indexable) {
     console.warn(
       "[site] NEXT_PUBLIC_SITE_URL is not set: building with a placeholder domain, noindex.",

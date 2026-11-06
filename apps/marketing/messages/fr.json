@@ -1,14 +1,14 @@
 {
   "meta": {
-    "title": "Payskool | Frais de scolarité encaissés, tracés, vérifiables",
-    "description": "Logiciel de recouvrement des frais de scolarité pour les écoles privées du Cameroun : encaissement au guichet et par MTN MoMo ou Orange Money, reçus vérifiables par QR code, suivi des tranches en temps réel. Programme pilote ouvert.",
-    "ogTitle": "Payskool | Chaque franc versé a son reçu. Chaque reçu se vérifie.",
-    "ogDescription": "Le registre de scolarité des écoles privées du Cameroun. Programme pilote ouvert.",
-    "keywords": "frais de scolarité, recouvrement scolaire, école privée Cameroun, reçu vérifiable, MTN MoMo, Orange Money, caisse école"
+    "title": "Payskool | Frais de scolarité payés à l'heure, sans courir après les parents",
+    "description": "Logiciel de recouvrement pour les écoles privées du Cameroun : rappels et relances SMS automatiques avant et après chaque tranche, caisse et reçus, suivi des retards en temps réel. Programme pilote gratuit.",
+    "ogTitle": "Payskool | Vos frais de scolarité payés à l'heure",
+    "ogDescription": "Relances SMS automatiques, caisse et suivi des tranches pour les écoles privées du Cameroun. Programme pilote ouvert.",
+    "keywords": "frais de scolarité, recouvrement scolaire, relance SMS parents, école privée Cameroun, caisse école, impayés scolarité"
   },
   "nav": {
-    "product": "Le produit",
-    "parents": "Parents",
+    "reminders": "Relances",
+    "how": "Comment ça marche",
     "pilot": "Programme pilote",
     "faq": "FAQ",
     "cta": "Devenir école pilote",
@@ -26,12 +26,180 @@
     "students": "Nombre d'élèves :"
   },
   "hero": {
-    "status": "Programme pilote ouvert aux écoles privées du Cameroun",
-    "title": "Chaque franc versé a son reçu. Chaque reçu se vérifie.",
-    "lead": "Payskool enregistre chaque paiement de scolarité, au guichet ou par MTN MoMo et Orange Money, émet un reçu avec QR code et vous montre qui est à jour, au jour le jour.",
+    "status": "Programme pilote gratuit pour les écoles privées du Cameroun",
+    "title": "Vos frais de scolarité payés à l'heure, sans courir après les parents.",
+    "lead": "Payskool prévient chaque parent par SMS avant chaque tranche, relance ceux qui sont en retard, enregistre chaque paiement à la caisse et vous montre à tout moment qui a payé et qui doit encore.",
     "primaryCta": "Devenir école pilote",
-    "secondaryCta": "Voir le produit",
-    "note": "Gratuit pendant le pilote. La demande se fait sur WhatsApp."
+    "secondaryCta": "Essayer les relances",
+    "note": "Gratuit pendant le pilote, SMS compris."
+  },
+  "problem": {
+    "title": "Les tranches, vous passez votre temps à les réclamer.",
+    "items": [
+      {
+        "title": "Les relances à la main",
+        "text": "Appels un par un, mots dans le cahier de correspondance, convocations. Des heures de secrétariat chaque mois, souvent pour les mêmes familles."
+      },
+      {
+        "title": "Les retards découverts trop tard",
+        "text": "On s'aperçoit qu'une classe n'a pas payé au moment de verser les salaires des enseignants, quand il n'est plus temps de relancer."
+      },
+      {
+        "title": "Le renvoi des élèves",
+        "text": "Quand rien n'a marché, il reste à renvoyer des enfants à la maison. Une mesure que personne n'aime, ni l'école, ni les parents."
+      },
+      {
+        "title": "« J'ai déjà payé »",
+        "text": "Sans trace partagée, chaque contestation se règle en fouillant les carnets à souches, devant un parent qui attend."
+      }
+    ],
+    "turn": "Payskool envoie les rappels et les relances à votre place, enregistre chaque franc encaissé et vous montre à tout moment qui doit encore quoi."
+  },
+  "reminders": {
+    "title": "Vos relances partent toutes seules. Avec vos mots.",
+    "intro": "Vous choisissez quand les parents sont prévenus et ce que dit le message. Essayez : cochez des jours, modifiez le texte, l'aperçu suit.",
+    "whenLabel": "Quand prévenir les parents ?",
+    "beforeGroup": "Avant l'échéance",
+    "afterGroup": "Après l'échéance",
+    "chipBefore": "J-{days}",
+    "chipAfter": "J+{days}",
+    "chipBeforeLabel": "{days, plural, one {# jour avant l'échéance} other {# jours avant l'échéance}}",
+    "chipAfterLabel": "{days, plural, one {# jour après l'échéance} other {# jours après l'échéance}}",
+    "messageLabel": "Le message",
+    "tabBefore": "Rappel, avant l'échéance",
+    "tabAfter": "Relance, après l'échéance",
+    "insert": "Insérer",
+    "reset": "Rétablir le texte",
+    "previewLabel": "Ce que reçoit le parent",
+    "previewWhen": "{moment}, le {date} à 09:00",
+    "example": "Exemple : tranche 2 de Yann, échéance le {date}",
+    "count": "{length, plural, one {# caractère} other {# caractères}}, {segments, plural, =0 {aucun SMS} one {# SMS} other {# SMS}} par envoi.",
+    "ucs": "Caractère spécial ({chars}) : ce message passe à 70 caractères par SMS au lieu de 160.",
+    "total": "Avec ces réglages, un parent qui tarde reçoit au plus {sms, plural, one {# SMS} other {# SMS}} pour cette tranche, puis 1 SMS de reçu quand il paie.",
+    "none": "Aucun jour coché : les parents ne seront pas prévenus.",
+    "rulesTitle": "Des garde-fous, réglés d'avance",
+    "rules": [
+      "Envois entre 8 h et 20 h, du lundi au samedi, modifiables.",
+      "Jamais plus de deux relances par semaine pour un même élève.",
+      "Les relances s'arrêtent dès que la tranche est payée.",
+      "Pause possible pour un élève : arrangement, situation difficile."
+    ],
+    "templates": {
+      "before": "{école} : Bonjour {parent}, la tranche {tranche} de {élève} ({montant}) est à régler avant le {date}, à la caisse de l'école. Merci !",
+      "after": "{école} : Bonjour {parent}, la tranche {tranche} de {élève} ({montant}) était due le {date} et reste à régler à la caisse. Merci !"
+    },
+    "tokens": [
+      {
+        "token": "école",
+        "label": "École",
+        "sample": "CS Sainte-Marie"
+      },
+      {
+        "token": "parent",
+        "label": "Parent",
+        "sample": "Mme Etoga"
+      },
+      {
+        "token": "élève",
+        "label": "Élève",
+        "sample": "Yann"
+      },
+      {
+        "token": "tranche",
+        "label": "Tranche",
+        "sample": "2"
+      },
+      {
+        "token": "montant",
+        "label": "Montant",
+        "sample": "40 000 FCFA"
+      },
+      {
+        "token": "date",
+        "label": "Échéance",
+        "sample": ""
+      }
+    ],
+    "sender": "STE-MARIE",
+    "beforeNone": "Aucun",
+    "room": "{room, plural, =0 {Plus aucune marge : un nom plus long ajoute un SMS.} one {# caractère de marge avant le SMS suivant, pour les noms plus longs.} other {# caractères de marge avant le SMS suivant, pour les noms plus longs.}}",
+    "ucsFix": "Remplacer : {pairs}",
+    "ucsRemove": "Retirez-le pour payer moins.",
+    "empty": "Message vide : ces envois ne partiront pas."
+  },
+  "thread": {
+    "label": "Exemple de SMS reçus par un parent : un rappel automatique trois jours avant la tranche 2, puis la confirmation de son paiement à la caisse.",
+    "caption": "Exemple : les SMS d'un parent. Aucun n'a été écrit à la main.",
+    "reminderWhen": "Lundi 12 oct., 09:00",
+    "reminderTag": "Rappel automatique, J-3",
+    "receiptWhen": "Mercredi 14 oct., 10:42",
+    "receiptTag": "Reçu, à l'encaissement",
+    "receiptSms": "CS Sainte-Marie : paiement de 40 000 FCFA enregistré pour ETOGA Yann. Réf. REC-8957. Reste à payer : 35 000 FCFA."
+  },
+  "how": {
+    "title": "Le parcours d'une tranche, du rappel au reçu",
+    "steps": [
+      {
+        "title": "Le rappel part tout seul",
+        "text": "Quelques jours avant l'échéance, chaque parent concerné reçoit un SMS avec le montant et la date. Personne n'a à l'écrire."
+      },
+      {
+        "title": "Si l'échéance passe, la relance suit",
+        "text": "Un jour, une semaine, un mois après : la relance part tant que la tranche n'est pas payée, et s'arrête dès qu'elle l'est."
+      },
+      {
+        "title": "Le parent paie à la caisse",
+        "text": "Le caissier retrouve l'élève, voit ses tranches, confirme le montant et encaisse. Le paiement est enregistré à son nom."
+      },
+      {
+        "title": "Le reçu arrive par SMS",
+        "text": "Le parent reçoit aussitôt la confirmation, avec ce qu'il reste à payer. Le reçu imprimé porte un numéro et un QR code."
+      },
+      {
+        "title": "Votre tableau se met à jour",
+        "text": "Encaissé, reste à percevoir, retards par classe : la situation change à chaque encaissement, sans rien recopier."
+      }
+    ],
+    "soon": "Ensuite : le paiement par MTN MoMo et Orange Money depuis la maison, sans passer à la caisse."
+  },
+  "gains": {
+    "title": "Ce que vous y gagnez",
+    "items": [
+      {
+        "title": "L'argent rentre plus tôt",
+        "text": "Les parents sont prévenus avant l'échéance, pas trois semaines après. Ceux qui oublient sont relancés sans que vous ayez à y penser."
+      },
+      {
+        "title": "Votre secrétariat respire",
+        "text": "Plus d'appels un par un ni de listes recopiées à la main. Le temps gagné revient aux élèves et aux parents."
+      },
+      {
+        "title": "Vous savez où vous en êtes",
+        "text": "Encaissé, reste à percevoir et retards par classe, sur votre téléphone, à tout moment. Vous préparez les salaires sans surprise."
+      },
+      {
+        "title": "Moins de disputes au guichet",
+        "text": "Chaque paiement a son reçu et sa trace. Une contestation se règle en quelques secondes, devant le parent."
+      }
+    ]
+  },
+  "desk": {
+    "title": "Une caisse que vous contrôlez, même quand vous n'êtes pas au guichet.",
+    "text": "Chaque franc encaissé est enregistré au nom du caissier qui l'a reçu. Vous n'avez plus à recompter les carnets le soir.",
+    "points": [
+      {
+        "title": "Chaque encaissement a un nom",
+        "text": "Caissier, heure, montant, élève, tranche : tout est enregistré, rien ne se perd."
+      },
+      {
+        "title": "Un reçu numéroté",
+        "text": "Avec un QR code, imprimé et envoyé par SMS. Un reçu fabriqué ne correspond à rien dans votre registre."
+      },
+      {
+        "title": "Les erreurs se corrigent sans rature",
+        "text": "Une erreur de saisie s'annule par une écriture inverse, avec son motif. L'historique ne s'efface jamais."
+      }
+    ]
   },
   "receipt": {
     "school": "CS Sainte-Marie",
@@ -39,7 +207,7 @@
     "label": "Reçu de paiement",
     "number": "REC-8957",
     "date": "Date",
-    "dateValue": "15 sept. 2026",
+    "dateValue": "14 oct. 2026",
     "time": "Heure",
     "timeValue": "10:42",
     "cashier": "Caissier",
@@ -51,132 +219,38 @@
     "class": "Classe",
     "classValue": "6e A",
     "installment": "Tranche",
-    "installmentValue": "Tranche 1",
+    "installmentValue": "Tranche 2",
     "method": "Mode",
     "methodValue": "Espèces",
     "total": "Total reçu",
-    "totalValue": "50 000 FCFA",
-    "qr": "Scannez pour vérifier ce reçu",
-    "stamp": "Reçu valide"
-  },
-  "verify": {
-    "prompt": "Vérifiez ce reçu, comme le ferait un parent ou un contrôleur.",
-    "inputLabel": "Numéro de reçu",
-    "button": "Vérifier",
-    "validTitle": "Reçu valide",
-    "validText": "Au registre de CS Sainte-Marie : ETOGA Y., 6e A, Tranche 1, 50 000 FCFA en espèces, encaissé par A. Kamga le 15 sept. 2026 à 10:42. Comparez avec le papier : un nom ou un montant différent signale un reçu modifié.",
-    "invalidTitle": "Reçu introuvable",
-    "invalidText": "Aucun reçu {number} dans le registre de CS Sainte-Marie : un reçu inventé n'y existe pas.",
-    "tryOther": "Essayez aussi un autre numéro.",
-    "demo": "Démonstration : l'école et le reçu sont fictifs.",
-    "empty": "Saisissez le numéro imprimé sur le reçu, par exemple REC-8957."
-  },
-  "problem": {
-    "title": "Un carnet à souches ne prouve rien.",
-    "items": [
-      {
-        "title": "Le faux reçu",
-        "text": "Un reçu se recopie, un tampon se fabrique. Le jour où un parent présente un reçu que la caisse ne connaît pas, personne ne peut trancher."
-      },
-      {
-        "title": "L'écart de caisse",
-        "text": "Entre le guichet et le dépôt du soir, un écart se découvre en fin de trimestre, quand il est trop tard pour savoir où il est né."
-      },
-      {
-        "title": "« J'ai déjà payé »",
-        "text": "Sans historique partagé, chaque contestation se règle en fouillant les registres, devant un parent qui attend."
-      }
-    ],
-    "turn": "Payskool remplace le carnet par un registre où chaque correction reste visible, et donne à chaque parent un reçu qui se vérifie."
-  },
-  "school": {
-    "title": "À l'école : la caisse, le Mobile Money et le recouvrement au même endroit.",
-    "blocks": [
-      {
-        "title": "Le guichet encaisse en quelques secondes",
-        "text": "Le caissier cherche l'élève, voit les tranches dues et saisit le montant. Le reçu sort avec son numéro, l'heure, le nom du caissier et le QR code. Chaque encaissement reste attaché à celui qui l'a fait."
-      },
-      {
-        "title": "Les paiements en ligne s'enregistrent tout seuls",
-        "text": "Quand un parent paie depuis son espace par MTN MoMo ou Orange Money, le paiement arrive avec sa référence : il est affecté au bon élève et le reçu est émis, sans saisie à la caisse."
-      },
-      {
-        "title": "Vous voyez qui est à jour, classe par classe",
-        "text": "Taux de recouvrement, reste à percevoir et retardataires par classe : la situation du jour, sans attendre la fin du trimestre. Les relances partent vers les parents concernés, et seulement eux."
-      }
-    ],
-    "group": "Plusieurs établissements ? Chacun garde ses tarifs et ses caisses, et vous suivez l'ensemble depuis un seul compte."
-  },
-  "money": {
-    "title": "L'argent va sur le compte de l'école. Jamais chez nous.",
-    "text": "Payskool est un logiciel, pas un intermédiaire financier. Les paiements Mobile Money arrivent sur le compte marchand de votre école, ouvert chez un agrégateur de paiement comme CamPay ou PayUnit. Nous enregistrons le paiement et émettons le reçu.",
-    "flowLabel": "Le parent paie l'école directement ; Payskool enregistre le paiement sans jamais le recevoir.",
-    "parent": "Parent",
-    "parentSub": "MTN MoMo ou Orange Money",
-    "school": "Compte marchand de l'école",
-    "schoolSub": "CamPay, PayUnit…",
-    "payskool": "Payskool",
-    "payskoolSub": "enregistre le paiement et émet le reçu",
-    "facts": [
-      {
-        "title": "Aucune commission",
-        "text": "Payskool ne prélève rien sur vos encaissements. Seuls les frais de l'opérateur et de l'agrégateur s'appliquent."
-      },
-      {
-        "title": "Rien à reverser",
-        "text": "Les fonds ne passent pas par nous : il n'y a jamais d'argent à récupérer auprès de Payskool."
-      },
-      {
-        "title": "Chaque école à part",
-        "text": "Les données de vos élèves et de vos caisses sont isolées de celles des autres écoles."
-      }
-    ]
-  },
-  "parents": {
-    "title": "Pour les parents : payer sans se déplacer, et garder la preuve.",
-    "points": [
-      {
-        "title": "Rien à installer",
-        "text": "L'espace parent s'ouvre dans le navigateur du téléphone. Connexion par un code reçu par SMS ou WhatsApp, sans mot de passe."
-      },
-      {
-        "title": "Tous les enfants au même endroit",
-        "text": "Soldes, tranches et échéances de chaque enfant, sur un seul écran."
-      },
-      {
-        "title": "Payer une tranche à distance",
-        "text": "Par MTN MoMo ou Orange Money, depuis la maison, sans faire la queue au guichet."
-      },
-      {
-        "title": "Le reçu arrive tout de suite",
-        "text": "Sur WhatsApp et dans l'historique, avec son QR code. Plus besoin de garder le papier."
-      }
-    ]
+    "totalValue": "40 000 FCFA",
+    "qr": "Scannez pour vérifier ce reçu"
   },
   "pilot": {
     "title": "Le programme pilote",
-    "intro": "Payskool est en cours de finalisation, et nous ouvrons le pilote à un petit groupe d'écoles privées du Cameroun, de la maternelle au lycée. On commence par la caisse, les reçus et le suivi des tranches ; le paiement Mobile Money par les parents s'active ensuite, école par école. Pendant le pilote, Payskool est gratuit ; en échange, vous nous dites ce qui marche et ce qui manque.",
+    "intro": "Payskool est en cours de finalisation, et nous ouvrons le pilote à un petit groupe d'écoles privées du Cameroun, de la maternelle au lycée. La première phase couvre la caisse, les reçus, l'échéancier et les relances SMS ; le paiement par MTN MoMo et Orange Money vient ensuite. Pendant le pilote, c'est gratuit ; en échange, vous nous dites ce qui marche et ce qui manque.",
     "offerTitle": "Ce que reçoit une école pilote",
     "offer": [
       "Payskool gratuit pendant toute la durée du pilote",
-      "Vos listes d'élèves et vos grilles de frais importées par notre équipe",
+      "Les SMS de rappel, de relance et de reçu inclus",
+      "Vos élèves, vos tranches et les numéros des parents importés depuis vos fichiers Excel, avec vous",
       "La formation de vos caissiers",
-      "Une ligne WhatsApp directe avec l'équipe produit"
+      "Une ligne WhatsApp directe avec l'équipe"
     ],
-    "after": "Après le pilote : un abonnement mensuel fixe, annoncé avant la fin du pilote, sans commission sur vos encaissements.",
+    "after": "Après le pilote : un abonnement mensuel et des SMS à l'unité, à des tarifs annoncés avant la fin du pilote, sans commission sur vos encaissements. Vous décidez alors de continuer ou non.",
     "stepsTitle": "Comment ça se passe",
     "steps": [
       {
-        "title": "Vous nous écrivez sur WhatsApp",
-        "text": "Nom de l'école, ville, nombre d'élèves. Nous vous rappelons pour une démonstration."
+        "title": "On se rencontre",
+        "text": "Écrivez-nous sur WhatsApp : nous venons faire la démonstration dans votre école."
       },
       {
         "title": "Nous préparons votre école",
-        "text": "Classes, tranches et échéances, listes d'élèves importées depuis vos fichiers Excel."
+        "text": "Classes, tranches, échéances et numéros des parents, importés depuis vos fichiers Excel."
       },
       {
-        "title": "Premiers reçus",
-        "text": "Vos caissiers encaissent sur Payskool, et les parents reçoivent leurs premiers reçus vérifiables."
+        "title": "Les premiers rappels partent",
+        "text": "Vos parents reçoivent leurs premiers rappels SMS, et vos caissiers encaissent sur Payskool."
       }
     ],
     "cta": "Devenir école pilote"
@@ -186,35 +260,47 @@
     "items": [
       {
         "q": "Où en est Payskool aujourd'hui ?",
-        "a": "Le produit est en cours de finalisation et le programme pilote est ouvert. On commence par la caisse, les reçus et le suivi des tranches ; le paiement Mobile Money par les parents s'active ensuite, école par école."
+        "a": "Le produit est en cours de finalisation et le programme pilote est ouvert. La première phase couvre la caisse, les reçus, l'échéancier et les relances SMS ; le paiement Mobile Money suit, école par école."
       },
       {
-        "q": "L'argent passe-t-il par Payskool ?",
-        "a": "Non. Les paiements Mobile Money arrivent sur le compte marchand de l'école, chez un agrégateur de paiement (CamPay, PayUnit…). Payskool enregistre le paiement et émet le reçu ; nous ne détenons jamais les fonds."
+        "q": "Nos parents n'ont pas tous un smartphone. Ça marche quand même ?",
+        "a": "Oui. Rappels, relances et reçus partent par SMS : ils arrivent sur n'importe quel téléphone, même le plus simple. Le parent n'a rien à installer."
       },
       {
-        "q": "Nos parents paient surtout en espèces. Payskool sert-il quand même ?",
-        "a": "Oui, c'est même par là qu'on commence. Le guichet enregistre les espèces et les chèques, émet le reçu vérifiable et garde la trace de chaque caissier. Le paiement Mobile Money par les parents vient ensuite."
+        "q": "Combien coûtent les SMS ?",
+        "a": "Pendant le pilote, ils sont inclus. Ensuite, ils sont facturés à l'unité, à un tarif annoncé avant la fin du pilote. Un message court tient en un seul SMS, et l'écran de réglage vous montre ce que coûte chaque message avant de l'activer."
       },
       {
-        "q": "Qu'est-ce qui rend un reçu vérifiable ?",
-        "a": "Chaque reçu porte un numéro unique et un QR code. En le scannant, on retrouve ce reçu dans le registre de l'école, avec l'élève et le montant. Un reçu inventé n'y figure pas ; un reçu modifié ne correspond pas à ce qu'affiche le registre."
+        "q": "Puis-je changer les messages et les jours d'envoi ?",
+        "a": "Oui. Vous choisissez les jours avant et après l'échéance, les heures d'envoi et le texte de chaque message. Le nom du parent, de l'élève, le montant et la date s'insèrent automatiquement."
+      },
+      {
+        "q": "Les parents ne vont-ils pas se sentir harcelés ?",
+        "a": "Les envois se font en journée, du lundi au samedi, jamais plus de deux relances par semaine pour un même élève, et ils s'arrêtent dès que la tranche est payée."
+      },
+      {
+        "q": "Et pour une famille en difficulté ?",
+        "a": "Vous pouvez suspendre les relances pour un élève, le temps d'un arrangement de paiement."
+      },
+      {
+        "q": "Faut-il ressaisir tous nos élèves ?",
+        "a": "Non. Vos listes d'élèves et les numéros des parents s'importent depuis un fichier Excel. Pendant le pilote, nous le faisons avec vous."
+      },
+      {
+        "q": "Les parents pourront-ils payer par Mobile Money ?",
+        "a": "Oui, dans une seconde phase : MTN MoMo et Orange Money, depuis la maison. L'argent arrivera directement sur le compte marchand de votre école, ouvert chez un agrégateur de paiement. Il ne passera jamais par Payskool."
       },
       {
         "q": "Peut-on corriger une erreur de saisie ?",
-        "a": "Oui, par une annulation qui reste visible dans l'historique. Rien n'est effacé : c'est ce qui protège vos caissiers autant que votre caisse."
-      },
-      {
-        "q": "Les parents doivent-ils installer une application ?",
-        "a": "Non. L'espace parent s'ouvre dans le navigateur du téléphone, avec un code reçu par SMS ou WhatsApp."
+        "a": "Oui, sans rature : l'erreur s'annule par une écriture inverse, avec son motif, et les deux restent visibles dans l'historique. C'est ce qui protège vos caissiers autant que votre caisse."
       },
       {
         "q": "Combien coûte Payskool ?",
-        "a": "Rien pendant le pilote. Ensuite, un abonnement mensuel fixe, annoncé avant la fin du pilote, sans commission sur vos encaissements."
+        "a": "Rien pendant le pilote, SMS compris. Ensuite, un abonnement mensuel fixe et les SMS à l'unité, à des tarifs annoncés avant la fin du pilote, sans commission sur vos encaissements."
       },
       {
         "q": "Payskool gère-t-il les notes et les bulletins ?",
-        "a": "Non. Payskool ne s'occupe que de l'argent : frais, tranches, caisses, reçus et recouvrement. Il fonctionne à côté de votre logiciel de vie scolaire."
+        "a": "Non. Payskool ne s'occupe que de l'argent : frais, tranches, relances, caisse et reçus. Il fonctionne à côté de votre logiciel de vie scolaire."
       }
     ],
     "more": "Une autre question ?",
@@ -233,11 +319,9 @@
     "note": "Rien n'est envoyé tant que vous n'avez pas validé le message dans WhatsApp."
   },
   "footer": {
-    "tagline": "Le registre de scolarité des écoles privées du Cameroun.",
+    "tagline": "Les relances, la caisse et le suivi des tranches des écoles privées du Cameroun.",
     "columnProduct": "Produit",
     "columnLegal": "Légal",
-    "product": "Le produit",
-    "parents": "Parents",
     "pilot": "Programme pilote",
     "faq": "FAQ",
     "contact": "Nous écrire sur WhatsApp",
@@ -248,7 +332,9 @@
     "rights": "Tous droits réservés.",
     "languageFr": "Français",
     "languageEn": "English",
-    "columnLanguage": "Langue"
+    "columnLanguage": "Langue",
+    "reminders": "Relances",
+    "how": "Comment ça marche"
   },
   "mocks": {
     "frameLabel": "Aperçu de l'application école",
@@ -264,125 +350,47 @@
       "t1Label": "Tranche 1",
       "t1Status": "Soldée",
       "t2Label": "Tranche 2",
-      "t2Status": "En retard",
-      "nextDue": "Échéance dépassée : 15 oct.",
+      "t2Status": "À régler",
+      "nextDue": "Échéance : 15 oct.",
       "t3Label": "Tranche 3",
       "t3Status": "À échoir",
       "amountLabel": "Montant reçu",
       "amountValue": "40 000 FCFA",
       "collectCta": "Encaisser",
       "initials": "EY",
-      "coverageValue": "40 %"
+      "coverageValue": "40 %"
     },
-    "payments": {
-      "eyebrow": "Paiements Mobile Money",
-      "heroCount": "3",
-      "heroSub": "affectés automatiquement · 140 000 FCFA",
-      "receipts": "Reçus émis",
-      "refunded": "Remboursés",
-      "note": "Paiements lancés depuis l'espace parent, confirmés par l'agrégateur, affectés à l'élève par leur référence. Reçu émis sans action de la caisse.",
-      "thTx": "Transaction",
-      "thStudent": "Élève",
-      "thAmount": "Montant",
-      "thReceipt": "Reçu",
-      "rows": [
-        {
-          "method": "MTN MoMo",
-          "ref": "MP-55210",
-          "student": "NANA Brice",
-          "meta": "6e B",
-          "amount": "40 000",
-          "receipt": "REC-8961"
-        },
-        {
-          "method": "Orange Money",
-          "ref": "OM-22190",
-          "student": "KENGNI Junior",
-          "meta": "5e A",
-          "amount": "25 000",
-          "receipt": "REC-8959"
-        },
-        {
-          "method": "MTN MoMo",
-          "ref": "MP-55198",
-          "student": "BELLO Aïcha",
-          "meta": "2nde A",
-          "amount": "75 000",
-          "receipt": "REC-8958"
-        }
-      ],
-      "receiptsValue": "3",
-      "refundedValue": "0"
-    },
-    "report": {
-      "eyebrow": "Recouvrement 2026-2027",
-      "heroLabel": "Encaissé à date",
-      "heroValue": "38 400 000 FCFA",
-      "rateLabel": "Taux global",
-      "rateValue": "81 %",
+    "dashboard": {
+      "label": "Exemple de tableau de bord sur téléphone, pour une école fictive : encaissé, taux de recouvrement et retards par classe.",
+      "title": "Recouvrement",
+      "year": "2026-2027",
+      "collectedLabel": "Encaissé à date",
+      "collected": "38 400 000",
+      "currency": "FCFA",
+      "rateLabel": "Taux",
+      "rate": "81 %",
       "remainingLabel": "Reste à percevoir",
-      "remainingValue": "9 000 000 FCFA",
-      "uptodateLabel": "Élèves à jour",
-      "uptodateValue": "912",
-      "tableTitle": "Recouvrement par classe",
-      "thClass": "Classe",
-      "thDue": "Total dû",
-      "thCollected": "Encaissé",
-      "thRate": "Taux",
-      "thLate": "En retard",
+      "remaining": "9 000 000",
+      "lateTitle": "Élèves en retard, par classe",
       "rows": [
         {
-          "cls": "CM2",
-          "due": "2 800 000",
-          "collected": "2 520 000",
-          "rate": 90,
-          "late": "3"
+          "cls": "Tle C",
+          "late": "9",
+          "rate": 70
         },
         {
           "cls": "6e A",
-          "due": "3 500 000",
-          "collected": "2 975 000",
-          "rate": 85,
-          "late": "5"
+          "late": "5",
+          "rate": 85
         },
         {
-          "cls": "Tle C",
-          "due": "4 250 000",
-          "collected": "2 975 000",
-          "rate": 70,
-          "late": "9"
+          "cls": "CM2",
+          "late": "3",
+          "rate": 90
         }
-      ]
-    },
-    "phone": {
-      "greeting": "Bonjour, Mme Etoga",
-      "children": "2 enfants",
-      "student": "ETOGA Yann",
-      "school": "CS Sainte-Marie",
-      "year": "2026-2027",
-      "dueLabel": "Reste à payer",
-      "dueAmount": "75 000",
-      "payCta": "Payer par Mobile Money",
-      "scheduleTitle": "Tranches",
-      "i1Title": "Tranche 1, inscription",
-      "i1Status": "Payée",
-      "i1Meta": "Payée le 15 sept. 2026",
-      "i1Amount": "50 000 FCFA",
-      "i2Title": "Tranche 2",
-      "i2Status": "En retard",
-      "i2Meta": "Échéance : 15 oct.",
-      "i2Amount": "40 000 FCFA",
-      "i2Pay": "Payer par MTN MoMo",
-      "i3Title": "Tranche 3",
-      "i3Status": "À venir",
-      "i3Meta": "Échéance : 15 mars 2027",
-      "i3Amount": "35 000 FCFA",
-      "navHome": "Accueil",
-      "navChildren": "Enfants",
-      "navReceipts": "Reçus",
-      "navHelp": "Aide",
-      "label": "Espace parent sur téléphone : reste à payer 75 000 FCFA pour ETOGA Yann, tranche 2 en retard.",
-      "currency": "FCFA"
+      ],
+      "next": "Prochains rappels : jeudi, 64 parents",
+      "caption": "Exemple : le tableau d'une école fictive."
     }
   },
   "about": {

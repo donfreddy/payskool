@@ -11,11 +11,11 @@ export function Problem() {
   return (
     <section aria-labelledby="problem-title" className="bg-encre py-20 text-white sm:py-24">
       <div className={frame}>
-        <h2 id="problem-title" className="display-heading max-w-2xl text-[2.1rem] sm:text-[3rem]">
+        <h2 id="problem-title" className="display-heading max-w-3xl text-[2.1rem] sm:text-[3rem]">
           {t("title")}
         </h2>
 
-        <ul className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
+        <ul className="mt-12 grid gap-10 md:grid-cols-2 md:gap-x-12 lg:grid-cols-4 lg:gap-8">
           {items.map((item) => (
             <li key={item.title} className="border-t border-white/15 pt-5">
               <h3 className="text-[19px] font-bold">{item.title}</h3>

@@ -12,8 +12,8 @@ import { frame } from "./styles";
 
 /** Anchors point at the home page, so they also work from /about or /careers. */
 const links = [
-  { href: "/#ecole", key: "product" },
-  { href: "/#parents", key: "parents" },
+  { href: "/#relances", key: "reminders" },
+  { href: "/#fonctionnement", key: "how" },
   { href: "/#pilote", key: "pilot" },
   { href: "/#faq", key: "faq" },
 ] as const;
